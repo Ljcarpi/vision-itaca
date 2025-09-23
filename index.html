@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title data-i18n="meta.title">AutoVid Generator — AI Video Startup (Coming Soon)</title>
+  <meta name="description" data-i18n-attr="content|meta.description" content="AutoVid Generator is an emerging startup that hosts and refines text-to-video AI models and delivers personalized user experiences through automated video editing with FFmpeg. Powered by AI models, Google APIs, Gemini, FFmpeg, and more." />
+  <link rel="canonical" href="https://vision-arcadia.store/" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" data-i18n-attr="content|meta.og_title" content="AutoVid Generator — AI Video Startup (Coming Soon)">
+  <meta property="og:description" data-i18n-attr="content|meta.og_desc" content="Emerging startup: hosting & refining text-to-video AI models + automated video editing via FFmpeg. Powered by AI models, Google APIs, Gemini, FFmpeg, and more.">
+  <meta property="og:url" content="https://vision-arcadia.store/">
+  <meta property="og:image" content="https://vision-arcadia.store/og-image.jpg">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" data-i18n-attr="content|meta.tw_title" content="AutoVid Generator — AI Video Startup (Coming Soon)">
+  <meta name="twitter:description" data-i18n-attr="content|meta.tw_desc" content="Hosting & refining text-to-video AI models with automated FFmpeg editing. Uses AI models, Google APIs, Gemini, FFmpeg, and more.">
+  <meta name="twitter:image" content="https://vision-arcadia.store/og-image.jpg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Structured Data (queda en EN por SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"Vision Arcadia",
+    "url":"https://vision-arcadia.store/",
+    "brand":"AutoVid Generator",
+    "description":"Emerging startup hosting and refining text-to-video AI models to power personalized, automated video creation with FFmpeg.",
+    "logo":"https://vision-arcadia.store/favicon.ico",
+    "email":"info@vision-arcadia.store",
+    "foundingDate":"2025-01-01",
+    "sameAs":[]
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --fg: #e8eef5;
+      --muted: #9fb0c3;
+      --card: #12161b;
+      --acc: #52a8ff;
+      --disabled: #4b5a6e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, Segoe UI, sans-serif;
+      background: linear-gradient(180deg, #0b0d10, #0e141a);
+      color: var(--fg);
+    }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 64px 24px; }
+
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 56px; position: relative;
+    }
+    .brand { font-weight: 800; font-size: 28px; letter-spacing: .5px;
+      background: linear-gradient(90deg, var(--acc), #7bbcff);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .brand-container { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+    .brand-subtext { font-size: 14px; color: var(--muted); }
+
+    .startup-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #0b6dd6; color: white; border-radius: 999px;
+      padding: 8px 14px; font-size: 12px; font-weight: 700; letter-spacing: .4px;
+    }
+    .startup-badge svg { width: 14px; height: 14px; }
+
+    .lang-switch {
+      display: inline-flex; align-items: center; gap: 10px;
+      position: absolute; top: -36px; right: 0;
+      background: #0f141a; border: 1px solid #1c232b; border-radius: 999px;
+      padding: 6px 10px; font-size: 12px; color: var(--muted);
+    }
+    .lang-switch button {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: transparent; color: var(--fg); border: none; cursor: pointer;
+      padding: 4px 8px; border-radius: 999px; font-weight: 700;
+    }
+    .lang-switch button[aria-current="true"]{
+      background: #0b6dd6; color: white;
+    }
+    .flag { width: 16px; height: 12px; border-radius: 2px; overflow: hidden; display: inline-block; }
+    .flag svg { display: block; width: 16px; height: 12px; }
+
+    .card {
+      background: var(--card); border: 1px solid #1c232b; border-radius: 24px;
+      padding: 40px; box-shadow: 0 12px 40px rgba(0,0,0,.3); transition: transform .3s ease;
+    }
+    .card:hover { transform: translateY(-5px); }
+
+    h1 { margin: 0 0 16px; font-size: 40px; font-weight: 800; line-height: 1.2; }
+    h3 { font-size: 20px; font-weight: 600; margin: 0 0 12px; }
+    p { color: var(--muted); line-height: 1.7; font-size: 16px; }
+
+    .grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); margin-top: 32px; }
+
+    .pill {
+      display: inline-block; background: #0b6dd6; color: #fff;
+      border-radius: 999px; padding: 8px 16px; font-size: 13px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
+    }
+
+    .cta {
+      display: inline-flex; flex-direction: column; align-items: center; gap: 6px;
+      background: var(--disabled); color: #8ea0b8; border: 0; border-radius: 12px;
+      padding: 16px 24px; font-weight: 700; font-size: 16px; text-decoration: none; margin-top: 24px;
+      cursor: not-allowed;
+    }
+    .cta span { font-size: 12px; font-weight: 400; color: #9fb0c3; }
+
+    footer { margin-top: 48px; color: #73839a; font-size: 13px; text-align: center; }
+    .privacy-policy { margin-top: 16px; color: #73839a; font-size: 12px; line-height: 1.6; text-align: center; }
+    .privacy-policy a { color: #73839a; text-decoration: none; }
+    .muted { color: #8ea0b8; }
+    .section { margin-top: 32px; }
+
+    .kpis { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 16px; }
+    .kpi { background: #0f141a; border: 1px solid #1c232b; border-radius: 12px; padding: 14px 18px; color: #c9d7e6; font-size: 14px; font-weight: 600; }
+
+    @media (max-width:520px){
+      h1 { font-size: 32px; }
+      .card { padding: 24px; }
+      .wrap { padding: 32px 16px; }
+      .lang-switch { top: -44px; }
+    }
+
+    .test-btn {
+      background: linear-gradient(90deg, #6a5acd, #1e90ff);
+      color: white; padding: 12px 24px; border-radius: 30px; font-weight: 700;
+      text-decoration: none; font-size: 16px; transition: all .3s ease;
+      box-shadow: 0 6px 16px rgba(0,0,0,.3);
+      position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+    }
+    .test-btn:hover { background: linear-gradient(90deg, #1e90ff, #6a5acd); transform: translateX(-50%) scale(1.05); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand-container" aria-label="Brand">
+        <div class="brand" data-i18n="brand">AutoVid Generator</div>
+        <div class="brand-subtext" data-i18n="brand_by">By Vision Arcadia</div>
+        <span class="startup-badge" title="AI Video Startup" data-i18n="badge">
+          <!-- spark icon -->
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l1.8 5.4L19 9l-5.2 1.6L12 16l-1.8-5.4L5 9l5.2-1.6L12 2z" stroke="currentColor" stroke-width="1.5"/></svg>
+          AI Video Startup
+        </span>
+      </div>
+
+      <!-- EN | ES switch -->
+      <nav class="lang-switch" aria-label="Language switch">
+        <button id="btn-en" type="button" aria-current="true" data-lang="en" title="English">
+          <span class="flag" aria-hidden="true">
+            <!-- Simplified US/UK style flag -->
+            <svg viewBox="0 0 16 12"><rect width="16" height="12" fill="#b22234"/><g fill="#fff"><rect y="1" width="16" height="1"/><rect y="3" width="16" height="1"/><rect y="5" width="16" height="1"/><rect y="7" width="16" height="1"/><rect y="9" width="16" height="1"/><rect y="11" width="16" height="1"/></g><rect width="7" height="5" fill="#3c3b6e"/></svg>
+          </span>
+          EN
+        </button>
+        <span aria-hidden="true">|</span>
+        <button id="btn-es" type="button" data-lang="es" title="Español">
+          <span class="flag" aria-hidden="true">
+            <!-- Simplified Spain flag -->
+            <svg viewBox="0 0 16 12"><rect width="16" height="12" fill="#aa151b"/><rect y="3" width="16" height="6" fill="#f1bf00"/></svg>
+          </span>
+          ES
+        </button>
+      </nav>
+
+      <a href="test.html" class="test-btn" aria-label="Open Test App" data-i18n="test_app">Test App</a>
+    </header>
+
+    <main class="card">
+      <p class="pill" aria-label="Application note" data-i18n="applying">Applying to Google for Startups</p>
+
+      <h1 data-i18n="hero_title">Host & refine text-to-video AI with automated editing</h1>
+      <p class="muted" data-i18n="hero_body">
+        <strong>AutoVid Generator</strong> is an <strong>emerging startup</strong> focused on hosting and refining <strong>text-to-video AI models</strong>
+        and delivering a <strong>personalized user experience</strong> through an automated <strong>FFmpeg</strong>-driven editing pipeline.
+        We integrate <strong>AI models</strong>, <strong>Google APIs</strong>, <strong>Gemini</strong>, <strong>FFmpeg</strong>, and more.
+      </p>
+
+      <div class="section">
+        <h3 data-i18n="problem_h3">The problem we solve</h3>
+        <p data-i18n="problem_p">
+          Video creation at scale is slow, fragmented, and hard to personalize across channels. Teams frequently stitch together ad-hoc scripts,
+          inconsistent post-processing, and manual timelines—leading to brittle pipelines, unpredictable quality, and missed deadlines.
+          Beyond generation, organizations also need deterministic editing, templating, and metadata-driven personalization (e.g., captions, overlays,
+          audio ducking, aspect-ratio variants) with auditability and repeatable outputs for production use.
+        </p>
+      </div>
+
+      <div class="section grid" role="list">
+        <div role="listitem">
+          <h3 data-i18n="solution_h3">Our solution (MVP)</h3>
+          <p data-i18n="solution_p">
+            We are building a <strong>centralized platform</strong> for AI video <strong>generation</strong> and <strong>automated editing</strong>.
+            It orchestrates prompt intake, model outputs, an <strong>FFmpeg</strong>-based compositing engine and more.
+            Our focus is the <em>production pipeline</em>.
+          </p>
+        </div>
+        <div role="listitem">
+          <h3 data-i18n="status_h3">Current status</h3>
+          <p data-i18n="status_p">We are in <strong>alpha</strong> building core orchestration and media pipelines. A <strong>beta</strong> is planned for <strong>Q1 2026</strong>. Subscribe to get updates.</p>
+        </div>
+        <div role="listitem">
+          <h3 data-i18n="aboutus_h3">About Us</h3>
+          <p data-i18n="aboutus_p">
+            Vision Arcadia is an emerging project looking to develop and integrate AI models with a robust automation layer for video generation and
+            editing. Our goal is to deliver a reliable, scalable, and developer-friendly experience that turns creative intent into production-ready
+            outputs.
+          </p>
+        </div>
+      </div>
+
+      <div class="kpis" aria-label="Key metrics">
+        <div class="kpi" data-i18n="kpi_beta">Beta: <strong>Early registration closed</strong></div>
+        <div class="kpi" data-i18n="kpi_time">Time savings: <strong>~90%</strong></div>
+        <div class="kpi" data-i18n="kpi_stack">Stack: <strong>AI Models, Google APIs, Gemini, FFmpeg + more</strong></div>
+      </div>
+
+      <a class="cta" href="#" role="button" aria-disabled="true" data-i18n="cta">Join the beta <span data-i18n="cta_sub">Coming Soon</span></a>
+
+      <div class="section">
+        <h3 data-i18n="aboutstartup_h3">About the Startup</h3>
+        <p class="muted" data-i18n="aboutstartup_p">
+          Vision Arcadia powers AutoVid Generator with a focus on <strong>AI-driven video applications</strong>.
+          Our mission is to enable anyone to produce hundreds of high-impact, personalized video variations in minutes—not days.
+        </p>
+      </div>
+
+      <div class="section">
+        <p class="muted">© <span id="y"></span> Vision Arcadia — <span data-i18n="rights">All rights reserved.</span></p>
+      </div>
+    </main>
+
+    <footer>
+      <div><a href="mailto:info@vision-arcadia.store" style="color:#73839a;text-decoration:none;">info@vision-arcadia.store</a></div>
+    </footer>
+
+    <div class="privacy-policy">
+      <p data-i18n="privacy">
+        <strong>Privacy Policy:</strong> We collect only the information you voluntarily provide (e.g., an email for beta access) and we do not sell your data. To request access or deletion, write to
+        <a href="mailto:info@vision-arcadia.store">info@vision-arcadia.store</a>.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Año dinámico
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Diccionarios i18n
+    const I18N = {
+      en: {
+        "meta.title": "AutoVid Generator — AI Video Startup (Coming Soon)",
+        "meta.description": "AutoVid Generator is an emerging startup that hosts and refines text-to-video AI models and delivers personalized user experiences through automated video editing with FFmpeg. Powered by AI models, Google APIs, Gemini, FFmpeg, and more.",
+        "meta.og_title": "AutoVid Generator — AI Video Startup (Coming Soon)",
+        "meta.og_desc": "Emerging startup: hosting & refining text-to-video AI models + automated video editing via FFmpeg. Powered by AI models, Google APIs, Gemini, FFmpeg, and more.",
+        "meta.tw_title": "AutoVid Generator — AI Video Startup (Coming Soon)",
+        "meta.tw_desc": "Hosting & refining text-to-video AI models with automated FFmpeg editing. Uses AI models, Google APIs, Gemini, FFmpeg, and more.",
+
+        brand: "AutoVid Generator",
+        brand_by: "By Vision Arcadia",
+        badge: "AI Video Startup",
+        test_app: "Test App",
+        applying: "Applying to Google for Startups",
+
+        hero_title: "Host & refine text-to-video AI with automated editing",
+        hero_body: "AutoVid Generator is an emerging startup focused on hosting and refining text-to-video AI models and delivering a personalized user experience through an automated FFmpeg-driven editing pipeline. We integrate AI models, Google APIs, Gemini, FFmpeg, and more.",
+
+        problem_h3: "The problem we solve",
+        problem_p: "Video creation at scale is slow, fragmented, and hard to personalize across channels. Teams frequently stitch together ad-hoc scripts, inconsistent post-processing, and manual timelines—leading to brittle pipelines, unpredictable quality, and missed deadlines. Beyond generation, organizations also need deterministic editing, templating, and metadata-driven personalization (e.g., captions, overlays, audio ducking, aspect-ratio variants) with auditability and repeatable outputs for production use.",
+
+        solution_h3: "Our solution (MVP)",
+        solution_p: "We are building a centralized platform for AI video generation and automated editing. It orchestrates prompt intake, model outputs, an FFmpeg-based compositing engine and more. Our focus is the production pipeline.",
+
+        status_h3: "Current status",
+        status_p: "We are in alpha building core orchestration and media pipelines. A beta is planned for Q1 2026. Subscribe to get updates.",
+
+        aboutus_h3: "About Us",
+        aboutus_p: "Vision Arcadia is an emerging project looking to develop and integrate AI models with a robust automation layer for video generation and editing. Our goal is to deliver a reliable, scalable, and developer-friendly experience that turns creative intent into production-ready outputs.",
+
+        kpi_beta: "Beta: <strong>Early registration closed</strong>",
+        kpi_time: "Time savings: <strong>~90%</strong>",
+        kpi_stack: "Stack: <strong>AI Models, Google APIs, Gemini, FFmpeg + more</strong>",
+
+        cta: "Join the beta <span>Coming Soon</span>",
+        cta_sub: "Coming Soon",
+
+        aboutstartup_h3: "About the Startup",
+        aboutstartup_p: "Vision Arcadia powers AutoVid Generator with a focus on AI-driven video applications. Our mission is to enable anyone to produce hundreds of high-impact, personalized video variations in minutes—not days.",
+
+        rights: "All rights reserved.",
+        privacy: "<strong>Privacy Policy:</strong> We collect only the information you voluntarily provide (e.g., an email for beta access) and we do not sell your data. To request access or deletion, write to <a href=\"mailto:info@vision-arcadia.store\">info@vision-arcadia.store</a>."
+      },
+      es: {
+        "meta.title": "AutoVid Generator — Startup de Video con IA (Próximamente)",
+        "meta.description": "AutoVid Generator es una startup emergente que aloja y refina modelos de IA de texto a video y ofrece experiencias personalizadas mediante edición automatizada con FFmpeg. Impulsada por modelos de IA, Google APIs, Gemini, FFmpeg y más.",
+        "meta.og_title": "AutoVid Generator — Startup de Video con IA (Próximamente)",
+        "meta.og_desc": "Startup emergente: alojamiento y refinamiento de modelos de IA texto a video + edición automatizada con FFmpeg. Impulsada por modelos de IA, Google APIs, Gemini, FFmpeg y más.",
+        "meta.tw_title": "AutoVid Generator — Startup de Video con IA (Próximamente)",
+        "meta.tw_desc": "Alojamos y refinamos modelos de IA texto a video con edición automatizada FFmpeg. Usamos modelos de IA, Google APIs, Gemini, FFmpeg y más.",
+
+        brand: "AutoVid Generator",
+        brand_by: "Por Vision Arcadia",
+        badge: "Startup de Video con IA",
+        test_app: "Test App",
+        applying: "Postulando a Google for Startups",
+
+        hero_title: "Aloja y refina IA texto→video con edición automatizada",
+        hero_body: "AutoVid Generator es una startup emergente enfocada en alojar y refinar modelos de IA texto a video y entregar una experiencia de usuario personalizada mediante una canalización de edición automatizada con FFmpeg. Integramos modelos de IA, Google APIs, Gemini, FFmpeg y más.",
+
+        problem_h3: "El problema que resolvemos",
+        problem_p: "Crear video a escala es lento, fragmentado y difícil de personalizar entre canales. Los equipos suelen unir guiones ad-hoc, posprocesos inconsistentes y líneas de tiempo manuales, lo que deriva en pipelines frágiles, calidad impredecible y plazos incumplidos. Más allá de la generación, las organizaciones necesitan edición determinista, plantillas y personalización guiada por metadatos (p. ej., subtítulos, overlays, ducking de audio, variantes de relación de aspecto) con auditabilidad y salidas repetibles para producción.",
+
+        solution_h3: "Nuestra solución (MVP)",
+        solution_p: "Estamos construyendo una plataforma centralizada para generación de video con IA y edición automatizada. Orquesta ingesta de prompts, salidas de modelos, un motor de composición basado en FFmpeg y más. Nuestro foco es la canalización de producción.",
+
+        status_h3: "Estado actual",
+        status_p: "Estamos en fase alpha construyendo la orquestación central y pipelines de media. Planeamos una beta para Q1 2026. Suscríbete para recibir novedades.",
+
+        aboutus_h3: "Sobre Nosotros",
+        aboutus_p: "Vision Arcadia es un proyecto emergente que busca desarrollar e integrar modelos de IA con una robusta capa de automatización para generación y edición de video. Nuestro objetivo es ofrecer una experiencia confiable, escalable y amigable para desarrolladores que convierta la intención creativa en resultados listos para producción.",
+
+        kpi_beta: "Beta: <strong>Inscripción temprana cerrada</strong>",
+        kpi_time: "Ahorro de tiempo: <strong>~90%</strong>",
+        kpi_stack: "Stack: <strong>Modelos de IA, Google APIs, Gemini, FFmpeg + más</strong>",
+
+        cta: "Unirse a la beta <span>Próximamente</span>",
+        cta_sub: "Próximamente",
+
+        aboutstartup_h3: "Sobre la Startup",
+        aboutstartup_p: "Vision Arcadia impulsa AutoVid Generator con foco en aplicaciones de video con IA. Nuestra misión es habilitar que cualquiera produzca cientos de variaciones de video personalizadas y de alto impacto en minutos, no días.",
+
+        rights: "Todos los derechos reservados.",
+        privacy: "<strong>Política de Privacidad:</strong> Recopilamos solo la información que brindas voluntariamente (p. ej., un correo para acceso a la beta) y no vendemos tus datos. Para solicitar acceso o eliminación, escribe a <a href=\"mailto:info@vision-arcadia.store\">info@vision-arcadia.store</a>."
+      }
+    };
+
+    // Utilidades i18n
+    function applyI18n(lang){
+      const dict = I18N[lang] || I18N.en;
+
+      // Text nodes
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (!key) return;
+        const html = dict[key];
+        if (html != null) el.innerHTML = html;
+      });
+
+      // Attr nodes: data-i18n-attr="attrName|key"
+      document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+        const [attr, key] = el.getAttribute('data-i18n-attr').split('|');
+        const val = dict[key];
+        if (attr && val != null) el.setAttribute(attr, val);
+      });
+
+      // Actualiza estado visual de botones
+      document.querySelectorAll('.lang-switch button').forEach(btn => {
+        btn.setAttribute('aria-current', btn.dataset.lang === lang ? 'true' : 'false');
+      });
+
+      // html lang
+      document.documentElement.setAttribute('lang', lang);
+
+      // Persistencia
+      try { localStorage.setItem('site_lang', lang); } catch(_) {}
+    }
+
+    // Eventos
+    document.getElementById('btn-en').addEventListener('click', () => applyI18n('en'));
+    document.getElementById('btn-es').addEventListener('click', () => applyI18n('es'));
+
+    // Idioma inicial preferencia (localStorage) o navegador
+    (function initLang(){
+      let lang = 'en';
+      try {
+        lang = localStorage.getItem('site_lang') || (navigator.language || 'en').slice(0,2);
+      } catch(_) {}
+      if (!['en','es'].includes(lang)) lang = 'en';
+      applyI18n(lang);
+    })();
+  </script>
+</body>
+</html>
