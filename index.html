@@ -266,10 +266,10 @@
       const hit=p=> ball.x-ball.r<p.x+p.w && ball.x+ball.r>p.x && ball.y+ball.r>p.y && ball.y-ball.r<p.y+p.h;
       if(hit(left)){ ball.vx=Math.abs(ball.vx)+0.2; const off=(ball.y-(left.y+left.h/2))/(left.h/2); ball.vy=off*4; speedMul=Math.min(2.2,speedMul+0.03); }
       if(hit(right)){ ball.vx=-Math.abs(ball.vx)-0.2; const off=(ball.y-(right.y+right.h/2))/(right.h/2); ball.vy=off*4; speedMul=Math.min(2.2,speedMul+0.03); }
-      if(ball.x<-20){ scoreR++; $('#pg-right').textContent=scoreR; reset(false); }
+      if(ball.x<-20){ gameOver=true; showOverlay('#pg-overlay'); return; }
       if(ball.x>canvas.width+20){ scoreL++; $('#pg-left').textContent=scoreL; reset(false); }
       $('#pg-speed').textContent=speedMul.toFixed(1)+'x';
-      if(scoreR>=targetCPU){ gameOver=true; showOverlay('#pg-overlay'); }
+      
     }
     function loop(){ step(); draw(); requestAnimationFrame(loop) }
     window.addEventListener('keydown', e=> keys[e.key.toLowerCase()]=true);
@@ -294,7 +294,7 @@
       ball.x+=ball.vx; ball.y+=ball.vy; if(ball.x<6||ball.x>canvas.width-6) ball.vx*=-1; if(ball.y<6) ball.vy*=-1;
       if(ball.y+ball.r>paddle.y && ball.x>paddle.x && ball.x<paddle.x+paddle.w && ball.vy>0){ const hit=(ball.x-(paddle.x+paddle.w/2))/(paddle.w/2); ball.vx=hit*4.2; ball.vy=-Math.abs(ball.vy)-0.1; }
       for(const b of bricks){ if(b.hp<=0) continue; if(ball.x> b.x && ball.x< b.x+b.w && ball.y> b.y && ball.y< b.y+b.h){ b.hp--; score+=10; updateHud(); const left=Math.abs(ball.x-b.x), right=Math.abs(ball.x-(b.x+b.w)), top=Math.abs(ball.y-b.y), bottom=Math.abs(ball.y-(b.y+b.h)); const min=Math.min(left,right,top,bottom); if(min===left||min===right) ball.vx*=-1; else ball.vy*=-1; } }
-      if(ball.y>canvas.height+10){ lives--; updateHud(); ball.x=canvas.width/2; ball.y=canvas.height-60; ball.vx=3.0; ball.vy=-3.2; }
+      if(ball.y>canvas.height+10){ running=false; showOverlay('#br-overlay'); return; }
       if(lives<=0){ running=false; showOverlay('#br-overlay'); }
       if(bricks.every(b=>b.hp<=0)){ level++; updateHud(); build(level); ball.x=canvas.width/2; ball.y=canvas.height-60; ball.vx=3.0; ball.vy=-3.2; }
     }
