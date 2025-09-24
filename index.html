@@ -124,7 +124,12 @@
           <div class="actions">
             <button class="btn" id="pg-restart">Reiniciar</button>
           </div>
-          <div class="ctrls">Controles: ↑/↓ o W/S · En móvil: arrastra el dedo sobre el canvas</div>
+          <div class="ctrls">Controles: ↑/↓ o W/S · En móvil: arrastra el dedo o usa los botones</div>
+          <!-- D-Pad móvil: Pong -->
+          <div class="dpad" id="pg-dpad">
+            <div class="row"><button data-dir="up">▲</button></div>
+            <div class="row"><button data-dir="down">▼</button></div>
+          </div>
         </div>
         <div class="overlay" id="pg-overlay" aria-hidden="true">
           <div class="card">
@@ -147,7 +152,11 @@
           <div class="actions">
             <button class="btn" id="br-restart">Reiniciar</button>
           </div>
-          <div class="ctrls">Controles: Mouse o ← → · En móvil: desliza el dedo sobre el canvas</div>
+          <div class="ctrls">Controles: Mouse o ← → · En móvil: desliza el dedo o usa los botones</div>
+          <!-- D-Pad móvil: Breakout -->
+          <div class="dpad" id="br-dpad">
+            <div class="row"><button data-dir="left">◄</button><button data-dir="right">►</button></div>
+          </div>
         </div>
         <div class="overlay" id="br-overlay" aria-hidden="true">
           <div class="card">
@@ -276,6 +285,17 @@
     window.addEventListener('keyup', e=> keys[e.key.toLowerCase()]=false);
     // Control táctil: mueve tu paleta con el dedo
     canvas.addEventListener('touchmove', e=>{ const rect=canvas.getBoundingClientRect(); const y=e.touches[0].clientY-rect.top; left.y=clamp(y-left.h/2,6,canvas.height-left.h-6); }, {passive:true});
+    // D-Pad móvil (Pong)
+    const pgUp = document.querySelector('#pg-dpad [data-dir="up"]');
+    const pgDown = document.querySelector('#pg-dpad [data-dir="down"]');
+    function bindHold(btn, key){
+      const down = ()=> { keys[key]=true; };
+      const up = ()=> { keys[key]=false; };
+      ['pointerdown','touchstart','mousedown'].forEach(ev=> btn.addEventListener(ev, down, {passive:true}));
+      ['pointerup','pointerleave','touchend','touchcancel','mouseup'].forEach(ev=> btn.addEventListener(ev, up));
+    }
+    bindHold(pgUp, 'arrowup');
+    bindHold(pgDown, 'arrowdown');
     $('#pg-restart').addEventListener('click', ()=> reset(true)); $('#pg-overlay-restart').addEventListener('click', ()=> reset(true));
     reset(true); loop();
     $('#pg-target').textContent = targetCPU;
@@ -303,6 +323,17 @@
     window.addEventListener('keydown', e=> keys[e.key.toLowerCase()]=true); window.addEventListener('keyup', e=> keys[e.key.toLowerCase()]=false);
     // táctil: desliza
     canvas.addEventListener('touchmove', e=>{ const rect=canvas.getBoundingClientRect(); const x=e.touches[0].clientX-rect.left; paddle.x=clamp(x-paddle.w/2,6,canvas.width-paddle.w-6); }, {passive:true});
+    // D-Pad móvil (Breakout)
+    const brLeft = document.querySelector('#br-dpad [data-dir="left"]');
+    const brRight = document.querySelector('#br-dpad [data-dir="right"]');
+    function bindHoldBR(btn, key){
+      const down = ()=> { keys[key]=true; };
+      const up = ()=> { keys[key]=false; };
+      ['pointerdown','touchstart','mousedown'].forEach(ev=> btn.addEventListener(ev, down, {passive:true}));
+      ['pointerup','pointerleave','touchend','touchcancel','mouseup'].forEach(ev=> btn.addEventListener(ev, up));
+    }
+    bindHoldBR(brLeft, 'arrowleft');
+    bindHoldBR(brRight, 'arrowright');
     $('#br-restart').addEventListener('click', ()=> reset(true)); $('#br-overlay-restart').addEventListener('click', ()=> reset(true));
     reset(true); loop();
   }
