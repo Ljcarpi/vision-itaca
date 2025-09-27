@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Juegos Retro</title>
+
+  <!-- Fuente pixel retro -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0a0b10;
+      --panel:#121322;
+      --neon:#00e5ff;
+      --neon-2:#ff2bd6;
+      --text:#e6f1ff;
+      --muted:#9aa4b2;
+      --accent:#24ff9f;
+      --card:#17182a;
+      --border:#2b2e4a;
+      --shadow: 0 0 12px rgba(0,229,255,.25), 0 0 42px rgba(255,43,214,.15);
+    }
+
+    * { box-sizing: border-box }
+    html, body { height: 100% }
+    body{
+      margin:0;
+      background:
+        radial-gradient(1200px 800px at 80% -20%, rgba(0,229,255,.08), transparent 60%),
+        radial-gradient(900px 600px at -20% 80%, rgba(255,43,214,.06), transparent 60%),
+        linear-gradient(180deg, #0a0b10 0%, #0a0b10 100%);
+      color: var(--text);
+      font-family: system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* Efecto scanlines + sutil flicker */
+    .crt::before, .crt::after{
+      content:"";
+      position: fixed;
+      inset:0;
+      pointer-events:none;
+      z-index: 0;
+    }
+    .crt::before{
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,.02) 0px,
+        rgba(255,255,255,.02) 1px,
+        transparent 2px,
+        transparent 3px
+      );
+      mix-blend-mode: overlay;
+    }
+    .crt::after{
+      animation: flicker 6s infinite steps(60);
+      background: radial-gradient(circle at 50% 10%, rgba(255,255,255,.04), transparent 40%);
+    }
+    @keyframes flicker {
+      0%, 100% { opacity: .08 }
+      50% { opacity: .14 }
+      70% { opacity: .10 }
+    }
+
+    header{
+      position: relative;
+      z-index: 1;
+      padding: 56px 24px 16px;
+      text-align: center;
+    }
+
+    .title{
+      font-family: "Press Start 2P", system-ui, sans-serif;
+      font-size: clamp(28px, 5vw, 54px);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text);
+      text-shadow:
+        0 0 6px rgba(0,229,255,.6),
+        0 0 18px rgba(255,43,214,.35);
+      margin: 0 0 18px;
+      filter: drop-shadow(0 0 2px rgba(0,0,0,.5));
+    }
+
+    .subtitle{
+      max-width: 900px;
+      margin: 0 auto 28px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .search-wrap{
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      max-width: 920px;
+      margin: 0 auto 18px;
+      padding: 14px;
+      background: linear-gradient(180deg, rgba(36,255,159,.07), rgba(0,229,255,.06));
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+
+    .search-input{
+      width: 100%;
+      padding: 14px 14px 14px 44px;
+      border-radius: 10px;
+      border: 1px solid #2a2f45;
+      background:
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="%23a6b3c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>') no-repeat 12px center,
+        linear-gradient(180deg, #0f1120, #0b0d1a);
+      color: var(--text);
+      outline: none;
+      font-size: 14px;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    .search-input:focus{
+      border-color: var(--neon);
+      box-shadow: 0 0 0 3px rgba(0,229,255,.18);
+    }
+
+    .filter-bar{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 6px 0 4px;
+    }
+    .pill{
+      font-family: "Press Start 2P", system-ui, sans-serif;
+      font-size: 10px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, #13142a, #0f1030);
+      border-radius: 999px;
+      color: var(--text);
+      cursor: pointer;
+      user-select: none;
+      transition: transform .06s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .pill:hover{ transform: translateY(-1px) }
+    .pill.active{
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(36,255,159,.18), inset 0 0 18px rgba(36,255,159,.08);
+      text-shadow: 0 0 6px rgba(36,255,159,.6);
+    }
+
+    main{
+      position: relative;
+      z-index: 1;
+      padding: 18px 20px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .grid{
+      display: grid;
+      grid-template-columns: repeat( auto-fit, minmax(220px, 1fr) );
+      gap: 16px;
+    }
+
+    .card{
+      position: relative;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #15162c, #101124);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform .15s ease, box-shadow .15s ease, border-color .2s ease;
+    }
+    .card:hover{
+      transform: translateY(-4px);
+      border-color: var(--neon);
+      box-shadow: 0 0 0 2px rgba(0,229,255,.18), var(--shadow);
+    }
+    .thumb{
+      aspect-ratio: 16/9;
+      background: #0d0f1a;
+      display: block;
+      width: 100%;
+      object-fit: cover;
+      image-rendering: pixelated;
+    }
+    .meta{
+      padding: 12px 14px 16px;
+    }
+    .game-title{
+      font-family: "Press Start 2P", system-ui, sans-serif;
+      font-size: 12px;
+      line-height: 1.25;
+      margin: 0 0 8px;
+      color: #e9f4ff;
+      text-shadow: 0 0 6px rgba(0,229,255,.35);
+    }
+    .tags{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tag{
+      font-size: 10px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      background: #0f1222;
+      border: 1px solid #242848;
+      color: #a9b2c7;
+    }
+    .empty{
+      display: none;
+      margin: 28px auto 0;
+      text-align: center;
+      color: var(--muted);
+      max-width: 620px;
+      padding: 18px;
+      border: 1px dashed #2a2f45;
+      border-radius: 12px;
+      background: rgba(255,255,255,.02);
+    }
+
+    footer{
+      position: relative;
+      z-index: 1;
+      color: var(--muted);
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      border-top: 1px solid #15182a;
+      background: linear-gradient(180deg, rgba(0,229,255,.04), rgba(255,43,214,.04));
+    }
+
+    /* A11y / focus */
+    a, button, .pill { outline-offset: 3px }
+    .visually-hidden{
+      position: absolute !important; height: 1px; width: 1px;
+      overflow: hidden; clip: rect(1px,1px,1px,1px); white-space: nowrap;
+    }
+
+    /* Borde animado retro para cards (sutil) */
+    .card::after{
+      content:"";
+      position: absolute; inset: 0;
+      border-radius: 14px;
+      padding: 1px;
+      background:
+        linear-gradient(90deg, rgba(0,229,255,.0), rgba(0,229,255,.5), rgba(255,43,214,.5), rgba(0,229,255,.0));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      animation: sweep 4s linear infinite;
+      opacity: .18;
+      pointer-events: none;
+    }
+    @keyframes sweep {
+      0% { background-position: -200% 0 }
+      100% { background-position: 200% 0 }
+    }
+  </style>
+</head>
+<body class="crt">
+  <header>
+    <h1 class="title">Juegos Retro</h1>
+    <p class="subtitle">
+      Bienvenido a la base. Próximamente podrás jugar desde tu navegador. Por ahora,
+      explora la colección y usa el buscador para filtrar por nombre o género.
+    </p>
+
+    <div class="search-wrap" role="search" aria-label="Buscador de juegos">
+      <label for="q" class="visually-hidden">Buscar juego</label>
+      <input id="q" class="search-input" type="search" placeholder="Buscar por nombre, género o consola…" autocomplete="off" />
+      <div class="filter-bar" aria-label="Filtros rápidos">
+        <button class="pill active" data-filter="all" type="button">TODOS</button>
+        <button class="pill" data-filter="plataformas" type="button">PLATAFORMAS</button>
+        <button class="pill" data-filter="arcade" type="button">ARCADE</button>
+        <button class="pill" data-filter="rpg" type="button">RPG</button>
+        <button class="pill" data-filter="shooters" type="button">SHOOTERS</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="grid" id="grid" aria-live="polite">
+      <!-- Tarjetas demo: reemplaza más adelante con tus juegos reales.
+           Thumbs inline SVG para no depender de assets externos. -->
+      <article class="card" data-title="Pixel Quest" data-genres="plataformas arcade snes">
+        <img class="thumb" alt="Pixel Quest (demo)" src="data:image/svg+xml;utf8,
+          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'>
+            <defs>
+              <linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
+                <stop offset='0%' stop-color='%2300e5ff'/>
+                <stop offset='100%' stop-color='%23ff2bd6'/>
+              </linearGradient>
+            </defs>
+            <rect width='160' height='90' fill='%230a0b10'/>
+            <rect x='8' y='8' width='144' height='74' fill='%2312162a' stroke='%23242a48' />
+            <text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='10' fill='url(%23g)'>PIXEL QUEST</text>
+          </svg>"/>
+        <div class="meta">
+          <h3 class="game-title">Pixel Quest</h3>
+          <div class="tags">
+            <span class="tag">Plataformas</span>
+            <span class="tag">Arcade</span>
+            <span class="tag">SNES</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-title="Neon Drift" data-genres="arcade carreras genesis">
+        <img class="thumb" alt="Neon Drift (demo)" src="data:image/svg+xml;utf8,
+          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'>
+            <rect width='160' height='90' fill='%230a0b10'/>
+            <circle cx='30' cy='45' r='18' fill='%2300e5ff' opacity='.22'/>
+            <circle cx='130' cy='45' r='18' fill='%23ff2bd6' opacity='.22'/>
+            <text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='10' fill='%23e6f1ff'>NEON DRIFT</text>
+          </svg>"/>
+        <div class="meta">
+          <h3 class="game-title">Neon Drift</h3>
+          <div class="tags">
+            <span class="tag">Arcade</span>
+            <span class="tag">Carreras</span>
+            <span class="tag">Genesis</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-title="Dungeon Saga" data-genres="rpg snes aventura">
+        <img class="thumb" alt="Dungeon Saga (demo)" src="data:image/svg+xml;utf8,
+          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'>
+            <rect width='160' height='90' fill='%230a0b10'/>
+            <rect x='12' y='20' width='136' height='50' fill='%2313182f'/>
+            <text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='10' fill='%2324ff9f'>DUNGEON SAGA</text>
+          </svg>"/>
+        <div class="meta">
+          <h3 class="game-title">Dungeon Saga</h3>
+          <div class="tags">
+            <span class="tag">RPG</span>
+            <span class="tag">Aventura</span>
+            <span class="tag">SNES</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-title="Star Blaster" data-genres="shooters arcade nes">
+        <img class="thumb" alt="Star Blaster (demo)" src="data:image/svg+xml;utf8,
+          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'>
+            <rect width='160' height='90' fill='%230a0b10'/>
+            <polygon points='80,10 95,40 130,45 100,60 110,85 80,70 50,85 60,60 30,45 65,40' fill='%23ff2bd6' opacity='.5'/>
+            <text x='50%' y='86%' text-anchor='middle' font-family='monospace' font-size='9' fill='%23e6f1ff'>STAR BLASTER</text>
+          </svg>"/>
+        <div class="meta">
+          <h3 class="game-title">Star Blaster</h3>
+          <div class="tags">
+            <span class="tag">Shooters</span>
+            <span class="tag">Arcade</span>
+            <span class="tag">NES</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-title="Metro Brawler" data-genres="arcade beat-em-up mame">
+        <img class="thumb" alt="Metro Brawler (demo)" src="data:image/svg+xml;utf8,
+          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'>
+            <rect width='160' height='90' fill='%230a0b10'/>
+            <rect x='0' y='60' width='160' height='30' fill='%230f1325'/>
+            <rect x='10' y='20' width='20' height='30' fill='%2314172e'/>
+            <rect x='40' y='24' width='22' height='36' fill='%231a1f3a'/>
+            <rect x='70' y='18' width='26' height='42' fill='%231d2342'/>
+            <rect x='104' y='28' width='18' height='32' fill='%2313182e'/>
+            <text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='9' fill='%2324ff9f'>METRO BRAWLER</text>
+          </svg>"/>
+        <div class="meta">
+          <h3 class="game-title">Metro Brawler</h3>
+          <div class="tags">
+            <span class="tag">Beat 'em up</span>
+            <span class="tag">Arcade</span>
+            <span class="tag">MAME</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-title="Crystal Runner" data-genres="plataformas puzzle gbc">
+        <img class="thumb" alt="Crystal Runner (demo)" src="data:image/svg+xml;utf8,
+          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'>
+            <rect width='160' height='90' fill='%230a0b10'/>
+            <rect x='20' y='56' width='120' height='10' fill='%23161a33'/>
+            <rect x='35' y='46' width='24' height='10' fill='%231c2140'/>
+            <rect x='68' y='36' width='24' height='10' fill='%23212a50'/>
+            <rect x='100' y='26' width='24' height='10' fill='%2324355f'/>
+            <text x='50%' y='86%' text-anchor='middle' font-family='monospace' font-size='9' fill='%2300e5ff'>CRYSTAL RUNNER</text>
+          </svg>"/>
+        <div class="meta">
+          <h3 class="game-title">Crystal Runner</h3>
+          <div class="tags">
+            <span class="tag">Plataformas</span>
+            <span class="tag">Puzzle</span>
+            <span class="tag">GBC</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-title="8-Bit Rally" data-genres="arcade carreras nes">
+        <img class="thumb" alt="8-Bit Rally (demo)" src="data:image/svg+xml;utf8,
+          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'>
+            <rect width='160' height='90' fill='%230a0b10'/>
+            <rect x='0' y='65' width='160' height='25' fill='%23101627'/>
+            <rect x='0' y='58' width='160' height='4' fill='%23212749'/>
+            <text x='50%' y='34%' text-anchor='middle' font-family='monospace' font-size='10' fill='%23e6f1ff'>8-BIT RALLY</text>
+          </svg>"/>
+        <div class="meta">
+          <h3 class="game-title">8-Bit Rally</h3>
+          <div class="tags">
+            <span class="tag">Arcade</span>
+            <span class="tag">Carreras</span>
+            <span class="tag">NES</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-title="Mystic Valley" data-genres="rpg aventura snes">
+        <img class="thumb" alt="Mystic Valley (demo)" src="data:image/svg+xml;utf8,
+          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'>
+            <rect width='160' height='90' fill='%230a0b10'/>
+            <linearGradient id='mvg' x1='0' y1='0' x2='1' y2='1'>
+              <stop offset='0%' stop-color='%2300e5ff'/>
+              <stop offset='100%' stop-color='%2324ff9f'/>
+            </linearGradient>
+            <ellipse cx='80' cy='70' rx='60' ry='18' fill='%23101728'/>
+            <text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='10' fill='%23ff2bd6'>MYSTIC VALLEY</text>
+          </svg>"/>
+        <div class="meta">
+          <h3 class="game-title">Mystic Valley</h3>
+          <div class="tags">
+            <span class="tag">RPG</span>
+            <span class="tag">Aventura</span>
+            <span class="tag">SNES</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-title="Retro Shot" data-genres="shooters arcade gbc">
+        <img class="thumb" alt="Retro Shot (demo)" src="data:image/svg+xml;utf8,
+          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'>
+            <rect width='160' height='90' fill='%230a0b10'/>
+            <rect x='12' y='12' width='136' height='66' fill='%23111623'/>
+            <text x='50%' y='52%' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='10' fill='%2324ff9f'>RETRO SHOT</text>
+          </svg>"/>
+        <div class="meta">
+          <h3 class="game-title">Retro Shot</h3>
+          <div class="tags">
+            <span class="tag">Shooters</span>
+            <span class="tag">Arcade</span>
+            <span class="tag">GBC</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-title="Turbo City" data-genres="arcade plataformas genesis">
+        <img class="thumb" alt="Turbo City (demo)" src="data:image/svg+xml;utf8,
+          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'>
+            <rect width='160' height='90' fill='%230a0b10'/>
+            <rect x='0' y='70' width='160' height='20' fill='%230e1121'/>
+            <text x='50%' y='45%' text-anchor='middle' font-family='monospace' font-size='10' fill='%23e6f1ff'>TURBO CITY</text>
+          </svg>"/>
+        <div class="meta">
+          <h3 class="game-title">Turbo City</h3>
+          <div class="tags">
+            <span class="tag">Arcade</span>
+            <span class="tag">Plataformas</span>
+            <span class="tag">Genesis</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <div id="empty" class="empty">
+      No encontramos resultados para tu búsqueda. Probá con otro término o quita los filtros.
+    </div>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Juegos Retro — Made with ❤️ + CRT vibes
+  </footer>
+
+  <script>
+    // Año dinámico
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const q = document.getElementById('q');
+    const pills = Array.from(document.querySelectorAll('.pill'));
+    const grid = document.getElementById('grid');
+    const cards = Array.from(grid.querySelectorAll('.card'));
+    const empty = document.getElementById('empty');
+
+    let activeFilter = 'all';
+
+    function normalize(s){ return (s||'').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+
+    function applyFilters(){
+      const term = normalize(q.value.trim());
+      const showAll = activeFilter === 'all';
+
+      let visibleCount = 0;
+
+      cards.forEach(card=>{
+        const title = normalize(card.dataset.title);
+        const genres = normalize(card.dataset.genres);
+
+        const matchesText = !term || title.includes(term) || genres.includes(term);
+        const matchesFilter = showAll || genres.split(' ').includes(activeFilter);
+
+        const show = matchesText && matchesFilter;
+        card.style.display = show ? '' : 'none';
+        if(show) visibleCount++;
+      });
+
+      empty.style.display = visibleCount ? 'none' : 'block';
+    }
+
+    // Buscar en tiempo real
+    q.addEventListener('input', applyFilters);
+
+    // Filtros por género
+    pills.forEach(p=>{
+      p.addEventListener('click', ()=>{
+        pills.forEach(x=>x.classList.remove('active'));
+        p.classList.add('active');
+        activeFilter = p.dataset.filter;
+        applyFilters();
+      });
+    });
+
+    // Atajo: / para enfocar el buscador
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === '/' && document.activeElement !== q){
+        e.preventDefault();
+        q.focus();
+      }
+    });
+
+    // Primera render
+    applyFilters();
+  </script>
+</body>
+</html>
