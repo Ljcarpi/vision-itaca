@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether Runner: Neon Velocity</title>
+    <style>
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        body {
+            overflow: hidden;
+            background: #000;
+            font-family: 'Courier New', monospace;
+            color: #fff;
+            touch-action: none;
+        }
+
+        #gameCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        /* UI Elements */
+        .ui-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .hud {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px #0ff;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            pointer-events: auto;
+        }
+
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 255, 255, 0.2);
+            border: 2px solid #0ff;
+            border-radius: 50%;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .control-btn:active {
+            transform: scale(0.9);
+            background: rgba(0, 255, 255, 0.4);
+        }
+
+        /* Game Overlay States */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 20;
+            pointer-events: auto;
+        }
+
+        .title {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 20px #0ff, 0 0 40px #0ff;
+            animation: pulse 2s infinite;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            background: rgba(0, 255, 255, 0.2);
+            border: 2px solid #0ff;
+            border-radius: 30px;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: all 0.2s;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .btn:hover {
+            background: rgba(0, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+
+        /* Settings Modal */
+        .settings {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 10, 20, 0.9);
+            border: 2px solid #0ff;
+            border-radius: 10px;
+            padding: 2rem;
+            z-index: 30;
+            max-width: 80%;
+            max-height: 80vh;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .settings h2 {
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 0 10px #0ff;
+        }
+
+        .setting-group {
+            margin-bottom: 1rem;
+        }
+
+        .setting-label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .slider {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .checkbox {
+            margin-right: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 3rem;
+            }
+            
+            .hud {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+
+    <div class="ui-container">
+        <div class="hud">
+            <div id="score">SCORE: 0</div>
+            <div id="best">BEST: 0</div>
+            <div id="speed">SPEED: 1.0x</div>
+            <div id="fps">FPS: 60</div>
+        </div>
+
+        <div class="controls" id="desktopControls">
+            <div class="control-btn" id="leftBtn">←</div>
+            <div class="control-btn" id="rightBtn">→</div>
+            <div class="control-btn" id="upBtn">↑</div>
+            <div class="control-btn" id="downBtn">↓</div>
+            <div class="control-btn" id="dashBtn">⏵</div>
+        </div>
+    </div>
+
+    <!-- Title Screen -->
+    <div class="overlay" id="titleScreen">
+        <h1 class="title">AETHER RUNNER</h1>
+        <button class="btn" id="startBtn">START</button>
+        <button class="btn" id="settingsBtn">SETTINGS</button>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div class="overlay" id="gameOverScreen" style="display: none;">
+        <h1 class="title">GAME OVER</h1>
+        <div id="finalScore" style="font-size: 2rem; margin-bottom: 2rem;">SCORE: 0</div>
+        <button class="btn" id="restartBtn">PLAY AGAIN</button>
+        <button class="btn" id="menuBtn">MENU</button>
+    </div>
+
+    <!-- Pause Screen -->
+    <div class="overlay" id="pauseScreen" style="display: none;">
+        <h1 class="title">PAUSED</h1>
+        <button class="btn" id="resumeBtn">RESUME</button>
+        <button class="btn" id="quitBtn">QUIT</button>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="settings" id="settingsModal">
+        <h2>SETTINGS</h2>
+        
+        <div class="setting-group">
+            <label class="setting-label">Graphics Quality:</label>
+            <select id="qualitySelect" class="slider">
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+            </select>
+        </div>
+
+        <div class="setting-group">
+            <label class="setting-label">Post Effects:</label>
+            <div>
+                <input type="checkbox" id="bloomCheck" class="checkbox" checked>
+                <label for="bloomCheck">Bloom</label>
+            </div>
+            <div>
+                <input type="checkbox" id="fxaaCheck" class="checkbox" checked>
+                <label for="fxaaCheck">FXAA</label>
+            </div>
+            <div>
+                <input type="checkbox" id="motionBlurCheck" class="checkbox">
+                <label for="motionBlurCheck">Motion Blur</label>
+            </div>
+        </div>
+
+        <div class="setting-group">
+            <label class="setting-label">Color Blind Mode:</label>
+            <select id="colorBlindSelect" class="slider">
+                <option value="none">None</option>
+                <option value="protanopia">Protanopia</option>
+                <option value="deuteranopia">Deuteranopia</option>
+                <option value="tritanopia">Tritanopia</option>
+            </select>
+        </div>
+
+        <div class="setting-group">
+            <label class="setting-label">Screen Shake: <span id="shakeValue">50</span>%</label>
+            <input type="range" id="shakeSlider" class="slider" min="0" max="100" value="50">
+        </div>
+
+        <div class="setting-group">
+            <label class="setting-label">Volume: <span id="volumeValue">70</span>%</label>
+            <input type="range" id="volumeSlider" class="slider" min="0" max="100" value="70">
+        </div>
+
+        <button class="btn" id="closeSettingsBtn">CLOSE</button>
+    </div>
+
+    <script>
+        // Game Constants
+        const GAME_WIDTH = window.innerWidth;
+        const GAME_HEIGHT = window.innerHeight;
+        const LANE_COUNT = 3;
+        const LANE_WIDTH = 2.0;
+        const PLAYER_SIZE = 0.5;
+        const OBSTACLE_TYPES = ['GATE', 'BAR', 'WALL'];
+        
+        // Game Variables
+        let gameState = 'TITLE'; // TITLE, PLAYING, PAUSED, GAME_OVER
+        let score = 0;
+        let bestScore = localStorage.getItem('bestScore') || 0;
+        let speed = 1.0;
+        let speedIncreaseRate = 0.001;
+        let maxSpeed = 3.0;
+        let comboMultiplier = 1;
+        let lastFrameTime = 0;
+        let fps = 60;
+        let deltaTime = 0;
+        
+        // Player Variables
+        let playerX = 0; // -1 (left), 0 (center), 1 (right)
+        let playerY = 0; // -1 (bottom), 0 (middle), 1 (top)
+        let playerPosition = { x: 0, y: 0, z: 0 };
+        let playerVelocity = { x: 0, y: 0, z: 0 };
+        
+        // Game Objects
+        let obstacles = [];
+        let pickups = [];
+        let particles = [];
+        
+        // WebGL Variables
+        let canvas, gl;
+        let shaderProgram;
+        let vertexBuffer, indexBuffer;
+        let projectionMatrix, modelViewMatrix;
+        
+        // Audio Context
+        let audioContext;
+        let masterGain;
+        
+        // Initialize the game
+        function init() {
+            setupCanvas();
+            setupUI();
+            setupAudio();
+            setupEventListeners();
+            loadGame();
+        }
+        
+        // Set up the WebGL canvas
+        function setupCanvas() {
+            canvas = document.getElementById('gameCanvas');
+            canvas.width = GAME_WIDTH;
+            canvas.height = GAME_HEIGHT;
+            
+            try {
+                gl = canvas.getContext('webgl2');
+                if (!gl) {
+                    throw new Error('WebGL2 not supported');
+                }
+                
+                setupWebGL();
+            } catch (e) {
+                console.error('WebGL2 initialization failed:', e);
+                fallbackToCanvas2D();
+            }
+        }
+        
+        // Fallback to Canvas2D if WebGL2 is not available
+        function fallbackToCanvas2D() {
+            console.log('Falling back to Canvas2D');
+            // Simplified 2D version would go here
+        }
+        
+        // Set up WebGL
+        function setupWebGL() {
+            // Vertex shader
+            const vsSource = `
+                attribute vec3 aPosition;
+                uniform mat4 uProjectionMatrix;
+                uniform mat4 uModelViewMatrix;
+                
+                void main() {
+                    gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aPosition, 1.0);
+                }
+            `;
+            
+            // Fragment shader
+            const fsSource = `
+                precision highp float;
+                uniform vec4 uColor;
+                
+                void main() {
+                    gl_FragColor = uColor;
+                }
+            `;
+            
+            // Initialize shader program
+            const vertexShader = compileShader(gl.VERTEX_SHADER, vsSource);
+            const fragmentShader = compileShader(gl.FRAGMENT_SHADER, fsSource);
+            
+            shaderProgram = gl.createProgram();
+            gl.attachShader(shaderProgram, vertexShader);
+            gl.attachShader(shaderProgram, fragmentShader);
+            gl.linkProgram(shaderProgram);
+            
+            if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+                console.error('Shader program failed to link:', gl.getProgramInfoLog(shaderProgram));
+                return;
+            }
+            
+            // Get attribute and uniform locations
+            shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, 'aPosition');
+            gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
+            
+            shaderProgram.projectionMatrixUniform = gl.getUniformLocation(shaderProgram, 'uProjectionMatrix');
+            shaderProgram.modelViewMatrixUniform = gl.getUniformLocation(shaderProgram, 'uModelViewMatrix');
+            shaderProgram.colorUniform = gl.getUniformLocation(shaderProgram, 'uColor');
+            
+            // Create buffers
+            vertexBuffer = gl.createBuffer();
+            indexBuffer = gl.createBuffer();
+            
+            // Set up matrices
+            projectionMatrix = mat4.create();
+            mat4.perspective(projectionMatrix, 45 * Math.PI / 180, GAME_WIDTH / GAME_HEIGHT, 0.1, 100.0);
+            
+            modelViewMatrix = mat4.create();
+            
+            // Set up viewport
+            gl.viewport(0, 0, GAME_WIDTH, GAME_HEIGHT);
+            gl.clearColor(0.0, 0.0, 0.0, 1.0);
+            gl.enable(gl.DEPTH_TEST);
+        }
+        
+        // Compile a shader
+        function compileShader(type, source) {
+            const shader = gl.createShader(type);
+            gl.shaderSource(shader, source);
+            gl.compileShader(shader);
+            
+            if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                console.error('Shader compilation error:', gl.getShaderInfoLog(shader));
+                gl.deleteShader(shader);
+                return null;
+            }
+            
+            return shader;
+        }
+        
+        // Set up UI elements
+        function setupUI() {
+            document.getElementById('best').textContent = `BEST: ${bestScore}`;
+            
+            // Button event listeners
+            document.getElementById('startBtn').addEventListener('click', startGame);
+            document.getElementById('restartBtn').addEventListener('click', startGame);
+            document.getElementById('menuBtn').addEventListener('click', showTitleScreen);
+            document.getElementById('resumeBtn').addEventListener('click', resumeGame);
+            document.getElementById('quitBtn').addEventListener('click', showTitleScreen);
+            document.getElementById('settingsBtn').addEventListener('click', showSettings);
+            document.getElementById('closeSettingsBtn').addEventListener('click', hideSettings);
+            
+            // Control buttons
+            document.getElementById('leftBtn').addEventListener('mousedown', () => movePlayer(-1, 0));
+            document.getElementById('leftBtn').addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                movePlayer(-1, 0);
+            });
+            
+            document.getElementById('rightBtn').addEventListener('mousedown', () => movePlayer(1, 0));
+            document.getElementById('rightBtn').addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                movePlayer(1, 0);
+            });
+            
+            document.getElementById('upBtn').addEventListener('mousedown', () => movePlayer(0, 1));
+            document.getElementById('upBtn').addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                movePlayer(0, 1);
+            });
+            
+            document.getElementById('downBtn').addEventListener('mousedown', () => movePlayer(0, -1));
+            document.getElementById('downBtn').addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                movePlayer(0, -1);
+            });
+            
+            document.getElementById('dashBtn').addEventListener('mousedown', dash);
+            document.getElementById('dashBtn').addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                dash();
+            });
+            
+            // Settings controls
+            document.getElementById('qualitySelect').addEventListener('change', updateSettings);
+            document.getElementById('bloomCheck').addEventListener('change', updateSettings);
+            document.getElementById('fxaaCheck').addEventListener('change', updateSettings);
+            document.getElementById('motionBlurCheck').addEventListener('change', updateSettings);
+            document.getElementById('colorBlindSelect').addEventListener('change', updateSettings);
+            document.getElementById('shakeSlider').addEventListener('input', updateShakeValue);
+            document.getElementById('volumeSlider').addEventListener('input', updateVolumeValue);
+            
+            // Hide controls on desktop (they'll use keyboard)
+            if (window.innerWidth > 768) {
+                document.getElementById('desktopControls').style.display = 'none';
+            }
+        }
+        
+        // Set up audio
+        function setupAudio() {
+            try {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                masterGain = audioContext.createGain();
+                masterGain.gain.value = 0.7;
+                masterGain.connect(audioContext.destination);
+                
+                // TODO: Add sound effects and music generators
+            } catch (e) {
+                console.error('Audio initialization failed:', e);
+            }
+        }
+        
+        // Set up event listeners
+        function setupEventListeners() {
+            // Keyboard controls
+            window.addEventListener('keydown', (e) => {
+                if (gameState !== 'PLAYING') return;
+                
+                switch (e.key) {
+                    case 'ArrowLeft':
+                    case 'a':
+                    case 'A':
+                        movePlayer(-1, 0);
+                        break;
+                    case 'ArrowRight':
+                    case 'd':
+                    case 'D':
+                        movePlayer(1, 0);
+                        break;
+                    case 'ArrowUp':
+                    case 'w':
+                    case 'W':
+                        movePlayer(0, 1);
+                        break;
+                    case 'ArrowDown':
+                    case 's':
+                    case 'S':
+                        movePlayer(0, -1);
+                        break;
+                    case ' ':
+                        dash();
+                        break;
+                    case 'Escape':
+                        pauseGame();
+                        break;
+                }
+            });
+            
+            // Touch controls for mobile
+            let touchStartX = 0;
+            let touchStartY = 0;
+            
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            });
+            
+            canvas.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                if (gameState !== 'PLAYING') return;
+                
+                const touchEndX = e.touches[0].clientX;
+                const touchEndY = e.touches[0].clientY;
+                
+                const diffX = touchEndX - touchStartX;
+                const diffY = touchEndY - touchStartY;
+                
+                // Swipe detection
+                if (Math.abs(diffX) > 50 || Math.abs(diffY) > 50) {
+                    if (Math.abs(diffX) > Math.abs(diffY)) {
+                        // Horizontal swipe
+                        movePlayer(diffX > 0 ? 1 : -1, 0);
+                    } else {
+                        // Vertical swipe
+                        movePlayer(0, diffY > 0 ? -1 : 1);
+                    }
+                    
+                    touchStartX = touchEndX;
+                    touchStartY = touchEndY;
+                }
+            });
+            
+            canvas.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                // Tap for dash
+                if (Math.abs(touchEndX - touchStartX) < 10 && Math.abs(touchEndY - touchStartY) < 10) {
+                    dash();
+                }
+            });
+            
+            // Window resize
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                
+                if (gl) {
+                    gl.viewport(0, 0, canvas.width, canvas.height);
+                    mat4.perspective(projectionMatrix, 45 * Math.PI / 180, canvas.width / canvas.height, 0.1, 100.0);
+                }
+            });
+        }
+        
+        // Load game data
+        function loadGame() {
+            // Load best score from localStorage
+            const savedBest = localStorage.getItem('bestScore');
+            if (savedBest) {
+                bestScore = parseInt(savedBest);
+                document.getElementById('best').textContent = `BEST: ${bestScore}`;
+            }
+            
+            // Load settings
+            loadSettings();
+        }
+        
+        // Load settings from localStorage
+        function loadSettings() {
+            // TODO: Implement settings loading
+        }
+        
+        // Save settings to localStorage
+        function saveSettings() {
+            // TODO: Implement settings saving
+        }
+        
+        // Update settings display
+        function updateSettings() {
+            saveSettings();
+        }
+        
+        // Update shake value display
+        function updateShakeValue() {
+            const value = document.getElementById('shakeSlider').value;
+            document.getElementById('shakeValue').textContent = `${value}%`;
+            updateSettings();
+        }
+        
+        // Update volume value display
+        function updateVolumeValue() {
+            const value = document.getElementById('volumeSlider').value;
+            document.getElementById('volumeValue').textContent = `${value}%`;
+            
+            if (masterGain) {
+                masterGain.gain.value = value / 100;
+            }
+            
+            updateSettings();
+        }
+        
+        // Show settings modal
+        function showSettings() {
+            document.getElementById('settingsModal').style.display = 'block';
+        }
+        
+        // Hide settings modal
+        function hideSettings() {
+            document.getElementById('settingsModal').style.display = 'none';
+        }
+        
+        // Show title screen
+        function showTitleScreen() {
+            gameState = 'TITLE';
+            document.getElementById('titleScreen').style.display = 'flex';
+            document.getElementById('gameOverScreen').style.display = 'none';
+            document.getElementById('pauseScreen').style.display = 'none';
+        }
+        
+        // Start a new game
+        function startGame() {
+            // Reset game state
+            score = 0;
+            speed = 1.0;
+            comboMultiplier = 1;
+            playerX = 0;
+            playerY = 0;
+            obstacles = [];
+            pickups = [];
+            particles = [];
+            
+            // Update UI
+            document.getElementById('score').textContent = `SCORE: ${score}`;
+            document.getElementById('speed').textContent = `SPEED: ${speed.toFixed(1)}x`;
+            document.getElementById('titleScreen').style.display = 'none';
+            document.getElementById('gameOverScreen').style.display = 'none';
+            document.getElementById('pauseScreen').style.display = 'none';
+            
+            gameState = 'PLAYING';
+            lastFrameTime = performance.now();
+            
+            // Start game loop
+            requestAnimationFrame(gameLoop);
+        }
+        
+        // Pause the game
+        function pauseGame() {
+            if (gameState === 'PLAYING') {
+                gameState = 'PAUSED';
+                document.getElementById('pauseScreen').style.display = 'flex';
+            }
+        }
+        
+        // Resume the game
+        function resumeGame() {
+            if (gameState === 'PAUSED') {
+                gameState = 'PLAYING';
+                document.getElementById('pauseScreen').style.display = 'none';
+                lastFrameTime = performance.now();
+                requestAnimationFrame(gameLoop);
+            }
+        }
+        
+        // End the game
+        function gameOver() {
+            gameState = 'GAME_OVER';
+            
+            // Update best score
+            if (score > bestScore) {
+                bestScore = score;
+                localStorage.setItem('bestScore', bestScore);
+                document.getElementById('best').textContent = `BEST: ${bestScore}`;
+            }
+            
+            // Show game over screen
+            document.getElementById('finalScore').textContent = `SCORE: ${score}`;
+            document.getElementById('gameOverScreen').style.display = 'flex';
+        }
+        
+        // Move the player
+        function movePlayer(dx, dy) {
+            if (gameState !== 'PLAYING') return;
+            
+            // Calculate new position with bounds checking
+            const newX = Math.max(-1, Math.min(1, playerX + dx));
+            const newY = Math.max(-1, Math.min(1, playerY + dy));
+            
+            // Only update if position changed
+            if (newX !== playerX || newY !== playerY) {
+                playerX = newX;
+                playerY = newY;
+                
+                // TODO: Add move sound effect
+            }
+        }
+        
+        // Dash action
+        function dash() {
+            if (gameState !== 'PLAYING') return;
+            
+            // TODO: Implement dash mechanic
+            console.log('Dash!');
+            
+            // TODO: Add dash sound effect
+        }
+        
+        // Update game state
+        function update(delta) {
+            if (gameState !== 'PLAYING') return;
+            
+            // Increase speed over time
+            speed = Math.min(speed + speedIncreaseRate * delta, maxSpeed);
+            document.getElementById('speed').textContent = `SPEED: ${speed.toFixed(1)}x`;
+            
+            // Update player position
+            playerPosition.x = playerX * (LANE_WIDTH / 2);
+            playerPosition.y = playerY * (LANE_WIDTH / 2);
+            
+            // Generate obstacles and pickups
+            generateGameObjects(delta);
+            
+            // Update obstacles and pickups
+            updateGameObjects(delta);
+            
+            // Check collisions
+            checkCollisions();
+            
+            // Update particles
+            updateParticles(delta);
+        }
+        
+        // Generate new obstacles and pickups
+        function generateGameObjects(delta) {
+            // TODO: Implement procedural generation of obstacles and pickups
+        }
+        
+        // Update obstacles and pickups
+        function updateGameObjects(delta) {
+            // TODO: Implement movement and lifecycle of game objects
+        }
+        
+        // Check for collisions
+        function checkCollisions() {
+            // TODO: Implement collision detection
+        }
+        
+        // Update particles
+        function updateParticles(delta) {
+            // TODO: Implement particle system
+        }
+        
+        // Render the game
+        function render() {
+            if (!gl) return;
+            
+            // Clear the canvas
+            gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+            
+            // Set up camera
+            mat4.identity(modelViewMatrix);
+            mat4.translate(modelViewMatrix, modelViewMatrix, [0, 0, -5]);
+            
+            // Apply camera shake if enabled
+            if (document.getElementById('shakeSlider').value > 0 && gameState === 'PLAYING') {
+                const shakeIntensity = document.getElementById('shakeSlider').value / 1000;
+                const shakeX = (Math.random() * 2 - 1) * shakeIntensity;
+                const shakeY = (Math.random() * 2 - 1) * shakeIntensity;
+                mat4.translate(modelViewMatrix, modelViewMatrix, [shakeX, shakeY, 0]);
+            }
+            
+            // Render game objects
+            renderPlayer();
+            renderObstacles();
+            renderPickups();
+            renderParticles();
+            
+            // Render tunnel
+            renderTunnel();
+        }
+        
+        // Render the player
+        function renderPlayer() {
+            // TODO: Implement player rendering
+        }
+        
+        // Render obstacles
+        function renderObstacles() {
+            // TODO: Implement obstacle rendering
+        }
+        
+        // Render pickups
+        function renderPickups() {
+            // TODO: Implement pickup rendering
+        }
+        
+        // Render particles
+        function renderParticles() {
+            // TODO: Implement particle rendering
+        }
+        
+        // Render the tunnel
+        function renderTunnel() {
+            // TODO: Implement tunnel rendering
+        }
+        
+        // Game loop
+        function gameLoop(timestamp) {
+            // Calculate delta time
+            deltaTime = timestamp - lastFrameTime;
+            lastFrameTime = timestamp;
+            
+            // Calculate FPS
+            fps = 1000 / deltaTime;
+            document.getElementById('fps').textContent = `FPS: ${Math.round(fps)}`;
+            
+            // Update and render
+            update(deltaTime);
+            render();
+            
+            // Continue the loop if still playing
+            if (gameState === 'PLAYING') {
+                requestAnimationFrame(gameLoop);
+            }
+        }
+        
+        // Matrix math utility functions
+        const mat4 = {
+            create: function() {
+                return new Float32Array(16);
+            },
+            
+            identity: function(out) {
+                out[0] = 1; out[1] = 0; out[2] = 0; out[3] = 0;
+                out[4] = 0; out[5] = 1; out[6] = 0; out[7] = 0;
+                out[8] = 0; out[9] = 0; out[10] = 1; out[11] = 0;
+                out[12] = 0; out[13] = 0; out[14] = 0; out[15] = 1;
+                return out;
+            },
+            
+            perspective: function(out, fovy, aspect, near, far) {
+                const f = 1.0 / Math.tan(fovy / 2);
+                out[0] = f / aspect; out[1] = 0; out[2] = 0; out[3] = 0;
+                out[4] = 0; out[5] = f; out[6] = 0; out[7] = 0;
+                out[8] = 0; out[9] = 0; out[10] = (far + near) / (near - far); out[11] = -1;
+                out[12] = 0; out[13] = 0; out[14] = (2 * far * near) / (near - far); out[15] = 0;
+                return out;
+            },
+            
+            translate: function(out, a, v) {
+                const x = v[0], y = v[1], z = v[2];
+                
+                out[12] = a[0] * x + a[4] * y + a[8] * z + a[12];
+                out[13] = a[1] * x + a[5] * y + a[9] * z + a[13];
+                out[14] = a[2] * x + a[6] * y + a[10] * z + a[14];
+                out[15] = a[3] * x + a[7] * y + a[11] * z + a[15];
+                
+                return out;
+            }
+        };
+        
+        // Initialize the game when the page loads
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
