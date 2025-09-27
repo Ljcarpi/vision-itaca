@@ -225,37 +225,39 @@
     precision highp float; out vec4 o; in vec2 vUV; 
     uniform vec2 uRes; uniform float uTime; uniform float uSpeed; uniform int uLane; 
     uniform int uFXAA; uniform int uGrain; uniform int uShake; uniform int uCB; 
-    // Hash/Noise helpers
+
+    // ---- tiny hash/noise helpers ----
     uint hash(uvec2 x){ x = (x^ (x>>17u))* 0xED5AD4BBu; x = (x ^ (x>>11u))*0xAC4C1B51u; x = (x ^ (x>>15u))*0x31848BABu; return x.x ^ x.y; }
     float rnd(in vec2 p){ return float(hash(floatBitsToUint(p)))/4294967296.0; }
-    // Camera
+
+    // ---- transforms ----
     mat3 rotY(float a){ float c=cos(a), s=sin(a); return mat3(c,0.,-s, 0.,1.,0., s,0.,c); }
-    // Signed distance primitives
+
+    // ---- SDF primitives ----
     float sdBox(vec3 p, vec3 b){ vec3 q = abs(p)-b; return length(max(q,0.0))+min(max(q.x,max(q.y,q.z)),0.0); }
-    float sdCyl(vec3 p, vec2 h){ return max(length(p.xz)-h.x, abs(p.y)-h.y); }
-    // Map tunnel + obstacles (procedural lanes -1,0,1)
+
+    // ---- world map: tunnel + rotating bar obstacles on 3 lanes ----
     float map(vec3 p){
-      // tunnel radius varies with z
+      // tunnel radius and subtle warp
       float r = 3.0 + sin(p.z*0.12 + uTime*0.6)*0.6;
-      float tunnel = length(p.xy)-r; // cylindrical tunnel walls
-      // obstacles as rotating bars every ~12 units
+      float tunnel = length(p.xy)-r; // cylindrical tunnel
+
+      // chunked obstacles every ~12 units (stable via zSeg)
       float zSeg = floor((p.z+30.)/12.0)*12.0 - 30.0;
       float seed = zSeg*12.7; // stable per-chunk
       float angle = fract(sin(seed)*43758.5453)*6.2831 + uTime*0.4;
+
       // lanes: -1,0,1 mapped to x offsets
       float laneX[3]; laneX[0] = -1.8; laneX[1] = 0.0; laneX[2] = 1.8;
-      // choose blocked lanes from seed
-      int blockCount = (int(mod(seed,3.))+1);
-      // crude pseudo mask
       int b0 = int(mod(seed*1.7,3.));
       int b1 = int(mod(seed*2.3+1.0,3.));
-      // collide bars: rotate a thin box around center of each blocked lane
+      int blockCount = 1 + int(mod(seed,2.0));
+
       float obs = 99.0;
       for(int i=0;i<3;i++){
         bool blocked = (i==b0) || (blockCount>1 && i==b1);
         if(blocked){
-          vec3 q = p;
-          q.xy -= vec2(laneX[i],0.0);
+          vec3 q = p; q.xy -= vec2(laneX[i],0.0);
           mat2 R = mat2(cos(angle),-sin(angle), sin(angle),cos(angle));
           q.xy = R*q.xy;
           float d = sdBox(q, vec3(0.3, r*0.85, 0.6));
@@ -264,34 +266,35 @@
       }
       return min(tunnel, obs);
     }
+
     vec3 neonPalette(float t){
-      // colorblind alt palette
-      if(uCB==1){
+      if(uCB==1){ // color-blind alt palette
         return mix(vec3(0.08,0.78,0.68), vec3(0.95,0.78,0.12), smoothstep(0.,1.,t));
       }
       vec3 a=vec3(0.5,0.2,0.9), b=vec3(0.5,0.9,0.2), c=vec3(1.0,1.0,1.0), d=vec3(0.0,0.33,0.67);
       return a + b*cos(6.28318*(c*t+d));
     }
+
     vec3 shade(vec3 ro, vec3 rd){
-      float t=0.0; float minT=0.0; float hit=0.0; float glow=0.0; vec3 p;
-      for(int i=0;i<128;i++){
+      float t=0.0; vec3 p=ro; float glow=0.0; float steps=0.0;
+      for(int i=0;i<120;i++){
         p = ro + rd*t;
         float d = map(p);
         glow += exp(-abs(d)*14.0)*0.006;
-        if(abs(d)<0.001){ hit=1.0; break; }
+        if(abs(d)<0.001){ break; }
         t += clamp(abs(d), 0.01, 0.25);
-        if(t>80.0) break;
+        steps += 1.0; if(t>80.0) break;
       }
-      vec3 col = vec3(0.02,0.03,0.08);
-      // tunnel neon stripes based on angle and z
+      // neon tunnel color bands
       float ang = atan(p.y,p.x);
       float bands = 0.5 + 0.5*cos(ang*16.0 + p.z*0.8 + uTime*2.0);
-      vec3 neon = neonPalette(fract(p.z*0.03 + uTime*0.05))*pow(bands, 4.0);
-      // fake env light & rim
+      vec3 neon = neonPalette(fract(p.z*0.03 + uTime*0.05))*pow(max(bands,0.0), 4.0);
+
+      // fake lighting
       vec3 lightDir = normalize(vec3(0.7,0.2,0.5));
-      vec3 n = normalize(vec3(0.0));
-      // estimate normal via central differences if hit
-      if(hit>0.5){
+      vec3 n = vec3(0.0);
+      // normal estimate if close to surface
+      {
         float e=0.002; float d0 = map(p);
         vec3 gx = vec3(e,0,0), gy=vec3(0,e,0), gz=vec3(0,0,e);
         n = normalize(vec3(map(p+gx)-d0, map(p+gy)-d0, map(p+gz)-d0));
@@ -299,47 +302,30 @@
       float ndl = clamp(dot(n, lightDir), 0.0, 1.0);
       float rim = pow(1.0 - max(dot(n,-rd),0.0), 2.5);
       vec3 base = neon*1.4 + vec3(0.03,0.05,0.09);
-      col = base*(0.25+0.75*ndl) + rim*vec3(0.4,0.5,0.9);
+      vec3 col = base*(0.25+0.75*ndl) + rim*vec3(0.4,0.5,0.9);
       col += glow*vec3(1.0,0.7,1.2);
-      // fog
-      float f = exp(-minT*0.03 - t*0.03);
+      // depth fog by travel distance
+      float f = exp(-t*0.03);
       col = mix(vec3(0.01,0.02,0.05), col, f);
-      return col;
+      // film grain if enabled
+      if(uGrain==1){ col += (rnd(vUV*uRes+uTime)*0.03); }
+      // subtle camera shake (based on flag)
+      if(uShake==1){ col *= (0.995 + 0.005*sin(uTime*50.0)); }
+      // gamma
+      return pow(max(col,0.0), vec3(0.95));
     }
-    vec3 fxaaPass(vec2 uv, vec2 res){
-      // extremely tiny FXAA-ish: sample 4 neighbors and center
-      vec2 px = 1.0/res;
-      vec3 c = texture(sampler2D(0), uv).rgb; // NOTE: placeholder (we render single pass; emulate by manual taps below)
-      // Without a history buffer, we approximate smoothing by local averaging (not true FXAA)
-      vec3 s = vec3(0.0);
-      s += texture(sampler2D(0), uv + vec2(-px.x, 0)).rgb;
-      s += texture(sampler2D(0), uv + vec2(px.x, 0)).rgb;
-      s += texture(sampler2D(0), uv + vec2(0, -px.y)).rgb;
-      s += texture(sampler2D(0), uv + vec2(0, px.y)).rgb;
-      return mix(c, s*0.25, 0.25);
-    }
+
     void main(){
       vec2 uv = (vUV*2.0-1.0);
       float asp = uRes.x/uRes.y;
-      // camera
       float t = uTime;
-      float z = t * uSpeed; // forward motion
+      float z = t * uSpeed;
       float laneX = float(uLane) * 1.8;
-      // shake
-      if(uShake==1){
-        uv += vec2(sin(t*9.7), cos(t*8.3))*0.002;
-      }
-      // build ray
+      if(uShake==1){ uv += vec2(sin(t*9.7), cos(t*8.3))*0.002; }
       vec3 ro = vec3(laneX*0.6, 0.0, z);
       vec3 rd = normalize(vec3(uv.x*asp, uv.y, -1.5));
-      rd = rotY(0.05*sin(t*0.6))*rd; // subtle drift
+      rd = rotY(0.05*sin(t*0.6))*rd; 
       vec3 col = shade(ro, rd);
-      // grain
-      if(uGrain==1){
-        float g = rnd(uv*vec2(uRes)+t)*0.03; col += g;
-      }
-      // gamma
-      col = pow(max(col,0.0), vec3(0.95));
       o = vec4(col,1.0);
     }`;
     program = link(gl, vs, fs);
