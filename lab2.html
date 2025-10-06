@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JustAds - El Laberinto de Anuncios</title>
+    <style>
+        /* Estilos generales y de la página */
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        h1 {
+            color: #1a73e8;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        /* Contenedor principal del juego */
+        #game-container {
+            width: 800px;
+            height: 600px;
+            background-color: #ffffff;
+            border: 3px solid #ccc;
+            position: relative; /* Clave para posicionar elementos hijos */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* El jugador */
+        #player {
+            width: 20px;
+            height: 20px;
+            background-color: #4285f4;
+            border-radius: 50%;
+            position: absolute;
+            transition: top 0.1s linear, left 0.1s linear; /* Movimiento suave */
+        }
+
+        /* Estilo base para todos los anuncios (muros del laberinto) */
+        .ad {
+            position: absolute;
+            background-color: #fbbc05;
+            border: 1px solid #ea4335;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        /* Zonas de Inicio y Fin */
+        #start, #finish {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        #start {
+            width: 60px;
+            height: 30px;
+            background-color: #34a853;
+            color: white;
+            top: 10px;
+            left: 10px;
+        }
+
+        #finish {
+            width: 60px;
+            height: 30px;
+            background-color: #ea4335;
+            color: white;
+            bottom: 10px;
+            right: 10px;
+        }
+        
+        /* Mensaje de victoria (inicialmente oculto) */
+        #win-message {
+            display: none; /* Oculto por defecto */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        #win-message h2 {
+            font-size: 3em;
+            color: #4285f4;
+        }
+
+        #win-message p {
+            font-size: 1.5em;
+        }
+
+        #win-message button {
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #34a853;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Bienvenido a JustAds</h1>
+    <p>¡Usa las flechas del teclado para llegar al final sin chocar con los anuncios!</p>
+    
+    <div id="game-container">
+        <div id="player"></div>
+
+        <div id="start">INICIO</div>
+        <div id="finish">FIN</div>
+        
+        <div class="ad" data-url="https://www.google.com/search?q=hosting" style="top: 0; left: 80px; width: 720px; height: 10px;">AD</div>
+        <div class="ad" data-url="https://www.google.com/search?q=desarrollo+web" style="top: 0; left: 0; width: 10px; height: 550px;">AD</div>
+        <div class="ad" data-url="https://www.google.com/search?q=marketing+digital" style="top: 590px; left: 0; width: 720px; height: 10px;">AD</div>
+        <div class="ad" data-url="https://www.google.com/search?q=cursos+online" style="top: 50px; right: 0; width: 10px; height: 550px;">AD</div>
+        
+        <div class="ad" data-url="https://www.google.com/search?q=gimnasio" style="top: 50px; left: 80px; width: 10px; height: 200px;">AD</div>
+        <div class="ad" data-url="https://www.google.com/search?q=comida+a+domicilio" style="top: 150px; left: 150px; width: 400px; height: 10px;">AD</div>
+        <div class="ad" data-url="https://www.google.com/search?q=viajes" style="top: 50px; left: 650px; width: 10px; height: 400px;">AD</div>
+        <div class="ad" data-url="https://www.google.com/search?q=libros" style="top: 300px; left: 80px; width: 500px; height: 10px;">AD</div>
+        <div class="ad" data-url="https://www.google.com/search?q=ropa" style="top: 300px; left: 80px; width: 10px; height: 200px;">AD</div>
+        <div class="ad" data-url="https://www.google.com/search?q=coches" style="top: 450px; left: 150px; width: 450px; height: 10px;">AD</div>
+        <div class="ad" data-url="https://www.google.com/search?q=tecnologia" style="top: 200px; left: 200px; width: 10px; height: 50px;">AD</div>
+        <div class="ad" data-url="https://www.google.com/search?q=inversiones" style="top: 350px; left: 250px; width: 10px; height: 50px;">AD</div>
+    </div>
+    
+    <div id="win-message">
+        <h2>¡FELICIDADES, GANASTE!</h2>
+        <p>Eres acreedor de <strong>1000 dólares ficticios</strong> para gastar en el sistema intergaláctico de Andrómeda.</p>
+        <button onclick="location.reload()">Jugar de Nuevo</button>
+    </div>
+
+<script>
+    // --- CONFIGURACIÓN ---
+    const player = document.getElementById('player');
+    const gameContainer = document.getElementById('game-container');
+    const finish = document.getElementById('finish');
+    const winMessage = document.getElementById('win-message');
+    const ads = document.querySelectorAll('.ad');
+
+    const startPosition = { x: 25, y: 25 }; // Posición inicial
+    const speed = 10; // Píxeles de movimiento por cada flecha
+
+    let playerPosition = { x: startPosition.x, y: startPosition.y };
+
+    // --- FUNCIONES DEL JUEGO ---
+
+    // Función para actualizar la posición visual del jugador
+    function updatePlayerPosition() {
+        player.style.left = playerPosition.x + 'px';
+        player.style.top = playerPosition.y + 'px';
+    }
+
+    // Función para reiniciar la posición del jugador
+    function resetPlayer() {
+        playerPosition.x = startPosition.x;
+        playerPosition.y = startPosition.y;
+        updatePlayerPosition();
+    }
+
+    // Función principal para verificar colisiones
+    function checkCollisions() {
+        const playerRect = player.getBoundingClientRect();
+
+        // 1. Verificar colisión con los anuncios
+        for (const ad of ads) {
+            const adRect = ad.getBoundingClientRect();
+            if (isColliding(playerRect, adRect)) {
+                // Hay colisión con un anuncio
+                alert("¡Chocaste! Volviendo al inicio...");
+                const url = ad.dataset.url; // Obtener la URL del atributo data-url
+                window.open(url, '_blank'); // Abrir en una nueva pestaña
+                resetPlayer();
+                return; // Salir de la función para no seguir verificando
+            }
+        }
+
+        // 2. Verificar colisión con la meta
+        const finishRect = finish.getBoundingClientRect();
+        if (isColliding(playerRect, finishRect)) {
+            // El jugador llegó al final
+            winMessage.style.display = 'flex'; // Mostrar mensaje de victoria
+        }
+    }
+
+    // Función auxiliar que determina si dos rectángulos se superponen
+    function isColliding(rect1, rect2) {
+        return !(
+            rect1.right < rect2.left ||
+            rect1.left > rect2.right ||
+            rect1.bottom < rect2.top ||
+            rect1.top > rect2.bottom
+        );
+    }
+
+    // --- CONTROL DEL JUGADOR ---
+
+    // Escuchar eventos de teclado
+    document.addEventListener('keydown', (event) => {
+        // Prevenir el comportamiento por defecto del navegador (como hacer scroll)
+        event.preventDefault();
+
+        const containerRect = gameContainer.getBoundingClientRect();
+
+        switch (event.key) {
+            case 'ArrowUp':
+                if (playerPosition.y > 0) playerPosition.y -= speed;
+                break;
+            case 'ArrowDown':
+                // El '- player.offsetHeight' asegura que no se salga por abajo
+                if (playerPosition.y < containerRect.height - player.offsetHeight) playerPosition.y += speed;
+                break;
+            case 'ArrowLeft':
+                if (playerPosition.x > 0) playerPosition.x -= speed;
+                break;
+            case 'ArrowRight':
+                 // El '- player.offsetWidth' asegura que no se salga por la derecha
+                if (playerPosition.x < containerRect.width - player.offsetWidth) playerPosition.x += speed;
+                break;
+        }
+
+        updatePlayerPosition();
+        checkCollisions(); // Verificar colisión después de cada movimiento
+    });
+
+    // --- INICIO DEL JUEGO ---
+    // Colocar al jugador en la posición inicial cuando la página carga
+    window.onload = () => {
+        resetPlayer();
+    };
+
+</script>
+
+</body>
+</html>
