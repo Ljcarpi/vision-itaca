@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>JustAds — Neon Maze</title>
+<meta name="description" content="JustAds: un laberinto hecho de anuncios. Esquiva los ads, llega a la salida y gana 1,000 créditos ficticios andromedanos." />
+<style>
+  :root{
+    --bg1:#060814;           /* espacio profundo */
+    --bg2:#0b1030;           /* halo */
+    --neon-pink:#ff4bd1;
+    --neon-cyan:#38f1ff;
+    --neon-violet:#9d7dff;
+    --neon-yellow:#ffd43b;
+    --hud:#e6f3ff;
+    --hud-dim:#a9c6ff;
+    --ad-text:#0a0e1a;
+  }
+  html,body{
+    margin:0; padding:0; height:100%; overflow:hidden;
+    background: radial-gradient(1200px 800px at 20% 10%, rgba(93,0,255,.08), transparent 50%),
+                radial-gradient(1000px 600px at 80% 30%, rgba(0,255,255,.06), transparent 55%),
+                radial-gradient(900px 700px at 50% 80%, rgba(255,0,128,.06), transparent 60%),
+                linear-gradient(180deg, var(--bg1), var(--bg2));
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans";
+  }
+  /* Lienzos */
+  #bg, #game, #ui {
+    position:fixed; inset:0; display:block; width:100vw; height:100vh;
+  }
+  #bg { z-index:0; }
+  #game { z-index:1; }
+  #ui { z-index:2; pointer-events:none; }
+  /* HUD */
+  .hud{
+    position:fixed; top:12px; left:12px; z-index:3; pointer-events:none;
+    color:var(--hud); text-shadow:0 0 10px rgba(56,241,255,.35);
+    font-size:14px; line-height:1.35;
+    background: linear-gradient(180deg, rgba(14,24,54,.55), rgba(10,16,34,.35));
+    border:1px solid rgba(56,241,255,.25);
+    border-radius:10px; padding:10px 12px; backdrop-filter: blur(4px);
+    box-shadow: 0 0 30px rgba(157,125,255,.12) inset, 0 0 24px rgba(56,241,255,.12);
+  }
+  .hud strong{ color:#fff; }
+  .hud .dot{ display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--neon-cyan); box-shadow:0 0 8px var(--neon-cyan); margin-right:6px;}
+  .corner-start, .corner-exit{
+    position:fixed; font-size:12px; color:var(--hud-dim);
+    text-shadow:0 0 8px rgba(157,125,255,.35); pointer-events:none;
+  }
+  .corner-start{ top:8px; left:8px; }
+  .corner-exit{ right:8px; bottom:8px; }
+
+  /* Toast de choque */
+  .toast{
+    position:fixed; left:50%; bottom:30px; transform:translateX(-50%) translateY(120%);
+    color:#001; background:#fff; border-radius:14px; padding:10px 14px; font-weight:600;
+    box-shadow:0 10px 30px rgba(0,0,0,.35), 0 0 24px rgba(255,77,203,.25) inset;
+    border:2px solid rgba(255,77,203,.6);
+    transition: transform .35s ease;
+    z-index:4; pointer-events:none;
+  }
+  .toast.show{ transform:translateX(-50%) translateY(0); }
+
+  /* Modal de victoria */
+  .modal{
+    position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:5;
+    background: radial-gradient(900px 600px at 50% 40%, rgba(157,125,255,.18), rgba(0,0,0,.65));
+    backdrop-filter: blur(2px);
+  }
+  .modal.show{ display:flex; }
+  .modal-card{
+    position:relative; width:min(720px, 92vw); color:#001; background:#ffffffee; border-radius:18px; padding:22px 20px 18px;
+    border:2px solid var(--neon-violet);
+    box-shadow: 0 0 0 4px rgba(56,241,255,.25), 0 30px 80px rgba(0,0,0,.5);
+  }
+  .modal h1{
+    margin:0 0 8px; font-size:26px; color:#1b0b33; text-align:center;
+    text-shadow:0 0 10px rgba(157,125,255,.35);
+  }
+  .modal p{
+    margin:0 0 14px; text-align:center; color:#222; font-size:15px;
+  }
+  .btn{
+    display:inline-block; cursor:pointer; border:none; pointer-events:auto;
+    padding:12px 18px; border-radius:12px; font-weight:700; font-size:14px;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
+    color:white; box-shadow:0 10px 25px rgba(56,241,255,.3), 0 0 18px rgba(255,75,209,.25);
+    transition: transform .08s ease, box-shadow .2s ease, filter .2s ease;
+  }
+  .btn:hover{ filter:saturate(1.1); box-shadow:0 12px 28px rgba(56,241,255,.45), 0 0 22px rgba(255,75,209,.35); }
+  .btn:active{ transform:translateY(1px) scale(.99); }
+
+  /* Accesibilidad móvil: joystick “invisible” */
+  .touch-hint{
+    position:fixed; bottom:10px; left:10px; color:var(--hud-dim); font-size:12px; z-index:3; pointer-events:none;
+    background: linear-gradient(180deg, rgba(14,24,54,.45), rgba(10,16,34,.25));
+    border:1px solid rgba(157,125,255,.25); border-radius:10px; padding:8px 10px;
+  }
+
+  /* Preferencias de movimiento reducido */
+  @media (prefers-reduced-motion: reduce){
+    .toast, .btn{ transition:none }
+  }
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<canvas id="game" aria-label="JustAds canvas"></canvas>
+<canvas id="ui" aria-hidden="true"></canvas>
+
+<div class="hud" role="status" aria-live="polite">
+  <div><span class="dot"></span><strong>JustAds</strong> — Laberinto de anuncios</div>
+  <div>Controles: <strong>WASD / ←↑→↓</strong> o arrastra con el mouse/touch.</div>
+  <div>Choque con un ad = se abre su link 💥</div>
+</div>
+<div class="corner-start">Entrada ▸ (top-left)</div>
+<div class="corner-exit">Salida ▸ (bottom-right)</div>
+<div id="toast" class="toast">Oops! Ad trap! Volviendo al inicio…</div>
+
+<!-- Modal de victoria + confetti -->
+<div id="winModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="winTitle">
+  <div class="modal-card">
+    <h1 id="winTitle">🎉 ¡Felicitaciones, piloto galáctico!</h1>
+    <p>Has navegado el laberinto de anuncios y ahora posees <strong>1,000 dólares ficticios</strong> para gastar en el <em>Sistema Intergaláctico de Andrómeda</em>. Explora las estrellas… ¿o compra más anuncios?</p>
+    <div style="text-align:center; margin-top:10px;">
+      <button id="playAgain" class="btn">Play Again</button>
+    </div>
+    <canvas id="confetti" width="10" height="10" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;"></canvas>
+  </div>
+</div>
+
+<div class="touch-hint">Tip: arrastra en pantalla para mover el avatar.</div>
+
+<script>
+(() => {
+  /* =========================================================
+     Utilidades Canvas y Layout
+  ========================================================== */
+  const bg = document.getElementById('bg');
+  const game = document.getElementById('game');
+  const ui = document.getElementById('ui');
+  const ctxBG = bg.getContext('2d');
+  const ctx = game.getContext('2d');
+  const ctxUI = ui.getContext('2d');
+
+  const toast = document.getElementById('toast');
+  const winModal = document.getElementById('winModal');
+  const playAgainBtn = document.getElementById('playAgain');
+  const confetti = document.getElementById('confetti');
+  const ctxConfetti = confetti.getContext('2d');
+
+  const DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+  let vw = 0, vh = 0;   // tamaño viewport CSS px
+  // Sistema de coordenadas virtuales para diseñar el laberinto 0..W x 0..H
+  const WORLD_W = 2400;
+  const WORLD_H = 1350;
+
+  function resize() {
+    vw = window.innerWidth;
+    vh = window.innerHeight;
+
+    for (const c of [bg, game, ui]) {
+      c.width  = Math.floor(vw * DPR);
+      c.height = Math.floor(vh * DPR);
+      c.style.width = vw + 'px';
+      c.style.height = vh + 'px';
+    }
+    // Confetti canvas dentro del modal
+    confetti.width  = Math.floor(confetti.clientWidth * DPR);
+    confetti.height = Math.floor(confetti.clientHeight * DPR);
+
+    // Recalcular escala para ajustar mundo al viewport (letterbox)
+    scale = Math.min(vw / WORLD_W, vh / WORLD_H);
+    // Margen para centrar
+    offsetX = (vw - WORLD_W * scale) * 0.5;
+    offsetY = (vh - WORLD_H * scale) * 0.5;
+  }
+
+  // Mapeo mundo→pantalla
+  let scale = 1, offsetX = 0, offsetY = 0;
+  const toScreen = (x,y) => [ (x * scale + offsetX) * DPR, (y * scale + offsetY) * DPR ];
+  const toScreenLen = (len) => len * scale * DPR;
+  const toWorld = (sx,sy) => [ (sx / DPR - offsetX) / scale, (sy / DPR - offsetY) / scale ];
+
+  window.addEventListener('resize', resize, {passive:true});
+  resize();
+
+  /* =========================================================
+     Fondo: Estrellas con parallax ligero (BG canvas)
+  ========================================================== */
+  const starsFar = [], starsNear = [];
+  function initStars() {
+    starsFar.length = 0; starsNear.length = 0;
+    const nFar = 180, nNear = 90;
+    for (let i=0;i<nFar;i++){
+      starsFar.push({ x: Math.random()*WORLD_W, y: Math.random()*WORLD_H, z: 0.2 + Math.random()*0.3, a: 0.4 + Math.random()*0.4 });
+    }
+    for (let i=0;i<nNear;i++){
+      starsNear.push({ x: Math.random()*WORLD_W, y: Math.random()*WORLD_H, z: 0.6 + Math.random()*0.5, a: 0.5 + Math.random()*0.5 });
+    }
+  }
+  initStars();
+
+  /* =========================================================
+     Definición de Ads (rectángulos, leaderboards, skyscrapers y “horn” poligonales)
+     - coords en el sistema del mundo
+  ========================================================== */
+  // Helper color neon
+  const neon = {
+    pink:  '#ff4bd1',
+    cyan:  '#38f1ff',
+    violet:'#9d7dff',
+    lime:  '#9aff5b',
+    yellow:'#ffd43b',
+    orange:'#ff935b'
+  };
+
+  // Estructura de ad:
+  // { kind:'rect', x,y,w,h, color, glow, title, cta, link }
+  // { kind:'poly', points:[{x,y}...], bbox:{x,y,w,h}, color, glow, title, cta, link }
+  const ADS = [];
+
+  function addRect(x,y,w,h,color,glow,title,cta,link){
+    ADS.push({ kind:'rect', x,y,w,h, color, glow, title, cta, link });
+  }
+  function addPoly(points,color,glow,title,cta,link){
+    // bbox para hover rápido
+    let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;
+    for(const p of points){ if(p.x<minX)minX=p.x; if(p.y<minY)minY=p.y; if(p.x>maxX)maxX=p.x; if(p.y>maxY)maxY=p.y; }
+    ADS.push({ kind:'poly', points, bbox:{x:minX, y:minY, w:maxX-minX, h:maxY-minY}, color, glow, title, cta, link });
+  }
+
+  // Layout del laberinto (pasillos anchos, start libre arriba-izquierda y salida abajo-derecha)
+  // Fajas principales como paredes:
+  // Top, bottom y laterales
+  addRect(0,   0, WORLD_W, 60, neon.cyan,  true, "Nebula Cola", "Buy Now", "https://example.com");
+  addRect(0, WORLD_H-60, WORLD_W, 60, neon.pink, true, "Quantum Shoes", "Shop", "https://www.wikipedia.org");
+  addRect(0, 0, 60, WORLD_H, neon.violet, true, "Cat Videos 8K", "Watch", "https://www.youtube.com/results?search_query=cute+cat+videos");
+  addRect(WORLD_W-60, 0, 60, WORLD_H, neon.yellow, true, "Space Coffee", "Order", "https://www.amazon.com");
+
+  // Corredores internos (leaderboards horizontales)
+  addRect(180, 180, WORLD_W-360, 60, neon.orange, true, "Lunar Insurance", "Get Quote", "https://example.com");
+  addRect(180, 360, WORLD_W-600, 60, neon.cyan, true, "Photon Laptops", "Learn More", "https://www.lenovo.com");
+  addRect(420, 540, WORLD_W-600, 60, neon.violet, true, "Astro VPN", "Secure", "https://www.mozilla.org");
+  addRect(240, 720, WORLD_W-420, 60, neon.pink, true, "Holo Headphones", "Listen", "https://open.spotify.com");
+  addRect(420, 900, WORLD_W-600, 60, neon.yellow, true, "Zero-G Mattresses", "Sleep", "https://www.google.com/search?q=mattress");
+  addRect(180, 1080, WORLD_W-360, 60, neon.lime, true, "Andromeda Tours", "Book", "https://example.com");
+
+  // Skyscrapers verticales para estrechar pasillos
+  addRect(540, 240, 80, 360, neon.yellow, true, "Stellar Bank", "Open", "https://example.com");
+  addRect(960, 420, 80, 360, neon.cyan, true, "Drone Delivery", "Try", "https://example.com");
+  addRect(1380, 240, 80, 360, neon.pink, true, "Neon Soda", "Taste", "https://example.com");
+  addRect(1740, 420, 80, 360, neon.orange, true, "Plasma Bikes", "Ride", "https://example.com");
+  addRect(2040, 240, 80, 360, neon.violet, true, "StarHub Cloud", "Deploy", "https://example.com");
+
+  // Piezas poligonales “horn” (taper/angled)
+  addPoly(
+    [ {x:320,y:260},{x:650,y:260},{x:620,y:310},{x:360,y:340} ],
+    neon.lime, true, "Quark Snacks", "Yum", "https://example.com"
+  );
+  addPoly(
+    [ {x:880,y:770},{x:1160,y:740},{x:1200,y:840},{x:900,y:880} ],
+    neon.cyan, true, "Ion Engines", "Ignite", "https://example.com"
+  );
+  addPoly(
+    [ {x:1520,y:950},{x:1840,y:920},{x:1800,y:1000},{x:1540,y:1030} ],
+    neon.pink, true, "Warp Pizza", "Order", "https://example.com"
+  );
+  addPoly(
+    [ {x:1960,y:650},{x:2240,y:600},{x:2220,y:700},{x:1980,y:740} ],
+    neon.yellow, true, "Comet Gum", "Chew", "https://example.com"
+  );
+
+  // Zona de salida (no es ad; área “goal”)
+  const EXIT = { x: WORLD_W - 220, y: WORLD_H - 180, w: 160, h: 120 };
+
+  /* =========================================================
+     Player
+  ========================================================== */
+  const player = {
+    x: 110, y: 110, r: 12,
+    speed: 260,    // unidades del mundo por segundo
+    vx: 0, vy: 0,
+    color: '#ffffff',
+    glow: neon.cyan
+  };
+  const START = { x: player.x, y: player.y };
+
+  // Entrada por teclado
+  const keys = new Set();
+  window.addEventListener('keydown', (e)=>{
+    if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d','W','A','S','D'].includes(e.key)) {
+      keys.add(e.key.toLowerCase());
+      e.preventDefault();
+    }
+  }, {passive:false});
+  window.addEventListener('keyup', (e)=>{
+    keys.delete(e.key.toLowerCase());
+  }, {passive:true});
+
+  // Drag / touch: establece un vector hacia el puntero
+  let dragActive = false, dragTarget = {x:player.x, y:player.y};
+  function handlePointer(e){
+    const sx = ('touches' in e) ? e.touches[0].clientX : e.clientX;
+    const sy = ('touches' in e) ? e.touches[0].clientY : e.clientY;
+    const [wx, wy] = toWorld(sx * DPR, sy * DPR);
+    dragTarget.x = wx; dragTarget.y = wy;
+  }
+  window.addEventListener('mousedown', e=>{ dragActive = true; handlePointer(e); }, {passive:true});
+  window.addEventListener('mousemove', e=>{ if(dragActive) handlePointer(e); }, {passive:true});
+  window.addEventListener('mouseup',   ()=>{ dragActive = false; }, {passive:true});
+  window.addEventListener('touchstart', e=>{ dragActive = true; handlePointer(e); }, {passive:true});
+  window.addEventListener('touchmove',  e=>{ if(dragActive) handlePointer(e); }, {passive:true});
+  window.addEventListener('touchend',   ()=>{ dragActive = false; }, {passive:true});
+
+  /* =========================================================
+     Detección de colisiones
+  ========================================================== */
+  function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
+
+  function circleRectCollide(cx,cy,cr, rx,ry,rw,rh){
+    const closestX = clamp(cx, rx, rx+rw);
+    const closestY = clamp(cy, ry, ry+rh);
+    const dx = cx - closestX;
+    const dy = cy - closestY;
+    return (dx*dx + dy*dy) <= cr*cr;
+  }
+  function pointInPoly(px,py,points){
+    // ray casting
+    let inside=false;
+    for(let i=0,j=points.length-1;i<points.length;j=i++){
+      const xi=points[i].x, yi=points[i].y;
+      const xj=points[j].x, yj=points[j].y;
+      const intersect = ((yi>py)!==(yj>py)) && (px < (xj-xi)*(py-yi)/(yj-yi+1e-9)+xi);
+      if(intersect) inside=!inside;
+    }
+    return inside;
+  }
+  function distToSegment(px,py, x1,y1, x2,y2){
+    const vx=x2-x1, vy=y2-y1;
+    const wx=px-x1, wy=py-y1;
+    const c1 = vx*wx + vy*wy;
+    if(c1<=0) return Math.hypot(px-x1, py-y1);
+    const c2 = vx*vx + vy*vy;
+    if(c2<=c1) return Math.hypot(px-x2, py-y2);
+    const b = c1 / c2;
+    const bx = x1 + b*vx, by = y1 + b*vy;
+    return Math.hypot(px-bx, py-by);
+  }
+  function circlePolyCollide(cx,cy,cr, points, bbox){
+    // Prueba bbox rápida
+    if(!circleRectCollide(cx,cy,cr, bbox.x,bbox.y,bbox.w,bbox.h)) return false;
+    if(pointInPoly(cx,cy,points)) return true;
+    // Distancia mínima a aristas
+    let minD = Infinity;
+    for(let i=0;i<points.length;i++){
+      const a = points[i], b = points[(i+1)%points.length];
+      const d = distToSegment(cx,cy, a.x,a.y, b.x,b.y);
+      if(d < minD) minD = d;
+      if(minD <= cr) return true;
+    }
+    return false;
+  }
+
+  function hitAd(){
+    for(const ad of ADS){
+      if(ad.kind==='rect'){
+        if(circleRectCollide(player.x, player.y, player.r, ad.x, ad.y, ad.w, ad.h)) return ad;
+      } else {
+        if(circlePolyCollide(player.x, player.y, player.r, ad.points, ad.bbox)) return ad;
+      }
+    }
+    return null;
+  }
+
+  /* =========================================================
+     UI: abrir link en nueva pestaña con fallback si el popup es bloqueado
+  ========================================================== */
+  function openLink(url){
+    // Intento directo (user gesture probable); si es bloqueado, mostramos CTA
+    const w = window.open(url, '_blank', 'noopener,noreferrer');
+    if(!w || w.closed || typeof w.closed === 'undefined'){
+      // Fallback: crear un enlace visible y foco
+      showToast("¡Ad atrapó tu nave! Toca para visitarlo 👇");
+      const link = document.createElement('a');
+      link.href = url; link.target = "_blank"; link.rel="noopener noreferrer";
+      link.textContent = "Abrir Anuncio";
+      Object.assign(link.style, {
+        position:'fixed', left:'50%', bottom:'80px', transform:'translateX(-50%)',
+        background:'#fff', color:'#001', fontWeight:'800', padding:'12px 16px',
+        borderRadius:'12px', border:'2px solid #9d7dff', zIndex:6, textDecoration:'none',
+        boxShadow:'0 10px 20px rgba(0,0,0,.35), 0 0 18px rgba(157,125,255,.35)'
+      });
+      document.body.appendChild(link);
+      setTimeout(()=>{ try{ link.focus(); }catch{} }, 0);
+      // Retirar luego de unos segundos
+      setTimeout(()=>{ link.remove(); }, 6000);
+    }
+  }
+
+  let toastTimer = null;
+  function showToast(msg="Oops! Ad trap! Volviendo al inicio…"){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=> toast.classList.remove('show'), 2200);
+  }
+
+  /* =========================================================
+     Render de Ads en Canvas (con “look” de anuncio)
+  ========================================================== */
+  // Animaciones suaves de brillo
+  let tAnim = 0;
+
+  function drawAdRect(ad){
+    const [sx,sy] = toScreen(ad.x, ad.y);
+    const sw = toScreenLen(ad.w);
+    const sh = toScreenLen(ad.h);
+
+    // Glow
+    if(ad.glow){
+      ctx.shadowColor = ad.color;
+      ctx.shadowBlur = Math.max(8, 22*DPR);
+    } else { ctx.shadowBlur = 0; }
+
+    // Cuerpo
+    const rad = 10 * DPR;
+    roundRect(ctx, sx, sy, sw, sh, rad);
+    // Degradado interno animado
+    const g = ctx.createLinearGradient(sx, sy, sx+sw, sy+sh);
+    const pulse = 0.06*Math.sin(tAnim*0.002 + (sx+sy)*0.00002);
+    g.addColorStop(0, shade(ad.color, -0.38 + pulse));
+    g.addColorStop(1, shade(ad.color,  0.10 + pulse));
+    ctx.fillStyle = g;
+    ctx.fill();
+    ctx.lineWidth = 2*DPR;
+    ctx.strokeStyle = shade(ad.color, .35);
+    ctx.stroke();
+
+    // Contenido simulado (imagen, título, botón)
+    ctx.shadowBlur = 0;
+    // “Imagen”
+    ctx.fillStyle = 'rgba(255,255,255,.14)';
+    const imgH = Math.min(sh*0.6, 120*DPR);
+    ctx.fillRect(sx + 10*DPR, sy + 10*DPR, Math.min(sw-20*DPR, 220*DPR), imgH);
+
+    // Título
+    ctx.fillStyle = 'rgba(255,255,255,.95)';
+    ctx.font = `${12*DPR}px ui-sans-serif, system-ui, Roboto, Arial`;
+    ctx.fillText(ad.title || 'Ad Title', sx + 12*DPR, sy + imgH + 28*DPR);
+
+    // CTA
+    const ctaText = ad.cta || 'Buy Now';
+    ctx.font = `${12*DPR}px ui-sans-serif, system-ui, Roboto, Arial`;
+    const textW = ctx.measureText(ctaText).width;
+    const btnW = textW + 20*DPR, btnH = 18*DPR;
+    const btnX = sx + sw - btnW - 10*DPR;
+    const btnY = sy + sh - btnH - 10*DPR;
+    ctx.fillStyle = 'rgba(255,255,255,.9)';
+    roundRect(ctx, btnX, btnY, btnW, btnH, 8*DPR);
+    ctx.fill();
+    ctx.fillStyle = '#001';
+    ctx.fillText(ctaText, btnX + 10*DPR, btnY + 13*DPR);
+  }
+
+  function drawAdPoly(ad){
+    const pts = ad.points.map(p => toScreen(p.x, p.y));
+    // Glow
+    if(ad.glow){
+      ctx.shadowColor = ad.color;
+      ctx.shadowBlur = Math.max(8, 22*DPR);
+    } else { ctx.shadowBlur = 0; }
+    // Cuerpo
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    for(let i=1;i<pts.length;i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.closePath();
+    const pulse = 0.06*Math.sin(tAnim*0.002 + pts[0][0]*0.00002);
+    ctx.fillStyle = shade(ad.color, -0.15 + pulse);
+    ctx.fill();
+    ctx.lineWidth = 2*DPR;
+    ctx.strokeStyle = shade(ad.color, .35);
+    ctx.stroke();
+
+    // Título + CTA compactos
+    ctx.shadowBlur = 0;
+    // Calcular caja simple para pintar etiqueta
+    const b = ad.bbox;
+    const [sx,sy] = toScreen(b.x+8, b.y+8);
+    const sw = toScreenLen(Math.min(160, b.w-16));
+    const sh = toScreenLen(40);
+    ctx.fillStyle = 'rgba(255,255,255,.9)';
+    roundRect(ctx, sx, sy, sw, sh, 8*DPR); ctx.fill();
+    ctx.fillStyle = '#001';
+    ctx.font = `${12*DPR}px ui-sans-serif, system-ui, Roboto, Arial`;
+    ctx.fillText((ad.title||'Ad'), sx + 10*DPR, sy + 14*DPR);
+    ctx.fillText((ad.cta||'Open'), sx + 10*DPR, sy + 28*DPR);
+  }
+
+  function roundRect(ctx, x,y,w,h,r){
+    ctx.beginPath();
+    ctx.moveTo(x+r, y);
+    ctx.arcTo(x+w, y, x+w, y+h, r);
+    ctx.arcTo(x+w, y+h, x, y+h, r);
+    ctx.arcTo(x, y+h, x, y, r);
+    ctx.arcTo(x, y, x+w, y, r);
+    ctx.closePath();
+  }
+  function shade(hex, l=0){
+    // lighten/darken hex color by factor l (-1..1)
+    const c = hex.replace('#','');
+    const n = parseInt(c,16);
+    let r=(n>>16)&255, g=(n>>8)&255, b=n&255;
+    if(l>=0){ r = r + (255-r)*l; g = g + (255-g)*l; b = b + (255-b)*l; }
+    else { r = r*(1+l); g = g*(1+l); b = b*(1+l); }
+    r|=0; g|=0; b|=0;
+    return `rgb(${r},${g},${b})`;
+  }
+
+  /* =========================================================
+     Render: BG, Ads, Player, UI
+  ========================================================== */
+  let last = performance.now();
+  let won = false;
+
+  function drawBG(dt){
+    ctxBG.clearRect(0,0,bg.width,bg.height);
+    // Parallax leve en base a posición del jugador
+    const parX = (player.x / WORLD_W - 0.5) * 30;
+    const parY = (player.y / WORLD_H - 0.5) * 30;
+
+    // Helper
+    function drawStars(arr, sizeMin, sizeMax){
+      for(const s of arr){
+        // desplazamiento sutil animado
+        const sx = s.x + Math.sin((tAnim*0.0002 + s.x*0.001))*2*s.z + parX*s.z;
+        const sy = s.y + Math.cos((tAnim*0.00025 + s.y*0.001))*2*s.z + parY*s.z;
+        const [x,y] = toScreen((sx+WORLD_W)%WORLD_W, (sy+WORLD_H)%WORLD_H);
+        const r = toScreenLen(sizeMin + (sizeMax-sizeMin)*s.z);
+        ctxBG.globalAlpha = s.a;
+        ctxBG.fillStyle = '#ffffff';
+        ctxBG.beginPath(); ctxBG.arc(x,y,r,0,Math.PI*2); ctxBG.fill();
+      }
+      ctxBG.globalAlpha = 1;
+    }
+    drawStars(starsFar, 0.7, 1.4);
+    drawStars(starsNear, 1.0, 2.2);
+  }
+
+  function drawGame(dt){
+    ctx.clearRect(0,0,game.width,game.height);
+
+    // Ads
+    for(const ad of ADS){
+      if(ad.kind==='rect') drawAdRect(ad);
+      else drawAdPoly(ad);
+    }
+
+    // Exit area
+    {
+      const [sx,sy] = toScreen(EXIT.x, EXIT.y);
+      const sw = toScreenLen(EXIT.w);
+      const sh = toScreenLen(EXIT.h);
+      const glow = 18*DPR + 10*Math.sin(tAnim*0.004);
+      ctx.shadowColor = neon.cyan;
+      ctx.shadowBlur = glow;
+      const g = ctx.createLinearGradient(sx, sy, sx+sw, sy+sh);
+      g.addColorStop(0, 'rgba(56,241,255,.30)');
+      g.addColorStop(1, 'rgba(157,125,255,.35)');
+      ctx.fillStyle = g;
+      roundRect(ctx, sx, sy, sw, sh, 14*DPR);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      ctx.font = `${14*DPR}px ui-sans-serif, system-ui, Roboto, Arial`;
+      ctx.fillStyle = 'rgba(255,255,255,.95)';
+      ctx.fillText('EXIT →', sx + 12*DPR, sy + 22*DPR);
+    }
+
+    // Player
+    const [px,py] = toScreen(player.x, player.y);
+    ctx.shadowColor = player.glow;
+    ctx.shadowBlur = 18*DPR;
+    ctx.beginPath(); ctx.arc(px, py, toScreenLen(player.r), 0, Math.PI*2); ctx.fillStyle = player.color; ctx.fill();
+    ctx.shadowBlur = 0;
+
+    // HUD arrow nose
+    ctx.beginPath();
+    ctx.moveTo(px + toScreenLen(player.r), py);
+    ctx.lineTo(px + toScreenLen(player.r*1.8), py);
+    ctx.strokeStyle = player.glow; ctx.lineWidth = 2*DPR; ctx.stroke();
+  }
+
+  function drawUI(){
+    ctxUI.clearRect(0,0,ui.width,ui.height);
+    // “Hover” visual si el mouse está sobre un ad (hit test)
+    const mx = lastMouse.sx, my = lastMouse.sy;
+    if(mx!==null){
+      const [wx,wy] = toWorld(mx, my);
+      for(const ad of ADS){
+        let over=false;
+        if(ad.kind==='rect'){
+          over = (wx>=ad.x && wx<=ad.x+ad.w && wy>=ad.y && wy<=ad.y+ad.h);
+        } else {
+          if(wx>=ad.bbox.x && wx<=ad.bbox.x+ad.bbox.w && wy>=ad.bbox.y && wy<=ad.bbox.y+ad.bbox.h){
+            over = pointInPoly(wx,wy,ad.points);
+          }
+        }
+        if(over){
+          // Marco brillante
+          ctxUI.strokeStyle = 'rgba(255,255,255,.9)';
+          ctxUI.lineWidth = 2*DPR;
+          ctxUI.setLineDash([6*DPR, 6*DPR]);
+          if(ad.kind==='rect'){
+            const [sx,sy] = toScreen(ad.x, ad.y);
+            const sw = toScreenLen(ad.w), sh = toScreenLen(ad.h);
+            roundRect(ctxUI, sx, sy, sw, sh, 10*DPR); ctxUI.stroke();
+          }else{
+            const pts = ad.points.map(p => toScreen(p.x, p.y));
+            ctxUI.beginPath();
+            ctxUI.moveTo(pts[0][0], pts[0][1]);
+            for(let i=1;i<pts.length;i++) ctxUI.lineTo(pts[i][0], pts[i][1]);
+            ctxUI.closePath(); ctxUI.stroke();
+          }
+          ctxUI.setLineDash([]);
+          break;
+        }
+      }
+    }
+  }
+
+  // Click manual en ad
+  let lastMouse = { sx:null, sy:null };
+  window.addEventListener('mousemove', (e)=>{ lastMouse.sx = e.clientX * DPR; lastMouse.sy = e.clientY * DPR; }, {passive:true});
+  window.addEventListener('mouseleave', ()=>{ lastMouse.sx = lastMouse.sy = null; }, {passive:true});
+  window.addEventListener('click', (e)=>{
+    const sx = e.clientX * DPR, sy = e.clientY * DPR;
+    const [wx,wy] = toWorld(sx, sy);
+    for(const ad of ADS){
+      let over=false;
+      if(ad.kind==='rect') over = (wx>=ad.x && wx<=ad.x+ad.w && wy>=ad.y && wy<=ad.y+ad.h);
+      else {
+        if(wx>=ad.bbox.x && wx<=ad.bbox.x+ad.bbox.w && wy>=ad.bbox.y && wy<=ad.bbox.y+ad.bbox.h){
+          over = pointInPoly(wx,wy,ad.points);
+        }
+      }
+      if(over){ openLink(ad.link); break; }
+    }
+  }, {passive:true});
+
+  /* =========================================================
+     Confetti sencillo
+  ========================================================== */
+  let confettiBurst = [];
+  function triggerConfetti(){
+    confettiBurst = [];
+    const N = 180;
+    for(let i=0;i<N;i++){
+      const a = Math.random()*Math.PI*2;
+      const v = 2 + Math.random()*6;
+      confettiBurst.push({
+        x: confetti.width/2, y: confetti.height/3,
+        vx: Math.cos(a)*v, vy: Math.sin(a)*v - 2,
+        g: 0.05 + Math.random()*0.08,
+        s: 2 + Math.random()*3,
+        c: [neon.cyan, neon.pink, neon.violet, neon.yellow, neon.orange, neon.lime][(Math.random()*6)|0],
+        life: 220 + (Math.random()*80|0)
+      });
+    }
+  }
+  function drawConfetti(){
+    ctxConfetti.clearRect(0,0,confetti.width,confetti.height);
+    for(const p of confettiBurst){
+      ctxConfetti.fillStyle = p.c;
+      ctxConfetti.beginPath(); ctxConfetti.arc(p.x, p.y, p.s*DPR, 0, Math.PI*2); ctxConfetti.fill();
+      p.x += p.vx; p.y += p.vy; p.vy += p.g;
+      p.life--;
+    }
+    confettiBurst = confettiBurst.filter(p=>p.life>0 && p.y<confetti.height+20);
+  }
+
+  /* =========================================================
+     Game Loop
+  ========================================================== */
+  function reset(){
+    player.x = START.x; player.y = START.y;
+    player.vx=0; player.vy=0;
+    won=false;
+  }
+
+  function step(now){
+    const dt = Math.min(0.033, (now - last)/1000); // clamp 30ms
+    last = now; tAnim += (now - last) * 0.6 + 16;
+
+    // Update player movement
+    let ax=0, ay=0;
+    if(keys.has('arrowup') || keys.has('w')) ay -= 1;
+    if(keys.has('arrowdown') || keys.has('s')) ay += 1;
+    if(keys.has('arrowleft') || keys.has('a')) ax -= 1;
+    if(keys.has('arrowright') || keys.has('d')) ax += 1;
+
+    // Drag target: moverse hacia el punto
+    if(dragActive){
+      const dx = dragTarget.x - player.x;
+      const dy = dragTarget.y - player.y;
+      const L = Math.hypot(dx,dy) || 1;
+      ax += dx / L;
+      ay += dy / L;
+    }
+
+    // Normalizar
+    const L = Math.hypot(ax, ay) || 0;
+    if(L>0){ ax/=L; ay/=L; }
+
+    const spd = player.speed * (dragActive ? 0.85 : 1.0);
+    player.vx = ax * spd;
+    player.vy = ay * spd;
+
+    // Integrar
+    player.x += player.vx * dt;
+    player.y += player.vy * dt;
+
+    // Limites del mundo (con espacio para bordes)
+    player.x = clamp(player.x, player.r+62, WORLD_W - player.r - 62);
+    player.y = clamp(player.y, player.r+62, WORLD_H - player.r - 62);
+
+    // Colisión con ads → abrir link y reset
+    const ad = hitAd();
+    if(ad){
+      openLink(ad.link);
+      showToast();
+      reset();
+    }
+
+    // Victoria si entra en EXIT
+    if(!won && circleRectCollide(player.x, player.y, player.r, EXIT.x, EXIT.y, EXIT.w, EXIT.h)){
+      won = true;
+      winModal.classList.add('show');
+      triggerConfetti();
+    }
+
+    // Draw
+    drawBG(dt);
+    drawGame(dt);
+    drawUI();
+
+    // Confetti si modal visible
+    if(winModal.classList.contains('show')){
+      drawConfetti();
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  requestAnimationFrame((ts)=>{ last=ts; requestAnimationFrame(step); });
+
+  // Play again
+  playAgainBtn.addEventListener('click', ()=>{
+    winModal.classList.remove('show');
+    reset();
+  });
+
+})();
+</script>
+</body>
+</html>
