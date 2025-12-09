@@ -17,8 +17,8 @@
   <link rel="icon" type="image/png" href="/andro.png" sizes="192x192"/>
   <link rel="apple-touch-icon" href="/andro.png">
 
-  <!-- Theme color (mejora UI en Android/iOS) -->
-  <meta name="theme-color" content="#020617" media="(prefers-color-scheme: dark)">
+  <!-- Theme color -->
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 
   <!-- ====== OPEN GRAPH / TWITTER ====== -->
@@ -41,7 +41,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- Tailwind CDN con darkMode por clase (sin defer para evitar FOUC) -->
+  <!-- Tailwind CDN con darkMode por clase -->
   <script>tailwind = { config: { darkMode: 'class' } };</script>
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -52,7 +52,6 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
     :root{
-      /* Paleta más profesional y sobria */
       --violet:#6366f1;
       --violet-2:#8b5cf6;
       --blue:#0ea5e9;
@@ -76,15 +75,15 @@
       mix-blend-mode: screen;
     }
 
-    /* Fondo oscuro más profundo con colores mezclados */
+    /* Fondo MUCHO más oscuro */
     .dark .blurred-gradient-bg{
       background:
-        radial-gradient(55% 55% at 15% 0%, rgba(99,102,241,0.55) 0%, transparent 60%),
-        radial-gradient(60% 60% at 85% 10%, rgba(14,165,233,0.55) 0%, transparent 60%),
-        radial-gradient(65% 65% at 20% 90%, rgba(139,92,246,0.55) 0%, transparent 60%),
-        radial-gradient(70% 70% at 80% 85%, rgba(34,197,94,0.5) 0%, transparent 60%),
-        radial-gradient(120% 120% at 50% 40%, rgba(15,23,42,0.9) 0%, rgba(15,23,42,0) 60%);
-      background-color:#020617;
+        radial-gradient(50% 50% at 15% 0%, rgba(99,102,241,0.35) 0%, transparent 55%),
+        radial-gradient(55% 55% at 85% 10%, rgba(14,165,233,0.35) 0%, transparent 55%),
+        radial-gradient(60% 60% at 20% 90%, rgba(139,92,246,0.3) 0%, transparent 55%),
+        radial-gradient(60% 60% at 80% 85%, rgba(34,197,94,0.28) 0%, transparent 55%),
+        radial-gradient(130% 130% at 50% 30%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.2) 60%);
+      background-color:#000000;
       background-blend-mode:screen,screen,screen,screen,normal;
     }
 
@@ -98,9 +97,9 @@
         radial-gradient(120% 120% at 50% 30%, rgba(255,255,255,.25) 0%, rgba(255,255,255,0) 60%);
     }
 
-    /* ===== Bases de contraste seguras ===== */
+    /* Bases de contraste */
     html:not(.dark) body{ color:#0f172a; background:#f9fafb; }
-    html.dark body{ color:#e5e7eb; background:#020617; }
+    html.dark body{ color:#e5e7eb; background:#000000; }
     html.dark{ color-scheme: dark; }
 
     /* Fallbacks EXTRA en oscuro si fallan utilidades dark: */
@@ -120,16 +119,13 @@
     html:not(.dark) .dark\:text-gray-300{ color:#0f172a !important; }
     html:not(.dark) .text-gray-600{ color:#1f2937 !important; }
 
-    /* Evitar afectar el texto con filtros */
     #page-content-wrapper { backdrop-filter: blur(0.5px); }
 
-    /* Tipografía y énfasis visual */
     .gradient-text{
       background: linear-gradient(135deg, var(--violet), var(--teal));
       -webkit-background-clip:text; -webkit-text-fill-color:transparent;
     }
 
-    /* Tarjetas más sobrias en oscuro */
     .soft-card{
       background: rgba(255,255,255,0.9);
       backdrop-filter: blur(10px);
@@ -137,9 +133,9 @@
       box-shadow:0 18px 50px rgba(15,23,42,0.08);
     }
     .dark .soft-card{
-      background: rgba(15,23,42,0.88);
-      border: 1px solid rgba(148,163,184,0.15);
-      box-shadow:0 22px 60px rgba(0,0,0,0.6);
+      background: rgba(3,7,18,0.96);
+      border: 1px solid rgba(30,64,175,0.7);
+      box-shadow:0 24px 70px rgba(0,0,0,0.9);
     }
 
     .hover-lift{transition:transform .25s ease, box-shadow .25s ease}
@@ -174,16 +170,15 @@
       background:rgba(248,250,252,1);
     }
     .dark .btn-ghost{
-      background: rgba(15,23,42,0.9);
+      background: rgba(15,23,42,0.96);
       color:#e5e7eb;
-      border:1px solid rgba(148,163,184,.4);
-      box-shadow:0 10px 25px rgba(15,23,42,0.8);
+      border:1px solid rgba(148,163,184,.5);
+      box-shadow:0 10px 28px rgba(0,0,0,0.9);
     }
     .dark .btn-ghost:hover{
       background:rgba(15,23,42,1);
     }
 
-    /* FAB WhatsApp */
     .whatsapp-fab{
       position:fixed; right:18px;
       bottom:calc(env(safe-area-inset-bottom, 0px) + 18px);
@@ -198,29 +193,24 @@
       box-shadow:0 18px 30px rgba(0,0,0,.55);
     }
 
-    /* Barra superior glass más elegante */
     .nav-glass{
       background: linear-gradient(to right, rgba(255,255,255,0.86), rgba(248,250,252,0.9));
       backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(148,163,184,0.4);
     }
     .dark .nav-glass{
-      background: linear-gradient(to right, rgba(2,6,23,0.9), rgba(15,23,42,0.92));
-      border-bottom: 1px solid rgba(30,64,175,0.5);
-      box-shadow:0 18px 40px rgba(15,23,42,0.85);
+      background: linear-gradient(to right, rgba(0,0,0,0.95), rgba(15,23,42,0.96));
+      border-bottom: 1px solid rgba(30,64,175,0.8);
+      box-shadow:0 18px 40px rgba(0,0,0,0.9);
     }
 
-    /* En oscuro, toggles blancos */
     .dark #lang-es, .dark #lang-en, .dark #lang-es-mobile, .dark #lang-en-mobile { color:#ffffff !important; }
     .dark #theme-toggle, .dark #theme-toggle-mobile { color:#ffffff !important; border-color: rgba(255,255,255,0.5) !important; }
     .dark #theme-toggle span, .dark #theme-toggle-mobile span { color:#ffffff !important; }
 
-    /* En claro, aviso de dominio negro + negrita */
     html:not(.dark) [data-i18n="note_domain"]{
       color:#000 !important; font-weight:700; font-style:normal;
     }
-
-    /* Placeholders claros en modo claro */
     html:not(.dark) input::placeholder,
     html:not(.dark) textarea::placeholder{
       color:#000 !important; font-weight:700; opacity:1;
@@ -236,7 +226,7 @@
     "url":"https://vision-itaca.store/",
     "logo":"https://vision-itaca.store/andro.png",
     "sameAs":[
-      "https://www.instagram.com/andromadorian", 
+      "https://www.instagram.com/andromadorian",
       "https://www.facebook.com/andromadorian"
     ]
   }
@@ -353,25 +343,6 @@
               <span data-i18n="cta_examples">Ver Ejemplos</span>
             </a>
           </div>
-
-          <!-- Redes sociales -->
-          <div class="mt-6 flex items-center justify-center gap-6" role="group" aria-label="Redes sociales">
-            <a class="inline-flex items-center gap-2 group" href="https://www.tiktok.com/@andromadorian" target="_blank" rel="noopener" aria-label="TikTok @andromadorian">
-              <img src="/assets/tiktok.png" alt="TikTok" class="w-7 h-7 object-contain" width="28" height="28" loading="lazy">
-              <span class="text-sm text-gray-800 dark:text-gray-200 group-hover:underline hidden sm:inline">@andromadorian</span>
-              <span class="sr-only">TikTok</span>
-            </a>
-            <a class="inline-flex items-center gap-2 group" href="https://www.youtube.com/@andromadorian" target="_blank" rel="noopener" aria-label="YouTube @andromadorian">
-              <img src="/assets/youtube.png" alt="YouTube" class="w-7 h-7 object-contain" width="28" height="28" loading="lazy">
-              <span class="text-sm text-gray-800 dark:text-gray-200 group-hover:underline hidden sm:inline">@andromadorian</span>
-              <span class="sr-only">YouTube</span>
-            </a>
-            <a class="inline-flex items-center gap-2 group" href="https://www.instagram.com/andromadorian" target="_blank" rel="noopener" aria-label="Instagram @andromadorian">
-              <img src="/assets/insta.png" alt="Instagram" class="w-7 h-7 object-contain" width="28" height="28" loading="lazy">
-              <span class="text-sm text-gray-800 dark:text-gray-200 group-hover:underline hidden sm:inline">@andromadorian</span>
-              <span class="sr-only">Instagram</span>
-            </a>
-          </div>
         </div>
       </div>
     </section>
@@ -388,7 +359,7 @@
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div class="soft-card p-7 rounded-xl hover-lift">
-            <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-slate-900/90 dark:bg-slate-800/90">
+            <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-slate-900/90 dark:bg-black/80">
               <i data-feather="zap" class="text-emerald-400 w-6 h-6" aria-hidden="true"></i>
             </div>
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2" data-i18n="svc_1_t">Entrega Rápida</h3>
@@ -396,7 +367,7 @@
           </div>
 
           <div class="soft-card p-7 rounded-xl hover-lift">
-            <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-slate-900/90 dark:bg-slate-800/90">
+            <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-slate-900/90 dark:bg-black/80">
               <i data-feather="smartphone" class="text-sky-400 w-6 h-6" aria-hidden="true"></i>
             </div>
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2" data-i18n="svc_2_t">Responsive Design</h3>
@@ -404,7 +375,7 @@
           </div>
 
           <div class="soft-card p-7 rounded-xl hover-lift">
-            <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-slate-900/90 dark:bg-slate-800/90">
+            <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-slate-900/90 dark:bg-black/80">
               <i data-feather="search" class="text-violet-400 w-6 h-6" aria-hidden="true"></i>
             </div>
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2" data-i18n="svc_3_t">SEO Optimizado</h3>
@@ -520,20 +491,20 @@
             <div class="grid md:grid-cols-2 gap-6">
               <div>
                 <label for="name" class="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-2" data-i18n="ct_name_l">Nombre</label>
-                <input id="name" type="text" name="Nombre" required class="w-full px-4 py-3 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/40 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[color:var(--violet)]" placeholder="Tu nombre" autocomplete="name"/>
+                <input id="name" type="text" name="Nombre" required class="w-full px-4 py-3 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/60 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[color:var(--violet)]" placeholder="Tu nombre" autocomplete="name"/>
               </div>
               <div>
                 <label for="email" class="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-2" data-i18n="ct_email_l">Email</label>
-                <input id="email" type="email" name="Email" required class="w-full px-4 py-3 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/40 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[color:var(--violet)]" placeholder="tu@email.com" autocomplete="email"/>
+                <input id="email" type="email" name="Email" required class="w-full px-4 py-3 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/60 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[color:var(--violet)]" placeholder="tu@email.com" autocomplete="email"/>
               </div>
             </div>
             <div>
               <label for="phone" class="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-2" data-i18n="ct_phone_l">Teléfono (Opcional)</label>
-              <input id="phone" type="tel" name="Teléfono" class="w-full px-4 py-3 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/40 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[color:var(--violet)]" placeholder="(Opcional)" autocomplete="tel"/>
+              <input id="phone" type="tel" name="Teléfono" class="w-full px-4 py-3 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/60 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[color:var(--violet)]" placeholder="(Opcional)" autocomplete="tel"/>
             </div>
             <div>
               <label for="message" class="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-2" data-i18n="ct_msg_l">Tu idea y objetivos</label>
-              <textarea id="message" name="Mensaje" rows="6" required class="w-full px-4 py-3 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/40 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[color:var(--violet)]" placeholder="Contame sobre tu proyecto..." autocomplete="off"></textarea>
+              <textarea id="message" name="Mensaje" rows="6" required class="w-full px-4 py-3 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/60 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[color:var(--violet)]" placeholder="Contame sobre tu proyecto..." autocomplete="off"></textarea>
             </div>
             <button type="submit" class="btn-primary w-full font-semibold py-4 px-6 rounded-full hover-lift transition-all">
               <i data-feather="send" class="w-5 h-5 mr-2 inline" aria-hidden="true"></i>
@@ -658,7 +629,7 @@
   </a>
 
   <script>
-    // ===== MENU MÓVIL =====
+    // MENU MÓVIL
     const menuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
     menuButton?.addEventListener('click', () => {
@@ -673,7 +644,7 @@
       });
     });
 
-    // ===== THEME =====
+    // THEME
     const htmlEl = document.documentElement;
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) htmlEl.classList.toggle('dark', savedTheme === 'dark');
@@ -686,7 +657,7 @@
     document.getElementById('theme-toggle')?.addEventListener('click', themeToggleHandler);
     document.getElementById('theme-toggle-mobile')?.addEventListener('click', themeToggleHandler);
 
-    // ===== I18N =====
+    // I18N
     const t = {
       es:{ nav_services:'Servicios', nav_examples:'Ejemplos', nav_contact:'Contacto', toggle_theme:'Tema',
         hero_title:'Sitios web que <span class="gradient-text">venden</span>',
@@ -751,7 +722,7 @@
     const savedLang = localStorage.getItem('lang');
     applyI18n(savedLang === 'en' ? 'en' : 'es');
 
-    // ===== FAQ: acordeón =====
+    // FAQ
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
       const btn = item.querySelector('button');
@@ -775,7 +746,7 @@
       });
     });
 
-    // Iconos + evitar FOUC (fade-in cuando todo está listo)
+    // Iconos + evitar FOUC
     document.addEventListener('DOMContentLoaded', () => {
       document.body.style.opacity = '1';
       feather.replace();
