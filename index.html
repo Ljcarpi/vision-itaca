@@ -1,341 +1,798 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="dark">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Vision-Itaca — Próximamente</title>
-  <meta name="description" content="Vision-Itaca — Sitio en desarrollo. Mientras tanto, juega Snake, Pong y Breakout." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- ====== SEO BÁSICO ====== -->
+  <title>Vision Itaca — Sitios web profesionales | Diseño rápido, limpio y optimizado</title>
+  <meta name="description" content="Vision Itaca crea sitios web profesionales: rápidos, limpios y optimizados para SEO. Diseño responsive, formularios, WhatsApp flotante, SSL, integración con redes y más. ¡Desde 10 USD!">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://vision-itaca.store/"/>
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="/andro.png" sizes="32x32"/>
+  <link rel="icon" type="image/png" href="/andro.png" sizes="192x192"/>
+  <link rel="apple-touch-icon" href="/andro.png">
+
+  <!-- Theme color (mejora UI en Android/iOS) -->
+  <meta name="theme-color" content="#020617" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+
+  <!-- ====== OPEN GRAPH / TWITTER ====== -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Vision Itaca">
+  <meta property="og:title" content="Sitios web profesionales que venden">
+  <meta property="og:description" content="Landing pages rápidas, limpias y con estilo. Diseño claro, CTAs efectivos y SEO listo para Google.">
+  <meta property="og:url" content="https://vision-itaca.store/">
+  <meta property="og:image" content="https://vision-itaca.store/assets/producto-digital.png">
+  <meta property="og:image:alt" content="Ejemplo de sitio profesional Vision Itaca">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sitios web profesionales que venden">
+  <meta name="twitter:description" content="Diseño web claro, rápido y optimizado para SEO. Desde 10 USD.">
+  <meta name="twitter:image" content="https://vision-itaca.store/assets/producto-digital.png">
+
+  <!-- ====== PERFORMANCE HINTS ====== -->
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN con darkMode por clase (sin defer para evitar FOUC) -->
+  <script>tailwind = { config: { darkMode: 'class' } };</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Iconos -->
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js" defer></script>
+
   <style>
-    :root {
-      --bg: #0a0a0f; --text: #eae6ff; --muted: #b9b2e6;
-      --accent: #a78bfa; --accent-2: #7c3aed; --accent-3: #c4b5fd;
-      --shadow: 0 10px 40px rgba(124, 58, 237, 0.25), 0 2px 12px rgba(167, 139, 250, 0.15);
-    }
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    html, body { height: 100% }
-    body {
-      margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color: var(--text);
-      background: radial-gradient(1200px 800px at 80% -20%, rgba(124,58,237,0.14), transparent 60%),
-                  radial-gradient(1200px 800px at -10% 120%, rgba(167,139,250,0.10), transparent 60%),
-                  linear-gradient(180deg, #0a0a0f 0%, #0c0c14 100%);
-    }
-    .container { max-width: 1080px; margin: 0 auto; padding: 32px 16px 64px }
-    header { text-align: center; margin-top: 12px; margin-bottom: 28px }
-    .brand { font-size: clamp(28px, 6vw, 56px); font-weight: 800; letter-spacing: .5px; text-shadow: 0 1px 0 #000, 0 8px 30px rgba(167,139,250,.35) }
-    .sub { font-size: clamp(16px, 3vw, 22px); color: var(--accent-3); margin-top: 4px }
-    .note { margin: 16px auto 28px; max-width: 820px; line-height: 1.5; color: var(--muted);
-      background: linear-gradient(180deg, rgba(124,58,237,0.15), rgba(124,58,237,0.08)); border: 1px solid rgba(167,139,250,0.35);
-      padding: 12px 16px; border-radius: 14px; box-shadow: var(--shadow) }
-    .tabs { display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; margin: 12px 0 4px }
-    .tab-btn { appearance: none; border: 1px solid rgba(167,139,250,0.45); background: linear-gradient(180deg, #151523, #131327);
-      color: var(--text); padding: 10px 14px; border-radius: 12px; cursor: pointer; font-weight: 600; letter-spacing: .2px;
-      transition: transform .08s ease, box-shadow .2s ease, border-color .2s ease; }
-    .tab-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow) }
-    .tab-btn.active { border-color: var(--accent-2); box-shadow: inset 0 0 0 1px var(--accent-2), 0 10px 30px rgba(124,58,237,.25) }
-    .frame { margin-top: 18px; background: linear-gradient(180deg, #0f0f1a, #0e0e17); border: 1px solid rgba(167,139,250,.3);
-      border-radius: 18px; padding: 16px; box-shadow: var(--shadow) }
-    .game-wrap { display: none; position: relative }
-    .game-wrap.active { display: block }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-    /* Canvas responsive y nítido en móvil */
-    .canvas-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px }
-    canvas { width: min(100%, 520px); height: auto; background: #05050a; border-radius: 12px; border: 1px solid rgba(167,139,250,.25); box-shadow: inset 0 0 40px rgba(124,58,237,0.12) }
-    .hud { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; align-items: center; margin-top: 6px }
-    .pill { background: #121225; border: 1px solid rgba(167,139,250,.35); padding: 6px 10px; border-radius: 999px; font-size: 14px; color: var(--accent-3) }
-    .actions { display: flex; justify-content: center; gap: 8px; margin: 8px 0 2px }
-    .btn { border: 1px solid rgba(167,139,250,.5); background: #141428; color: var(--text); padding: 8px 12px; border-radius: 10px; cursor: pointer; font-weight: 600 }
-    .btn:hover { box-shadow: 0 6px 18px rgba(124,58,237,.25) }
-    .ctrls { text-align: center; color: var(--muted); font-size: 13px; margin-top: 6px }
-
-    /* Overlay de pérdida */
-    .overlay { position: absolute; inset: 0; display: none; place-items: center; background: rgba(10,10,15,.72); border-radius: 16px; backdrop-filter: blur(2px) }
-    .overlay.show { display: grid }
-    .overlay .card { background: #131327; border: 1px solid rgba(167,139,250,.45); padding: 16px 18px; border-radius: 14px; box-shadow: var(--shadow); text-align: center }
-    .overlay h3 { margin: 0 0 6px; font-size: 20px }
-    .overlay p { margin: 0 0 12px; color: var(--muted) }
-
-    /* D-Pad móvil para Snake */
-    .dpad { display: none; margin-top: 10px; gap: 8px; user-select: none }
-    .dpad .row { display: flex; justify-content: center; gap: 8px }
-    .dpad button { width: 56px; height: 56px; border-radius: 12px; border: 1px solid rgba(167,139,250,.45); background: #141428; color: var(--text); font-weight: 800; font-size: 18px }
-    @media (pointer:none), (pointer:coarse) {
-      .dpad { display: grid }
+    :root{
+      /* Paleta más profesional y sobria */
+      --violet:#6366f1;
+      --violet-2:#8b5cf6;
+      --blue:#0ea5e9;
+      --teal:#22c55e;
+      --teal-2:#a5b4fc;
     }
 
-    footer { margin-top: 30px; text-align: center; color: var(--muted); font-size: 12px; opacity: .85 }
+    html,body{height:100%}
+    body{
+      font-family:'Inter',sans-serif;
+      background:transparent;
+      opacity:0;
+      transition:opacity .25s ease-in;
+    }
+
+    /* Capa de fondo difuminado */
+    .blurred-gradient-bg{
+      position:fixed; inset:0; z-index:-1; pointer-events:none;
+      filter: blur(50px) saturate(120%);
+      transform: translateZ(0);
+      mix-blend-mode: screen;
+    }
+
+    /* Fondo oscuro más profundo con colores mezclados */
+    .dark .blurred-gradient-bg{
+      background:
+        radial-gradient(55% 55% at 15% 0%, rgba(99,102,241,0.55) 0%, transparent 60%),
+        radial-gradient(60% 60% at 85% 10%, rgba(14,165,233,0.55) 0%, transparent 60%),
+        radial-gradient(65% 65% at 20% 90%, rgba(139,92,246,0.55) 0%, transparent 60%),
+        radial-gradient(70% 70% at 80% 85%, rgba(34,197,94,0.5) 0%, transparent 60%),
+        radial-gradient(120% 120% at 50% 40%, rgba(15,23,42,0.9) 0%, rgba(15,23,42,0) 60%);
+      background-color:#020617;
+      background-blend-mode:screen,screen,screen,screen,normal;
+    }
+
+    /* Fondo claro */
+    .blurred-gradient-bg:not(.dark-bg){
+      background:
+        radial-gradient(60% 60% at 20% 0%, var(--teal-2) 0%, transparent 60%),
+        radial-gradient(70% 70% at 85% 10%, var(--violet-2) 0%, transparent 60%),
+        radial-gradient(65% 65% at 15% 90%, var(--violet) 0%, transparent 60%),
+        radial-gradient(80% 80% at 80% 85%, var(--blue) 0%, transparent 60%),
+        radial-gradient(120% 120% at 50% 30%, rgba(255,255,255,.25) 0%, rgba(255,255,255,0) 60%);
+    }
+
+    /* ===== Bases de contraste seguras ===== */
+    html:not(.dark) body{ color:#0f172a; background:#f9fafb; }
+    html.dark body{ color:#e5e7eb; background:#020617; }
+    html.dark{ color-scheme: dark; }
+
+    /* Fallbacks EXTRA en oscuro si fallan utilidades dark: */
+    html.dark .text-gray-900,
+    html.dark .text-gray-800,
+    html.dark .text-gray-700,
+    html.dark .text-black{ color:#e5e7eb !important; }
+    html.dark .text-gray-600,
+    html.dark .text-gray-500{ color:#d1d5db !important; }
+
+    /* Fallbacks tema CLARO */
+    html:not(.dark) .text-white,
+    html:not(.dark) .text-gray-100,
+    html:not(.dark) .text-gray-200,
+    html:not(.dark) .text-gray-300,
+    html:not(.dark) .dark\:text-white,
+    html:not(.dark) .dark\:text-gray-300{ color:#0f172a !important; }
+    html:not(.dark) .text-gray-600{ color:#1f2937 !important; }
+
+    /* Evitar afectar el texto con filtros */
+    #page-content-wrapper { backdrop-filter: blur(0.5px); }
+
+    /* Tipografía y énfasis visual */
+    .gradient-text{
+      background: linear-gradient(135deg, var(--violet), var(--teal));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    }
+
+    /* Tarjetas más sobrias en oscuro */
+    .soft-card{
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px);
+      border:1px solid rgba(15,23,42,.06);
+      box-shadow:0 18px 50px rgba(15,23,42,0.08);
+    }
+    .dark .soft-card{
+      background: rgba(15,23,42,0.88);
+      border: 1px solid rgba(148,163,184,0.15);
+      box-shadow:0 22px 60px rgba(0,0,0,0.6);
+    }
+
+    .hover-lift{transition:transform .25s ease, box-shadow .25s ease}
+    .hover-lift:hover{
+      transform:translateY(-4px);
+      box-shadow:0 20px 45px rgba(15,23,42,0.18);
+    }
+
+    .btn-primary{
+      background: linear-gradient(120deg, var(--violet), var(--blue), var(--teal));
+      background-size:200% 200%;
+      color:#0b1120 !important;
+      box-shadow:0 14px 35px rgba(59,130,246,0.45);
+      border-radius:9999px;
+      transition:background-position .25s ease, transform .15s ease, box-shadow .15s ease;
+    }
+    .btn-primary:hover{
+      opacity:1;
+      background-position:100% 0;
+      transform:translateY(-1px);
+      box-shadow:0 20px 45px rgba(59,130,246,0.6);
+    }
+
+    .btn-ghost{
+      background: rgba(255,255,255,0.95);
+      color: #0f172a;
+      border-radius:9999px;
+      border:1px solid rgba(148,163,184,.6);
+      box-shadow:0 8px 20px rgba(148,163,184,0.35);
+    }
+    .btn-ghost:hover{
+      background:rgba(248,250,252,1);
+    }
+    .dark .btn-ghost{
+      background: rgba(15,23,42,0.9);
+      color:#e5e7eb;
+      border:1px solid rgba(148,163,184,.4);
+      box-shadow:0 10px 25px rgba(15,23,42,0.8);
+    }
+    .dark .btn-ghost:hover{
+      background:rgba(15,23,42,1);
+    }
+
+    /* FAB WhatsApp */
+    .whatsapp-fab{
+      position:fixed; right:18px;
+      bottom:calc(env(safe-area-inset-bottom, 0px) + 18px);
+      z-index:9999; width:56px; height:56px; border-radius:9999px;
+      display:grid; place-items:center; background:#25D366; color:#fff;
+      box-shadow:0 10px 20px rgba(0,0,0,.4);
+      transition: transform .2s ease, box-shadow .2s ease;
+      pointer-events:auto;
+    }
+    .whatsapp-fab:hover{
+      transform: translateY(-2px);
+      box-shadow:0 18px 30px rgba(0,0,0,.55);
+    }
+
+    /* Barra superior glass más elegante */
+    .nav-glass{
+      background: linear-gradient(to right, rgba(255,255,255,0.86), rgba(248,250,252,0.9));
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(148,163,184,0.4);
+    }
+    .dark .nav-glass{
+      background: linear-gradient(to right, rgba(2,6,23,0.9), rgba(15,23,42,0.92));
+      border-bottom: 1px solid rgba(30,64,175,0.5);
+      box-shadow:0 18px 40px rgba(15,23,42,0.85);
+    }
+
+    /* En oscuro, toggles blancos */
+    .dark #lang-es, .dark #lang-en, .dark #lang-es-mobile, .dark #lang-en-mobile { color:#ffffff !important; }
+    .dark #theme-toggle, .dark #theme-toggle-mobile { color:#ffffff !important; border-color: rgba(255,255,255,0.5) !important; }
+    .dark #theme-toggle span, .dark #theme-toggle-mobile span { color:#ffffff !important; }
+
+    /* En claro, aviso de dominio negro + negrita */
+    html:not(.dark) [data-i18n="note_domain"]{
+      color:#000 !important; font-weight:700; font-style:normal;
+    }
+
+    /* Placeholders claros en modo claro */
+    html:not(.dark) input::placeholder,
+    html:not(.dark) textarea::placeholder{
+      color:#000 !important; font-weight:700; opacity:1;
+    }
   </style>
-</head>
-<body>
-  <div class="container">
-    <header>
-      <div class="brand">Vision-Itaca</div>
-      <div class="sub">Próximamente...</div>
-      <div class="note">Sitio en desarrollo — mientras tanto, puedes jugar a estos juegos 👇</div>
-    </header>
 
-    <nav class="tabs" role="tablist" aria-label="Juegos">
-      <button class="tab-btn active" data-tab="snake" role="tab" aria-selected="true">🐍 Snake</button>
-      <button class="tab-btn" data-tab="pong" role="tab" aria-selected="false">🏓 Pong</button>
-      <button class="tab-btn" data-tab="breakout" role="tab" aria-selected="false">🧱 Breakout</button>
+  <!-- ====== JSON-LD: ORGANIZATION + WEBSITE ====== -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"Vision Itaca",
+    "url":"https://vision-itaca.store/",
+    "logo":"https://vision-itaca.store/andro.png",
+    "sameAs":[
+      "https://www.instagram.com/andromadorian", 
+      "https://www.facebook.com/andromadorian"
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"Vision Itaca",
+    "url":"https://vision-itaca.store/",
+    "potentialAction":{
+      "@type":"SearchAction",
+      "target":"https://vision-itaca.store/?q={search_term_string}",
+      "query-input":"required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- ====== JSON-LD: FAQPAGE ====== -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"¿Cuánto me sale un sitio web?","acceptedAnswer":{"@type":"Answer","text":"El costo final depende de las funcionalidades que necesites (secciones, formularios, integraciones, etc.). Contame tu idea y te paso un presupuesto sin cargo."}},
+      {"@type":"Question","name":"¿Cuánto demora la creación y lanzamiento de un sitio web?","acceptedAnswer":{"@type":"Answer","text":"Por lo general entre 2 y 3 días desde que definimos el contenido y el estilo. Sitios más complejos pueden requerir un poco más."}},
+      {"@type":"Question","name":"¿Tengo soporte luego de la compra?","acceptedAnswer":{"@type":"Answer","text":"Sí, 3 meses de soporte gratuito + 1 cambio de diseño/contenido dentro de ese período. Pasado ese tiempo, los cambios se cotizan."}},
+      {"@type":"Question","name":"¿Qué necesito para empezar?","acceptedAnswer":{"@type":"Answer","text":"Un breve resumen de tu negocio/idea, logotipo (si tenés), paleta de colores deseada y ejemplos de sitios que te gusten. Si no tenés nada de eso, te ayudo a definirlo."}},
+      {"@type":"Question","name":"¿Incluye dominio y dónde aloja el sitio?","acceptedAnswer":{"@type":"Answer","text":"El dominio está incluido dentro del presupuesto final."}},
+      {"@type":"Question","name":"¿Puedo pagar en cuotas o con diferentes medios de pago?","acceptedAnswer":{"@type":"Answer","text":"Sí, coordino múltiples medios de pago y planes en cuotas según el alcance del proyecto."}},
+      {"@type":"Question","name":"¿Podés mejorar o migrar mi sitio actual?","acceptedAnswer":{"@type":"Answer","text":"Claro. Puedo modernizar diseño, optimizar performance/SEO y migrar tu contenido a una nueva plataforma manteniendo SEO y enlaces."}}
+    ]
+  }
+  </script>
+</head>
+<body class="min-h-screen">
+  <div class="blurred-gradient-bg" aria-hidden="true"></div>
+
+  <div id="page-content-wrapper">
+    <!-- NAV -->
+    <nav class="nav-glass sticky top-0 z-50" role="navigation" aria-label="Principal">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center space-x-2">
+            <img src="/andro.png" alt="Logo Vision Itaca" class="w-10 h-10" width="40" height="40"/>
+            <span class="text-xl font-bold gradient-text">Vision Itaca</span>
+          </div>
+
+          <div class="hidden md:flex md:items-center md:space-x-6">
+            <a href="#servicios" class="text-sm md:text-base text-gray-800 dark:text-gray-200 hover:underline" data-i18n="nav_services">Servicios</a>
+            <a href="#ejemplos" class="text-sm md:text-base text-gray-800 dark:text-gray-200 hover:underline" data-i18n="nav_examples">Ejemplos</a>
+            <a href="#contacto" class="text-sm md:text-base text-gray-800 dark:text-gray-200 hover:underline" data-i18n="nav_contact">Contacto</a>
+
+            <div class="flex items-center space-x-2" aria-label="Selector de idioma">
+              <button id="lang-es" class="px-2 py-1 text-xs rounded border border-transparent hover:border-gray-300 dark:hover:border-gray-600" aria-pressed="true">ES</button>
+              <span class="text-gray-400" aria-hidden="true">|</span>
+              <button id="lang-en" class="px-2 py-1 text-xs rounded border border-transparent hover:border-gray-300 dark:hover:border-gray-600" aria-pressed="false">EN</button>
+            </div>
+
+            <button id="theme-toggle" class="flex items-center space-x-2 px-3 py-1.5 text-xs rounded border border-gray-300 dark:border-gray-600 hover:bg-black/5 dark:hover:bg-white/5" aria-label="Cambiar tema">
+              <i data-feather="moon" class="w-4 h-4" aria-hidden="true"></i>
+              <span data-i18n="toggle_theme">Tema</span>
+            </button>
+          </div>
+
+          <div class="md:hidden">
+            <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú">
+              <i data-feather="menu" class="h-6 w-6" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="mobile-menu" class="hidden md:hidden">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <a href="#servicios" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-gray-200" data-i18n="nav_services">Servicios</a>
+          <a href="#ejemplos" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-gray-200" data-i18n="nav_examples">Ejemplos</a>
+          <a href="#contacto" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-gray-200" data-i18n="nav_contact">Contacto</a>
+        </div>
+        <div class="px-4 py-3 border-t border-black/10 dark:border-white/10">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2" aria-label="Selector de idioma móvil">
+              <button id="lang-es-mobile" class="px-2 py-1 text-xs rounded border border-transparent hover:border-gray-300 dark:hover:border-gray-600">ES</button>
+              <span class="text-gray-400" aria-hidden="true">|</span>
+              <button id="lang-en-mobile" class="px-2 py-1 text-xs rounded border border-transparent hover:border-gray-300 dark:hover:border-gray-600">EN</button>
+            </div>
+            <button id="theme-toggle-mobile" class="flex items-center space-x-2 px-3 py-1.5 text-xs rounded border border-gray-300 dark:border-gray-600 hover:bg-black/5 dark:hover:bg-white/5" aria-label="Cambiar tema">
+              <i data-feather="moon" class="w-4 h-4" aria-hidden="true"></i>
+              <span data-i18n="toggle_theme">Tema</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </nav>
 
-    <section class="frame">
-      <!-- SNAKE -->
-      <div class="game-wrap active" id="tab-snake" role="tabpanel" aria-labelledby="Snake">
-        <div class="canvas-wrap">
-          <canvas id="snakeCanvas" width="480" height="360"></canvas>
-          <div class="hud">
-            <span class="pill">Puntos: <strong id="sn-score">0</strong></span>
-            <span class="pill">Máxima: <strong id="sn-best">0</strong></span>
-            <span class="pill">Velocidad: <strong id="sn-speed">1x</strong></span>
+    <!-- HERO -->
+    <section class="relative min-h-[66vh] flex items-center">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 dark:text-white mb-6" data-i18n="hero_title">
+            Sitios web que <span class="gradient-text">venden</span>
+          </h1>
+          <p class="text-lg md:text-2xl text-gray-700 dark:text-gray-300 mb-8" data-i18n="hero_sub">
+            Rápidos, limpios y con estilo. Diseño sitios web claros con mensajes directos y llamados a la acción efectivos.
+          </p>
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="#contacto" class="btn-primary inline-flex items-center px-7 py-3 rounded-full font-semibold">
+              <i data-feather="message-circle" class="w-5 h-5 mr-2" aria-hidden="true"></i>
+              <span data-i18n="cta_start">Empezar Proyecto</span>
+            </a>
+            <a href="#ejemplos" class="btn-ghost inline-flex items-center px-7 py-3 rounded-full font-semibold">
+              <i data-feather="eye" class="w-5 h-5 mr-2" aria-hidden="true"></i>
+              <span data-i18n="cta_examples">Ver Ejemplos</span>
+            </a>
           </div>
-          <div class="actions">
-            <button class="btn" id="sn-restart">Reiniciar</button>
-          </div>
-          <div class="ctrls">Controles: Flechas/WASD o D‑Pad · Pausa: P</div>
-          <!-- D-Pad móvil -->
-          <div class="dpad" id="sn-dpad">
-            <div class="row"><button data-dir="up">▲</button></div>
-            <div class="row"><button data-dir="left">◄</button><button data-dir="down">▼</button><button data-dir="right">►</button></div>
-          </div>
-        </div>
-        <div class="overlay" id="sn-overlay" aria-hidden="true">
-          <div class="card">
-            <h3>¡Perdiste!</h3>
-            <p>Chocaste contra algo. ¿Otra vez?</p>
-            <button class="btn" id="sn-overlay-restart">Reintentar</button>
-          </div>
-        </div>
-      </div>
 
-      <!-- PONG -->
-      <div class="game-wrap" id="tab-pong" role="tabpanel" aria-labelledby="Pong">
-        <div class="canvas-wrap">
-          <canvas id="pongCanvas" width="520" height="320"></canvas>
-          <div class="hud">
-            <span class="pill">Tú: <strong id="pg-left">0</strong></span>
-            <span class="pill">CPU: <strong id="pg-right">0</strong></span>
-            <span class="pill">Velocidad: <strong id="pg-speed">1x</strong></span>
-          </div>
-          <div class="actions">
-            <button class="btn" id="pg-restart">Reiniciar</button>
-          </div>
-          <div class="ctrls">Controles: ↑/↓ o W/S · En móvil: arrastra el dedo o usa los botones</div>
-          <!-- D-Pad móvil: Pong -->
-          <div class="dpad" id="pg-dpad">
-            <div class="row"><button data-dir="up">▲</button></div>
-            <div class="row"><button data-dir="down">▼</button></div>
-          </div>
-        </div>
-        <div class="overlay" id="pg-overlay" aria-hidden="true">
-          <div class="card">
-            <h3>¡Perdiste!</h3>
-            <p>La pelota pasó tu lado.</p>
-            <button class="btn" id="pg-overlay-restart">Reintentar</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- BREAKOUT -->
-      <div class="game-wrap" id="tab-breakout" role="tabpanel" aria-labelledby="Breakout">
-        <div class="canvas-wrap">
-          <canvas id="brCanvas" width="520" height="360"></canvas>
-          <div class="hud">
-            <span class="pill">Puntos: <strong id="br-score">0</strong></span>
-            <span class="pill">Vidas: <strong id="br-lives">3</strong></span>
-            <span class="pill">Nivel: <strong id="br-level">1</strong></span>
-          </div>
-          <div class="actions">
-            <button class="btn" id="br-restart">Reiniciar</button>
-          </div>
-          <div class="ctrls">Controles: Mouse o ← → · En móvil: desliza el dedo o usa los botones</div>
-          <!-- D-Pad móvil: Breakout -->
-          <div class="dpad" id="br-dpad">
-            <div class="row"><button data-dir="left">◄</button><button data-dir="right">►</button></div>
-          </div>
-        </div>
-        <div class="overlay" id="br-overlay" aria-hidden="true">
-          <div class="card">
-            <h3>¡Perdiste!</h3>
-            <p>Te quedaste sin vidas.</p>
-            <button class="btn" id="br-overlay-restart">Reintentar</button>
+          <!-- Redes sociales -->
+          <div class="mt-6 flex items-center justify-center gap-6" role="group" aria-label="Redes sociales">
+            <a class="inline-flex items-center gap-2 group" href="https://www.tiktok.com/@andromadorian" target="_blank" rel="noopener" aria-label="TikTok @andromadorian">
+              <img src="/assets/tiktok.png" alt="TikTok" class="w-7 h-7 object-contain" width="28" height="28" loading="lazy">
+              <span class="text-sm text-gray-800 dark:text-gray-200 group-hover:underline hidden sm:inline">@andromadorian</span>
+              <span class="sr-only">TikTok</span>
+            </a>
+            <a class="inline-flex items-center gap-2 group" href="https://www.youtube.com/@andromadorian" target="_blank" rel="noopener" aria-label="YouTube @andromadorian">
+              <img src="/assets/youtube.png" alt="YouTube" class="w-7 h-7 object-contain" width="28" height="28" loading="lazy">
+              <span class="text-sm text-gray-800 dark:text-gray-200 group-hover:underline hidden sm:inline">@andromadorian</span>
+              <span class="sr-only">YouTube</span>
+            </a>
+            <a class="inline-flex items-center gap-2 group" href="https://www.instagram.com/andromadorian" target="_blank" rel="noopener" aria-label="Instagram @andromadorian">
+              <img src="/assets/insta.png" alt="Instagram" class="w-7 h-7 object-contain" width="28" height="28" loading="lazy">
+              <span class="text-sm text-gray-800 dark:text-gray-200 group-hover:underline hidden sm:inline">@andromadorian</span>
+              <span class="sr-only">Instagram</span>
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <footer>© <span id="year"></span> Vision-Itaca · Hecho con ♥ en modo previa.</footer>
+    <!-- SERVICIOS -->
+    <section id="servicios" class="py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-i18n="svc_title">¿Por qué elegir Vision Itaca?</h2>
+          <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto" data-i18n="svc_sub">
+            Me enfoco en mensajes simples, diseño limpio y acciones directas. Vos me contás la idea, yo me encargo del resto.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="soft-card p-7 rounded-xl hover-lift">
+            <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-slate-900/90 dark:bg-slate-800/90">
+              <i data-feather="zap" class="text-emerald-400 w-6 h-6" aria-hidden="true"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2" data-i18n="svc_1_t">Entrega Rápida</h3>
+            <p class="text-gray-700 dark:text-gray-300" data-i18n="svc_1_d">Tu sitio web listo en tiempo récord sin comprometer la calidad del diseño.</p>
+          </div>
+
+          <div class="soft-card p-7 rounded-xl hover-lift">
+            <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-slate-900/90 dark:bg-slate-800/90">
+              <i data-feather="smartphone" class="text-sky-400 w-6 h-6" aria-hidden="true"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2" data-i18n="svc_2_t">Responsive Design</h3>
+            <p class="text-gray-700 dark:text-gray-300" data-i18n="svc_2_d">Perfecto en móviles, tablets y desktop. Tu sitio se ve impecable en cualquier dispositivo.</p>
+          </div>
+
+          <div class="soft-card p-7 rounded-xl hover-lift">
+            <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-slate-900/90 dark:bg-slate-800/90">
+              <i data-feather="search" class="text-violet-400 w-6 h-6" aria-hidden="true"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2" data-i18n="svc_3_t">SEO Optimizado</h3>
+            <p class="text-gray-700 dark:text-gray-300" data-i18n="svc_3_d">Aparece más rápido en Google y atrae más clientes a tu negocio.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRECIO -->
+    <section class="py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="price_title">Obten tu sitio web</h2>
+          <p class="text-2xl font-extrabold gradient-text mb-1" data-i18n="price_from">¡Desde 10 U$D!</p>
+          <p class="text-gray-700 dark:text-gray-300" data-i18n="price_sub">Todo incluido en un precio transparente</p>
+        </div>
+
+        <div class="soft-card max-w-4xl mx-auto rounded-2xl shadow-xl overflow-hidden">
+          <div class="p-8">
+            <div class="grid md:grid-cols-2 gap-8">
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4" data-i18n="inc_title">Incluye:</h3>
+                <ul class="space-y-3 text-gray-800 dark:text-gray-200">
+                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="inc_1">Cientos de estilos diferentes</span></li>
+                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="inc_2">Sitio personalizado a tu elección</span></li>
+                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="inc_3">Botón flotante de WhatsApp</span></li>
+                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="inc_4">Formulario de consulta</span></li>
+                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="inc_5">5 casillas de correo con tu dominio</span></li>
+                </ul>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4" data-i18n="and_title">Y también:</h3>
+                <ul class="space-y-3 text-gray-800 dark:text-gray-200">
+                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="and_1">Soporte para tu sitio</span></li>
+                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="and_2">Diseño responsive completo</span></li>
+                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="and_3">Optimizado para SEO</span></li>
+                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="and_4">Certificado SSL gratis</span></li>
+                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="and_5">Integración con redes sociales</span></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mt-8 p-4 rounded-lg border border-yellow-300/50 bg-yellow-100/70 dark:bg-yellow-900/30 dark:border-yellow-800" role="note">
+              <p class="text-yellow-900 dark:text-yellow-200 text-sm flex items-center">
+                <i data-feather="info" class="w-4 h-4 mr-2" aria-hidden="true"></i>
+                <em data-i18n="note_domain">El dominio esta incluido en el costo final.</em>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EJEMPLOS -->
+    <section id="ejemplos" class="py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-i18n="ex_title">Ejemplos</h2>
+          <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto" data-i18n="ex_sub">
+            Subsitios simples que muestran diferentes usos. Cada ejemplo abre en una página dedicada.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <a href="/freelancer" target="_blank" rel="noopener" class="soft-card rounded-xl overflow-hidden hover-lift block" aria-label="Ejemplo: Sitio de freelancer - CV personal">
+            <img src="/assets/freelancer.png" alt="Ejemplo sitio freelancer CV" class="w-full h-48 object-cover" loading="lazy" width="640" height="320">
+            <div class="p-6">
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2" data-i18n="ex_1_t">Sitio de freelancer - CV personal</h3>
+              <p class="text-gray-700 dark:text-gray-300 text-sm mb-4" data-i18n="ex_1_d">Ideal para mostrar tu trabajo, habilidades y contacto de manera profesional.</p>
+              <button class="btn-ghost inline-flex items-center px-4 py-2 rounded-full font-semibold text-sm" type="button" aria-hidden="true">
+                <i data-feather="eye" class="w-4 h-4 mr-2"></i>Ver ejemplo
+              </button>
+            </div>
+          </a>
+
+          <a href="/negocio-local" target="_blank" rel="noopener" class="soft-card rounded-xl overflow-hidden hover-lift block" aria-label="Ejemplo: Negocio o Local">
+            <img src="/assets/negocio-local.png" alt="Ejemplo sitio para negocio local" class="w-full h-48 object-cover" loading="lazy" width="640" height="320">
+            <div class="p-6">
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2" data-i18n="ex_2_t">Negocio o Local</h3>
+              <p class="text-gray-700 dark:text-gray-300 text-sm mb-4" data-i18n="ex_2_d">Página de aterrizaje optimizada para reservas, menús o información de tu tienda física.</p>
+              <button class="btn-ghost inline-flex items-center px-4 py-2 rounded-full font-semibold text-sm" type="button" aria-hidden="true">
+                <i data-feather="eye" class="w-4 h-4 mr-2"></i>Ver ejemplo
+              </button>
+            </div>
+          </a>
+
+          <a href="/producto-digital" target="_blank" rel="noopener" class="soft-card rounded-xl overflow-hidden hover-lift block" aria-label="Ejemplo: Producto Digital">
+            <img src="/assets/producto-digital.png" alt="Ejemplo sitio para producto digital" class="w-full h-48 object-cover" loading="lazy" width="640" height="320">
+            <div class="p-6">
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2" data-i18n="ex_3_t">Producto Digital</h3>
+              <p class="text-gray-700 dark:text-gray-300 text-sm mb-4" data-i18n="ex_3_d">Web con llamadas a la acción claras para vender tu software, curso o ebook.</p>
+              <button class="btn-ghost inline-flex items-center px-4 py-2 rounded-full font-semibold text-sm" type="button" aria-hidden="true">
+                <i data-feather="eye" class="w-4 h-4 mr-2"></i>Ver ejemplo
+              </button>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="py-16">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-i18n="ct_title">Contacto</h2>
+          <p class="text-lg md:text-1xl text-gray-700 dark:text-gray-300" data-i18n="ct_sub">
+            Contame brevemente tu idea y el objetivo de tu página. Te respondo con una propuesta simple y un tiempo estimado de entrega.
+          </p>
+        </div>
+
+        <div class="soft-card rounded-2xl p-8">
+          <form class="space-y-6" action="https://formspree.io/f/myznjagg" method="POST">
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <label for="name" class="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-2" data-i18n="ct_name_l">Nombre</label>
+                <input id="name" type="text" name="Nombre" required class="w-full px-4 py-3 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/40 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[color:var(--violet)]" placeholder="Tu nombre" autocomplete="name"/>
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-2" data-i18n="ct_email_l">Email</label>
+                <input id="email" type="email" name="Email" required class="w-full px-4 py-3 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/40 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[color:var(--violet)]" placeholder="tu@email.com" autocomplete="email"/>
+              </div>
+            </div>
+            <div>
+              <label for="phone" class="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-2" data-i18n="ct_phone_l">Teléfono (Opcional)</label>
+              <input id="phone" type="tel" name="Teléfono" class="w-full px-4 py-3 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/40 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[color:var(--violet)]" placeholder="(Opcional)" autocomplete="tel"/>
+            </div>
+            <div>
+              <label for="message" class="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-2" data-i18n="ct_msg_l">Tu idea y objetivos</label>
+              <textarea id="message" name="Mensaje" rows="6" required class="w-full px-4 py-3 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/40 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[color:var(--violet)]" placeholder="Contame sobre tu proyecto..." autocomplete="off"></textarea>
+            </div>
+            <button type="submit" class="btn-primary w-full font-semibold py-4 px-6 rounded-full hover-lift transition-all">
+              <i data-feather="send" class="w-5 h-5 mr-2 inline" aria-hidden="true"></i>
+              <span data-i18n="ct_send">Enviar Mensaje</span>
+            </button>
+          </form>
+
+          <div class="mt-8 pt-8 border-t border-black/10 dark:border-white/10 text-center">
+            <p class="text-gray-800 dark:text-gray-300 mb-4" data-i18n="ct_alt">También podés escribirme directo:</p>
+            <div class="flex justify-center gap-6">
+              <a href="https://wa.me/5491162857653" target="_blank" rel="noopener" class="inline-flex items-center text-green-600 dark:text-green-400 hover:opacity-90">
+                <i data-feather="message-circle" class="w-5 h-5 mr-2" aria-hidden="true"></i><span>WhatsApp</span>
+              </a>
+              <a href="mailto:hola@vision-itaca.store" class="inline-flex items-center text-[color:var(--violet)] dark:text-[#d3b7ff] hover:opacity-90">
+                <i data-feather="mail" class="w-5 h-5 mr-2" aria-hidden="true"></i><span>Email</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-16">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Preguntas frecuentes (FAQ)</h2>
+          <p class="text-lg text-gray-700 dark:text-gray-300">Hacé click en una pregunta para ver la respuesta.</p>
+        </div>
+
+        <div class="soft-card rounded-2xl p-2 divide-y divide-black/10 dark:divide-white/10">
+          <div class="faq-item">
+            <button class="w-full flex items-center justify-between px-5 py-4 text-left" aria-expanded="false" aria-controls="faq-1">
+              <span class="font-semibold text-gray-900 dark:text-white">¿Cuánto me sale un sitio web?</span>
+              <i data-feather="chevron-down" class="w-5 h-5 faq-icon transition-transform" aria-hidden="true"></i>
+            </button>
+            <div id="faq-1" class="faq-panel hidden px-5 pb-5 text-gray-700 dark:text-gray-300">
+              El costo final depende de las funcionalidades que necesites (secciones, formularios, integraciones, etc.). Contame tu idea y te paso un presupuesto sin cargo.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="w-full flex items-center justify-between px-5 py-4 text-left" aria-expanded="false" aria-controls="faq-2">
+              <span class="font-semibold text-gray-900 dark:text-white">¿Cuánto demora la creación y lanzamiento de un sitio web?</span>
+              <i data-feather="chevron-down" class="w-5 h-5 faq-icon transition-transform" aria-hidden="true"></i>
+            </button>
+            <div id="faq-2" class="faq-panel hidden px-5 pb-5 text-gray-700 dark:text-gray-300">
+              Por lo general entre <strong>2 y 3 días</strong> desde que definimos el contenido y el estilo. Sitios más complejos pueden requerir un poco más.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="w-full flex items-center justify-between px-5 py-4 text-left" aria-expanded="false" aria-controls="faq-3">
+              <span class="font-semibold text-gray-900 dark:text-white">¿Tengo soporte luego de la compra?</span>
+              <i data-feather="chevron-down" class="w-5 h-5 faq-icon transition-transform" aria-hidden="true"></i>
+            </button>
+            <div id="faq-3" class="faq-panel hidden px-5 pb-5 text-gray-700 dark:text-gray-300">
+              Sí, <strong>3 meses de soporte gratuito</strong> + <strong>1 cambio</strong> de diseño/contenido dentro de ese período. Pasado ese tiempo, los cambios se cotizan (un cambio menor suele ser &lt;= 10 USD).
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="w-full flex items-center justify-between px-5 py-4 text-left" aria-expanded="false" aria-controls="faq-4">
+              <span class="font-semibold text-gray-900 dark:text-white">¿Qué necesito para empezar?</span>
+              <i data-feather="chevron-down" class="w-5 h-5 faq-icon transition-transform" aria-hidden="true"></i>
+            </button>
+            <div id="faq-4" class="faq-panel hidden px-5 pb-5 text-gray-700 dark:text-gray-300">
+              Un breve resumen de tu negocio/idea, logotipo (si tenés), paleta de colores deseada y ejemplos de sitios que te gusten. Si no tenés nada de eso, te ayudo a definirlo.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="w-full flex items-center justify-between px-5 py-4 text-left" aria-expanded="false" aria-controls="faq-5">
+              <span class="font-semibold text-gray-900 dark:text-white">¿Incluye dominio y dónde aloja el sitio?</span>
+              <i data-feather="chevron-down" class="w-5 h-5 faq-icon transition-transform" aria-hidden="true"></i>
+            </button>
+            <div id="faq-5" class="faq-panel hidden px-5 pb-5 text-gray-700 dark:text-gray-300">
+              El <strong>dominio está incluido dentro del presupuesto final</strong>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="w-full flex items-center justify-between px-5 py-4 text-left" aria-expanded="false" aria-controls="faq-6">
+              <span class="font-semibold text-gray-900 dark:text-white">¿Puedo pagar en cuotas o con diferentes medios de pago?</span>
+              <i data-feather="chevron-down" class="w-5 h-5 faq-icon transition-transform" aria-hidden="true"></i>
+            </button>
+            <div id="faq-6" class="faq-panel hidden px-5 pb-5 text-gray-700 dark:text-gray-300">
+              Sí, coordino <strong>múltiples medios de pago</strong> y planes en cuotas según el alcance del proyecto.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="w-full flex items-center justify-between px-5 py-4 text-left" aria-expanded="false" aria-controls="faq-7">
+              <span class="font-semibold text-gray-900 dark:text-white">¿Podés mejorar o migrar mi sitio actual?</span>
+              <i data-feather="chevron-down" class="w-5 h-5 faq-icon transition-transform" aria-hidden="true"></i>
+            </button>
+            <div id="faq-7" class="faq-panel hidden px-5 pb-5 text-gray-700 dark:text-gray-300">
+              Claro. Puedo <strong>modernizar diseño</strong>, <strong>optimizar performance/SEO</strong> y migrar tu contenido a una nueva plataforma manteniendo SEO y enlaces.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-black/10 dark:border-white/10 py-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <p class="text-gray-700 dark:text-gray-300">&copy; 2024 Vision Itaca. <span data-i18n="foot_all">Todos los derechos reservados.</span></p>
+        <p class="mt-3 text-sm text-gray-800 dark:text-gray-300">
+          <span data-i18n="foot_legal_1">Al usar este sitio aceptás nuestros</span>
+          <a href="tyc.html" class="underline hover:opacity-90 mx-1" data-i18n="foot_terms">Términos y condiciones</a>
+          <span data-i18n="foot_y">y</span>
+          <a href="priv.html" class="underline hover:opacity-90 mx-1" data-i18n="foot_priv">Privacidad</a>.
+        </p>
+      </div>
+    </footer>
   </div>
 
-<script>
-  const $ = s => document.querySelector(s); const $$ = s => Array.from(document.querySelectorAll(s));
-  const clamp = (n,a,b)=> Math.max(a, Math.min(b,n)); const rng = (min,max)=> Math.floor(Math.random()*(max-min+1))+min;
-  const storage = { get(k, def=0){ try{return JSON.parse(localStorage.getItem(k))??def}catch{return def} }, set(k,v){ try{localStorage.setItem(k,JSON.stringify(v))}catch{} } };
-  $('#year').textContent = new Date().getFullYear();
+  <!-- FAB WhatsApp -->
+  <a class="whatsapp-fab" href="https://wa.me/5491162857653" target="_blank" rel="noopener" aria-label="Abrir chat de WhatsApp">
+    <i data-feather="phone-call" class="w-6 h-6" aria-hidden="true"></i>
+  </a>
 
-  // Tabs + init on demand
-  const tabBtns = $$('.tab-btn'); const tabs = $$('.game-wrap');
-  let inited = { snake:false, pong:false, breakout:false };
-  tabBtns.forEach(btn => btn.addEventListener('click', () => {
-    tabBtns.forEach(b => b.classList.toggle('active', b===btn));
-    tabs.forEach(t => t.classList.toggle('active', t.id === 'tab-' + btn.dataset.tab));
-    const key = btn.dataset.tab; if (!inited[key]) { inited[key] = true; initGame(key); }
-  }));
-  window.addEventListener('load', () => { inited.snake = true; initGame('snake'); });
+  <script>
+    // ===== MENU MÓVIL =====
+    const menuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuButton?.addEventListener('click', () => {
+      const expanded = menuButton.getAttribute('aria-expanded') === 'true';
+      menuButton.setAttribute('aria-expanded', String(!expanded));
+      mobileMenu.classList.toggle('hidden');
+    });
+    document.querySelectorAll('#mobile-menu a[href^="#"]').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuButton.setAttribute('aria-expanded','false');
+      });
+    });
 
-  function initGame(key){ if (key==='snake') return initSnake(); if (key==='pong') return initPong(); if (key==='breakout') return initBreakout(); }
+    // ===== THEME =====
+    const htmlEl = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) htmlEl.classList.toggle('dark', savedTheme === 'dark');
 
-  /* ============== Helpers overlay ============== */
-  function showOverlay(id){ const el = $(id); el.classList.add('show'); el.setAttribute('aria-hidden','false'); }
-  function hideOverlay(id){ const el = $(id); el.classList.remove('show'); el.setAttribute('aria-hidden','true'); }
+    const themeToggleHandler = () => {
+      htmlEl.classList.toggle('dark');
+      localStorage.setItem('theme', htmlEl.classList.contains('dark') ? 'dark' : 'light');
+      setTimeout(()=>feather.replace(),0);
+    };
+    document.getElementById('theme-toggle')?.addEventListener('click', themeToggleHandler);
+    document.getElementById('theme-toggle-mobile')?.addEventListener('click', themeToggleHandler);
 
-  /* ============== SNAKE (pierde con bordes) ============== */
-  function initSnake(){
-    const canvas = $('#snakeCanvas'); const ctx = canvas.getContext('2d');
-    const grid=20, cols=Math.floor(canvas.width/grid), rows=Math.floor(canvas.height/grid);
-    let snake, dir, food, speed, score, paused;
-
-    function reset(){
-      snake=[{x:Math.floor(cols/2), y:Math.floor(rows/2)}]; dir={x:1,y:0}; food=spawnFood(); speed=8; score=0; paused=false;
-      $('#sn-score').textContent=score; $('#sn-speed').textContent='1x'; $('#sn-best').textContent=storage.get('sn-best',0);
-      hideOverlay('#sn-overlay');
-    }
-    function spawnFood(){ let f; do { f={x:rng(0,cols-1), y:rng(0,rows-1)} } while(snake.some(s=>s.x===f.x&&s.y===f.y)); return f; }
-    function drawCell(x,y,color){ ctx.fillStyle=color; const pad=2; ctx.fillRect(x*grid+pad,y*grid+pad,grid-pad*2,grid-pad*2); }
-    function step(){
-      if (paused) return;
-      const head = {x: snake[0].x + dir.x, y: snake[0].y + dir.y};
-      // MUERTE con bordes
-      if (head.x<0 || head.y<0 || head.x>=cols || head.y>=rows || snake.some(s=>s.x===head.x&&s.y===head.y)){
-        const best = Math.max(storage.get('sn-best',0), score); storage.set('sn-best',best); $('#sn-best').textContent=best;
-        showOverlay('#sn-overlay'); paused=true; return;
+    // ===== I18N =====
+    const t = {
+      es:{ nav_services:'Servicios', nav_examples:'Ejemplos', nav_contact:'Contacto', toggle_theme:'Tema',
+        hero_title:'Sitios web que <span class="gradient-text">venden</span>',
+        hero_sub:'Rápidos, limpios y con estilo. Diseño sitios web claros con mensajes directos y llamados a la acción efectivos.',
+        cta_start:'Empezar Proyecto', cta_examples:'Ver Ejemplos',
+        svc_title:'¿Por qué elegir Vision Itaca?',
+        svc_sub:'Me enfoco en mensajes simples, diseño limpio y acciones directas. Vos me contás la idea, yo me encargo del resto.',
+        svc_1_t:'Entrega Rápida', svc_1_d:'Tu sitio web listo en tiempo récord sin comprometer la calidad del diseño.',
+        svc_2_t:'Responsive Design', svc_2_d:'Perfecto en móviles, tablets y desktop. Tu sitio se ve impecable en cualquier dispositivo.',
+        svc_3_t:'SEO Optimizado', svc_3_d:'Aparece más rápido en Google y atrae más clientes a tu negocio.',
+        price_title:'Obten tu sitio web', price_from:'¡Desde 10 U$D!', price_sub:'Todo incluido en un precio transparente',
+        inc_title:'Incluye:', inc_1:'Cientos de estilos diferentes', inc_2:'Sitio personalizado a tu elección', inc_3:'Botón flotante de WhatsApp', inc_4:'Formulario de consulta', inc_5:'5 casillas de correo con tu dominio',
+        and_title:'Y también:', and_1:'Soporte para tu sitio', and_2:'Diseño responsive completo', and_3:'Optimizado para SEO', and_4:'Certificado SSL gratis', and_5:'Integración con redes sociales',
+        note_domain:'El dominio está incluido en el costo final.',
+        ex_title:'Ejemplos', ex_sub:'Subsitios simples que muestran diferentes usos. Cada ejemplo abre en una página dedicada.',
+        ex_1_t:'Sitio de freelancer - CV personal', ex_1_d:'Ideal para mostrar tu trabajo, habilidades y contacto de manera profesional.',
+        ex_2_t:'Negocio o Local', ex_2_d:'Página de aterrizaje optimizada para reservas, menús o información de tu tienda física.',
+        ex_3_t:'Producto Digital', ex_3_d:'Web con llamadas a la acción claras para vender tu software, curso o ebook.',
+        ct_title:'Contacto', ct_sub:'Contame brevemente tu idea y el objetivo de tu página. Te respondo con una propuesta simple y un tiempo estimado de entrega.',
+        ct_name_l:'Nombre', ct_email_l:'Email', ct_phone_l:'Teléfono (Opcional)', ct_msg_l:'Tu idea y objetivos', ct_send:'Enviar Mensaje', ct_alt:'También podés escribirme directo:',
+        foot_all:'Todos los derechos reservados.', foot_legal_1:'Al usar este sitio aceptás nuestros', foot_terms:'Términos y condiciones', foot_y:'y', foot_priv:'Privacidad'
+      },
+      en:{ nav_services:'Services', nav_examples:'Examples', nav_contact:'Contact', toggle_theme:'Theme',
+        hero_title:'Websites that <span class="gradient-text">convert</span>',
+        hero_sub:'Fast, clean and stylish. I design clear landing pages with direct messaging and strong CTAs.',
+        cta_start:'Start Project', cta_examples:'See Examples',
+        svc_title:'Why choose Vision Itaca?',
+        svc_sub:'I focus on simple messages, clean design and direct actions. You tell me the idea, I’ll handle the rest.',
+        svc_1_t:'Fast Delivery', svc_1_d:'Your website ready in record time without sacrificing design quality.',
+        svc_2_t:'Responsive Design', svc_2_d:'Perfect on mobile, tablets and desktop. It looks great everywhere.',
+        svc_3_t:'SEO Optimized',  svc_3_d:'Show up quicker on Google and attract more clients.',
+        price_title:'Get your website', price_from:'From 50 USD!', price_sub:'Everything included at a transparent price',
+        inc_title:'Includes:', inc_1:'Hundreds of styles', inc_2:'Custom site tailored to you', inc_3:'Floating WhatsApp button', inc_4:'Inquiry form', inc_5:'5 email inboxes with your domain',
+        and_title:'Also:', and_1:'Site support', and_2:'Fully responsive design', and_3:'SEO optimized', and_4:'Free SSL certificate', and_5:'Social media integration',
+        note_domain:'Domain not included. Ask me how to get one.',
+        ex_title:'Examples', ex_sub:'Simple sub-sites for different use cases. Each opens on a dedicated page.',
+        ex_1_t:'Freelancer site - Personal CV', ex_1_d:'Ideal for showcasing your work, skills, and contact details professionally.',
+        ex_2_t:'Business or Local Store', ex_2_d:'Optimized landing page for reservations, menus, or information about your physical store.',
+        ex_3_t:'Digital Product', ex_3_d:'Landings with clear calls to action to sell your software, course, or ebook.',
+        ct_title:'Contact', ct_sub:'Briefly tell me your idea and page objective. I’ll reply with a simple proposal and ETA.',
+        ct_name_l:'Name', ct_email_l:'Email', ct_phone_l:'Phone (Optional)', ct_msg_l:'Your idea and goals', ct_send:'Send Message', ct_alt:'You can also write me directly:',
+        foot_all:'All rights reserved.', foot_legal_1:'By using this site you accept our', foot_terms:'Terms & Conditions', foot_y:'and', foot_priv:'Privacy'
       }
-      snake.unshift(head);
-      if (head.x===food.x && head.y===food.y){ score+=10; $('#sn-score').textContent=score; if(score%50===0){ speed=Math.min(16, speed+1); $('#sn-speed').textContent=(speed/8).toFixed(1)+'x'; } food=spawnFood(); }
-      else snake.pop();
-      // render
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      ctx.globalAlpha=.07; ctx.strokeStyle='#a78bfa';
-      for(let x=0;x<cols;x++){ ctx.beginPath(); ctx.moveTo(x*grid,0); ctx.lineTo(x*grid,canvas.height); ctx.stroke(); }
-      for(let y=0;y<rows;y++){ ctx.beginPath(); ctx.moveTo(0,y*grid); ctx.lineTo(canvas.width,y*grid); ctx.stroke(); }
-      ctx.globalAlpha=1;
-      drawCell(food.x,food.y,'#7c3aed'); snake.forEach((s,i)=> drawCell(s.x,s.y,i?'#c4b5fd':'#a78bfa'));
-      // best
-      const best = Math.max(storage.get('sn-best',0), score); storage.set('sn-best',best); $('#sn-best').textContent=best;
-    }
-    function handleKey(e){ const k=e.key.toLowerCase(); if(k==='p'){ paused=!paused; return }
-      if((k==='arrowup'||k==='w')&&dir.y!==1) dir={x:0,y:-1}; else if((k==='arrowdown'||k==='s')&&dir.y!==-1) dir={x:0,y:1};
-      else if((k==='arrowleft'||k==='a')&&dir.x!==1) dir={x:-1,y:0}; else if((k==='arrowright'||k==='d')&&dir.x!==-1) dir={x:1,y:0}; }
+    };
 
-    // Swipe para móvil
-    let tStart=null; canvas.addEventListener('touchstart', e=>{ tStart={x:e.touches[0].clientX,y:e.touches[0].clientY} }, {passive:true});
-    canvas.addEventListener('touchend', e=>{
-      if(!tStart) return; const dx=(e.changedTouches[0].clientX - tStart.x), dy=(e.changedTouches[0].clientY - tStart.y);
-      if(Math.abs(dx)>Math.abs(dy)) { if(dx>10 && dir.x!==-1) dir={x:1,y:0}; else if(dx<-10 && dir.x!==1) dir={x:-1,y:0}; }
-      else { if(dy>10 && dir.y!==-1) dir={x:0,y:1}; else if(dy<-10 && dir.y!==1) dir={x:0,y:-1}; }
-      tStart=null;
-    }, {passive:true});
+    const applyI18n = (lang) => {
+      const dict = t[lang] || t.es;
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        if (dict[key] !== undefined) el.innerHTML = dict[key];
+      });
+      document.documentElement.lang = (lang === 'en' ? 'en' : 'es');
+      localStorage.setItem('lang', lang);
+    };
 
-    // D‑Pad botones
-    $$('#sn-dpad button').forEach(b=> b.addEventListener('click', ()=>{
-      const d=b.dataset.dir; if(d==='up' && dir.y!==1) dir={x:0,y:-1}; if(d==='down' && dir.y!==-1) dir={x:0,y:1}; if(d==='left' && dir.x!==1) dir={x:-1,y:0}; if(d==='right' && dir.x!==-1) dir={x:1,y:0};
-    }));
+    const langHandler = (lang) => () => applyI18n(lang);
+    document.getElementById('lang-es')?.addEventListener('click', langHandler('es'));
+    document.getElementById('lang-en')?.addEventListener('click', langHandler('en'));
+    document.getElementById('lang-es-mobile')?.addEventListener('click', langHandler('es'));
+    document.getElementById('lang-en-mobile')?.addEventListener('click', langHandler('en'));
 
-    document.addEventListener('keydown', handleKey);
-    let acc=0; const fps=60; function loop(){ acc+=1; if(acc>=fps/speed){ acc=0; step(); } requestAnimationFrame(loop) } requestAnimationFrame(loop);
-    $('#sn-restart').addEventListener('click', reset); $('#sn-overlay-restart').addEventListener('click', reset);
-    reset();
-  }
+    const savedLang = localStorage.getItem('lang');
+    applyI18n(savedLang === 'en' ? 'en' : 'es');
 
-  /* ============== PONG (pierde si CPU llega a 5) ============== */
-  function initPong(){
-    const canvas=$('#pongCanvas'), ctx=canvas.getContext('2d');
-    let ball,left,right,speedMul,scoreL,scoreR,keys={},targetCPU=5, gameOver=false;
+    // ===== FAQ: acordeón =====
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const btn = item.querySelector('button');
+      const panel = item.querySelector('.faq-panel');
+      const icon = item.querySelector('.faq-icon');
 
-    function reset(all=true){
-      ball={x:canvas.width/2,y:canvas.height/2,vx:rng(0,1)?2.6:-2.6,vy:rng(-2,2),r:6};
-      left={x:14,y:canvas.height/2-30,w:8,h:60,vy:0}; right={x:canvas.width-22,y:canvas.height/2-30,w:8,h:60};
-      speedMul=1; if(all){scoreL=0;scoreR=0;$('#pg-left').textContent=0;$('#pg-right').textContent=0;} $('#pg-speed').textContent=speedMul+'x';
-      gameOver=false; hideOverlay('#pg-overlay');
-    }
-    function draw(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      ctx.setLineDash([6,8]); ctx.strokeStyle='#a78bfa88'; ctx.beginPath(); ctx.moveTo(canvas.width/2,0); ctx.lineTo(canvas.width/2,canvas.height); ctx.stroke(); ctx.setLineDash([]);
-      ctx.fillStyle='#c4b5fd'; ctx.fillRect(left.x,left.y,left.w,left.h); ctx.fillRect(right.x,right.y,right.w,right.h);
-      ctx.beginPath(); ctx.arc(ball.x,ball.y,ball.r,0,Math.PI*2); ctx.fillStyle='#a78bfa'; ctx.fill();
-    }
-    function step(){ if(gameOver) return;
-      if(keys['arrowup']||keys['w']) left.y-=4.2; if(keys['arrowdown']||keys['s']) left.y+=4.2; left.y=clamp(left.y,6,canvas.height-left.h-6);
-      const target=ball.y-right.h/2; right.y+= (target-right.y)*0.08; right.y=clamp(right.y,6,canvas.height-right.h-6);
-      ball.x+=ball.vx*speedMul; ball.y+=ball.vy*speedMul; if(ball.y<6||ball.y>canvas.height-6) ball.vy*=-1;
-      const hit=p=> ball.x-ball.r<p.x+p.w && ball.x+ball.r>p.x && ball.y+ball.r>p.y && ball.y-ball.r<p.y+p.h;
-      if(hit(left)){ ball.vx=Math.abs(ball.vx)+0.2; const off=(ball.y-(left.y+left.h/2))/(left.h/2); ball.vy=off*4; speedMul=Math.min(2.2,speedMul+0.03); }
-      if(hit(right)){ ball.vx=-Math.abs(ball.vx)-0.2; const off=(ball.y-(right.y+right.h/2))/(right.h/2); ball.vy=off*4; speedMul=Math.min(2.2,speedMul+0.03); }
-      if(ball.x<-20){ gameOver=true; showOverlay('#pg-overlay'); return; }
-      if(ball.x>canvas.width+20){ scoreL++; $('#pg-left').textContent=scoreL; reset(false); }
-      $('#pg-speed').textContent=speedMul.toFixed(1)+'x';
-      
-    }
-    function loop(){ step(); draw(); requestAnimationFrame(loop) }
-    window.addEventListener('keydown', e=> keys[e.key.toLowerCase()]=true);
-    window.addEventListener('keyup', e=> keys[e.key.toLowerCase()]=false);
-    // Control táctil: mueve tu paleta con el dedo
-    canvas.addEventListener('touchmove', e=>{ const rect=canvas.getBoundingClientRect(); const y=e.touches[0].clientY-rect.top; left.y=clamp(y-left.h/2,6,canvas.height-left.h-6); }, {passive:true});
-    // D-Pad móvil (Pong)
-    const pgUp = document.querySelector('#pg-dpad [data-dir="up"]');
-    const pgDown = document.querySelector('#pg-dpad [data-dir="down"]');
-    function bindHold(btn, key){
-      const down = ()=> { keys[key]=true; };
-      const up = ()=> { keys[key]=false; };
-      ['pointerdown','touchstart','mousedown'].forEach(ev=> btn.addEventListener(ev, down, {passive:true}));
-      ['pointerup','pointerleave','touchend','touchcancel','mouseup'].forEach(ev=> btn.addEventListener(ev, up));
-    }
-    bindHold(pgUp, 'arrowup');
-    bindHold(pgDown, 'arrowdown');
-    $('#pg-restart').addEventListener('click', ()=> reset(true)); $('#pg-overlay-restart').addEventListener('click', ()=> reset(true));
-    reset(true); loop();
-    
-  }
+      btn.addEventListener('click', () => {
+        const isOpen = !panel.classList.contains('hidden');
 
-  /* ============== BREAKOUT (overlay al perder) ============== */
-  function initBreakout(){
-    const canvas=$('#brCanvas'), ctx=canvas.getContext('2d');
-    let paddle, ball, bricks, rows, cols, score, lives, level, running, keys={};
+        faqItems.forEach(other => {
+          if (other !== item) {
+            other.querySelector('.faq-panel').classList.add('hidden');
+            other.querySelector('.faq-icon')?.classList.remove('rotate-180');
+            other.querySelector('button')?.setAttribute('aria-expanded','false');
+          }
+        });
 
-    function build(level){ rows=clamp(3+level,3,8); cols=9; bricks=[]; for(let r=0;r<rows;r++) for(let c=0;c<cols;c++) bricks.push({ x:24+c*((canvas.width-48)/cols), y:40+r*24, w:(canvas.width-48)/cols-4, h:16, hp:1+Math.floor(r/2) }); }
-    function reset(all=true){ paddle={x:canvas.width/2-40,y:canvas.height-24,w:80,h:10,speed:6}; ball={x:canvas.width/2,y:canvas.height-60,r:6,vx:3.0,vy:-3.2}; score=0; lives=3; level=1; running=true; build(level); updateHud(); hideOverlay('#br-overlay'); }
-    function updateHud(){ $('#br-score').textContent=score; $('#br-lives').textContent=lives; $('#br-level').textContent=level; }
-    function draw(){ ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle='#c4b5fd'; ctx.fillRect(paddle.x,paddle.y,paddle.w,paddle.h); ctx.beginPath(); ctx.arc(ball.x,ball.y,ball.r,0,Math.PI*2); ctx.fillStyle='#a78bfa'; ctx.fill(); bricks.forEach(b=>{ if(b.hp<=0) return; ctx.globalAlpha=clamp(0.5+b.hp*0.2,0.5,1); ctx.fillStyle='#7c3aed'; ctx.fillRect(b.x,b.y,b.w,b.h); ctx.globalAlpha=1; }); }
-    function step(){ if(!running) return; if(keys['arrowleft']||keys['a']) paddle.x-=paddle.speed; if(keys['arrowright']||keys['d']) paddle.x+=paddle.speed; paddle.x=clamp(paddle.x,6,canvas.width-paddle.w-6);
-      ball.x+=ball.vx; ball.y+=ball.vy; if(ball.x<6||ball.x>canvas.width-6) ball.vx*=-1; if(ball.y<6) ball.vy*=-1;
-      if(ball.y+ball.r>paddle.y && ball.x>paddle.x && ball.x<paddle.x+paddle.w && ball.vy>0){ const hit=(ball.x-(paddle.x+paddle.w/2))/(paddle.w/2); ball.vx=hit*4.2; ball.vy=-Math.abs(ball.vy)-0.1; }
-      for(const b of bricks){ if(b.hp<=0) continue; if(ball.x> b.x && ball.x< b.x+b.w && ball.y> b.y && ball.y< b.y+b.h){ b.hp--; score+=10; updateHud(); const left=Math.abs(ball.x-b.x), right=Math.abs(ball.x-(b.x+b.w)), top=Math.abs(ball.y-b.y), bottom=Math.abs(ball.y-(b.y+b.h)); const min=Math.min(left,right,top,bottom); if(min===left||min===right) ball.vx*=-1; else ball.vy*=-1; } }
-      if(ball.y>canvas.height+10){ running=false; showOverlay('#br-overlay'); return; }
-      if(lives<=0){ running=false; showOverlay('#br-overlay'); }
-      if(bricks.every(b=>b.hp<=0)){ level++; updateHud(); build(level); ball.x=canvas.width/2; ball.y=canvas.height-60; ball.vx=3.0; ball.vy=-3.2; }
-    }
-    function loop(){ step(); draw(); requestAnimationFrame(loop) }
-    window.addEventListener('mousemove', e=>{ const rect=canvas.getBoundingClientRect(); if(document.activeElement!==canvas) return; paddle.x = clamp(e.clientX-rect.left - paddle.w/2, 6, canvas.width - paddle.w - 6); });
-    window.addEventListener('keydown', e=> keys[e.key.toLowerCase()]=true); window.addEventListener('keyup', e=> keys[e.key.toLowerCase()]=false);
-    // táctil: desliza
-    canvas.addEventListener('touchmove', e=>{ const rect=canvas.getBoundingClientRect(); const x=e.touches[0].clientX-rect.left; paddle.x=clamp(x-paddle.w/2,6,canvas.width-paddle.w-6); }, {passive:true});
-    // D-Pad móvil (Breakout)
-    const brLeft = document.querySelector('#br-dpad [data-dir="left"]');
-    const brRight = document.querySelector('#br-dpad [data-dir="right"]');
-    function bindHoldBR(btn, key){
-      const down = ()=> { keys[key]=true; };
-      const up = ()=> { keys[key]=false; };
-      ['pointerdown','touchstart','mousedown'].forEach(ev=> btn.addEventListener(ev, down, {passive:true}));
-      ['pointerup','pointerleave','touchend','touchcancel','mouseup'].forEach(ev=> btn.addEventListener(ev, up));
-    }
-    bindHoldBR(brLeft, 'arrowleft');
-    bindHoldBR(brRight, 'arrowright');
-    $('#br-restart').addEventListener('click', ()=> reset(true)); $('#br-overlay-restart').addEventListener('click', ()=> reset(true));
-    reset(true); loop();
-  }
-</script>
+        panel.classList.toggle('hidden');
+        icon.classList.toggle('rotate-180');
+        btn.setAttribute('aria-expanded', String(!isOpen));
+      });
+    });
+
+    // Iconos + evitar FOUC (fade-in cuando todo está listo)
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.style.opacity = '1';
+      feather.replace();
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href');
+        const el = document.querySelector(id);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+      });
+    });
+  </script>
+
+  <noscript><style>html.dark body{color:#e5e7eb}</style>
+    Tu navegador tiene JavaScript deshabilitado. El contenido sigue visible, pero algunos elementos interactivos (iconos, acordeón de FAQ, cambio de idioma/tema) no funcionarán.
+  </noscript>
 </body>
 </html>
