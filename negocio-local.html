@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brewed Bliss Café | El arte del buen café</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <!-- Favicon PNG agregado -->
+    <link rel="icon" type="image/png" href="/assets/eg/negocio-local.png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/assets/eg/negocio-local.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap');
+        
+        :root {
+            --primary: #6F4E37;
+            --secondary: #C4A484;
+        }
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .dark {
+            --primary: #C4A484;
+            --secondary: #6F4E37;
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        
+        .dark .nav-link:hover,
+        .dark .active {
+            color: var(--primary) !important;
+        }
+        
+        .section {
+            scroll-margin-top: 80px;
+        }
+        
+        /* Imagen de fondo actual */
+        .coffee-bg {
+            background: url('/assets/negocio-local2.png') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        
+        .whatsapp-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-amber-50 dark:bg-gray-900">
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/5491162857653" target="_blank" aria-label="Contactar por WhatsApp"
+       class="fixed bottom-6 right-6 z-50 whatsapp-btn bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg">
+        <!-- SVG de WhatsApp inline -->
+        <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M20.52 3.48A11.86 11.86 0 0 0 12.04.06C5.62.06.4 5.28.4 11.7c0 2.06.54 4.07 1.57 5.86L.05 23.94l6.53-1.88a11.7 11.7 0 0 0 5.46 1.39h.01c6.41 0 11.63-5.22 11.63-11.63 0-3.11-1.21-6.03-3.16-8.34ZM12.05 21.1h-.01a9.38 9.38 0 0 1-4.78-1.31l-.34-.2-3.87 1.11 1.1-3.77-.22-.35a9.42 9.42 0 1 1 8.12 4.52Zm5.45-6.97c-.3-.15-1.78-.88-2.06-.98-.28-.1-.49-.15-.69.15-.2.3-.79.98-.97 1.18-.18.2-.36.22-.66.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.73-1.64-2.03-.17-.3-.02-.47.13-.62.13-.13.3-.34.45-.51.15-.17.2-.3.3-.5.1-.2.06-.38-.02-.53-.08-.15-.69-1.66-.95-2.27-.25-.6-.5-.52-.69-.53l-.59-.01c-.2 0-.53.08-.81.38-.28.3-1.06 1.03-1.06 2.5 0 1.47 1.09 2.89 1.24 3.09.15.2 2.15 3.28 5.2 4.6.73.31 1.29.49 1.73.63.73.23 1.39.2 1.91.12.58-.09 1.78-.73 2.03-1.43.25-.7.25-1.3.17-1.43-.08-.13-.27-.2-.57-.35Z"/>
+        </svg>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-md z-40">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-2xl font-bold text-amber-900 dark:text-amber-200">Brewed Bliss</a>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="nav-link text-amber-900 dark:text-amber-100 hover:text-amber-700 dark:hover:text-amber-300 font-medium transition">Inicio</a>
+                    <a href="#about" class="nav-link text-amber-900 dark:text-amber-100 hover:text-amber-700 dark:hover:text-amber-300 font-medium transition">Nosotros</a>
+                    <a href="#menu" class="nav-link text-amber-900 dark:text-amber-100 hover:text-amber-700 dark:hover:text-amber-300 font-medium transition">Menú</a>
+                    <a href="#experience" class="nav-link text-amber-900 dark:text-amber-100 hover:text-amber-700 dark:hover:text-amber-300 font-medium transition">Experiencia</a>
+                    <a href="#location" class="nav-link text-amber-900 dark:text-amber-100 hover:text-amber-700 dark:hover:text-amber-300 font-medium transition">Ubicación</a>
+                    <!-- NUEVO: Volver al sitio original -->
+                    <a href="https://www.andromadorian.site/" class="nav-link text-blue-700 dark:text-blue-300 hover:underline font-medium transition">Volver al sitio original</a>
+                </div>
+                <button class="md:hidden focus:outline-none" id="mobileMenuButton" aria-label="Abrir menú">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden">
+        <div class="absolute top-0 right-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg p-4">
+            <div class="flex justify-end">
+                <button id="closeMobileMenu" class="p-2" aria-label="Cerrar menú">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <div class="flex flex-col space-y-6 mt-8">
+                <a href="#home" class="nav-link text-amber-900 dark:text-amber-100 hover:text-amber-700 dark:hover:text-amber-300 font-medium transition">Inicio</a>
+                <a href="#about" class="nav-link text-amber-900 dark:text-amber-100 hover:text-amber-700 dark:hover:text-amber-300 font-medium transition">Nosotros</a>
+                <a href="#menu" class="nav-link text-amber-900 dark:text-amber-100 hover:text-amber-700 dark:hover:text-amber-300 font-medium transition">Menú</a>
+                <a href="#experience" class="nav-link text-amber-900 dark:text-amber-100 hover:text-amber-700 dark:hover:text-amber-300 font-medium transition">Experiencia</a>
+                <a href="#location" class="nav-link text-amber-900 dark:text-amber-100 hover:text-amber-700 dark:hover:text-amber-300 font-medium transition">Ubicación</a>
+                <!-- NUEVO en menú móvil -->
+                <a href="https://www.andromadorian.site/" class="nav-link text-blue-700 dark:text-blue-300 hover:underline font-medium transition">Volver al sitio original</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="section min-h-screen pt-20 coffee-bg relative flex items-center justify-center">
+        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+        <div class="container mx-auto px-6 z-10 text-center">
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6">Brewed Bliss Café</h1>
+            <p class="text-xl md:text-2xl text-amber-100 mb-8 max-w-2xl mx-auto">Donde cada taza cuenta una historia y cada sorbo es un momento de felicidad</p>
+            <a href="#about" class="inline-block bg-amber-700 hover:bg-amber-800 text-white px-8 py-3 rounded-full font-medium transition transform hover:scale-105">
+                Descubre más
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section py-20 bg-white dark:bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <h2 class="text-3xl md:text-4xl font-bold text-amber-900 dark:text-amber-200 mb-6">Nuestra Pasión por el Café</h2>
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">Desde 2010, Brewed Bliss Café ha sido un refugio para los amantes del buen café en el corazón de la ciudad. Nuestro compromiso es ofrecer una experiencia de café excepcional, desde el grano hasta la taza.</p>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6">Trabajamos directamente con pequeños productores para asegurar los granos de más alta calidad, tostados artesanalmente para resaltar sus características únicas.</p>
+                    <div class="flex space-x-4">
+                        <div class="flex items-center">
+                            <i data-feather="coffee" class="text-amber-600 dark:text-amber-400 mr-2"></i>
+                            <span class="text-gray-700 dark:text-gray-300">Café de especialidad</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i data-feather="heart" class="text-amber-600 dark:text-amber-400 mr-2"></i>
+                            <span class="text-gray-700 dark:text-gray-300">Hecho con amor</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="http://static.photos/food/640x360/7" alt="Café artesanal" class="rounded-lg shadow-xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="section py-20 bg-amber-50 dark:bg-gray-800">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-amber-900 dark:text-amber-200 mb-16">Nuestro Menú</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Café -->
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+                    <div class="text-center mb-4">
+                        <i data-feather="coffee" class="w-12 h-12 text-amber-600 dark:text-amber-400 mx-auto"></i>
+                        <h3 class="text-xl font-bold text-amber-900 dark:text-amber-200 mt-2">Cafés</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex justify-between">
+                            <span class="text-gray-700 dark:text-gray-300">Espresso</span>
+                            <span class="text-amber-600 dark:text-amber-400 font-medium">$120</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="text-gray-700 dark:text-gray-300">Americano</span>
+                            <span class="text-amber-600 dark:text-amber-400 font-medium">$150</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="text-gray-700 dark:text-gray-300">Cappuccino</span>
+                            <span class="text-amber-600 dark:text-amber-400 font-medium">$180</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="text-gray-700 dark:text-gray-300">Latte</span>
+                            <span class="text-amber-600 dark:text-amber-400 font-medium">$190</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="text-gray-700 dark:text-gray-300">Flat White</span>
+                            <span class="text-amber-600 dark:text-amber-400 font-medium">$200</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Té -->
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+                    <div class="text-center mb-4">
+                        <i data-feather="leaf" class="w-12 h-12 text-amber-600 dark:text-amber-400 mx-auto"></i>
+                        <h3 class="text-xl font-bold text-amber-900 dark:text-amber-200 mt-2">Tés</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex justify-between">
+                            <span class="text-gray-700 dark:text-gray-300">Té Negro</span>
+                            <span class="text-amber-600 dark:text-amber-400 font-medium">$140</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="text-gray-700 dark:text-gray-300">Té Verde</span>
+                            <span class="text-amber-600 dark:text-amber-400 font-medium">$140</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="text-gray-700 dark:text-gray-300">Té de Manzanilla</span>
+                            <span class="text-amber-600 dark:text-amber-400 font-medium">$140</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="text-gray-700 dark:text-gray-300">Té Chai</span>
+                            <span class="text-amber-600 dark:text-amber-400 font-medium">$160</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="text-gray-700 dark:text-gray-300">Té Matcha</span>
+                            <span class="text-amber-600 dark:text-amber-400 font-medium">$180</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Pastelería -->
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+                    <div class="text-center mb-4">
+                        <i data-feather="pie-chart" class="w-12 h-12 text-amber-600 dark:text-amber-400 mx-auto"></i>
+                        <h3 class="text-xl font-bold text-amber-900 dark:text-amber-200 mt-2">Pastelería</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex justify-between">
+                            <span class="text-gray-700 dark:text-gray-300">Croissant</span>
+                            <span class="text-amber-600 dark:text-amber-400 font-medium">$150</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="text-gray-700 dark:text-gray-300">Medialuna</span>
+                            <span class="text-amber-600 dark:text-amber-400 font-medium">$150</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="text-gray-700 dark:text-gray-300">Tostadas</span>
+                            <span class="text-amber-600 dark:text-amber-400 font-medium">$180</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="text-gray-700 dark:text-gray-300">Torta Red Velvet</span>
+                            <span class="text-amber-600 dark:text-amber-400 font-medium">$220</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="text-gray-700 dark:text-gray-300">Cheesecake</span>
+                            <span class="text-amber-600 dark:text-amber-400 font-medium">$240</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section py-20 bg-white dark:bg-gray-900">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-amber-900 dark:text-amber-200 mb-16">La Experiencia Brewed Bliss</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="bg-amber-100 dark:bg-gray-700 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i data-feather="coffee" class="w-10 h-10 text-amber-600 dark:text-amber-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-amber-900 dark:text-amber-200 mb-3">Café de Calidad</h3>
+                    <p class="text-gray-700 dark:text-gray-300">Granos seleccionados a mano, tostados en pequeñas tandas para garantizar frescura y sabor excepcional.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-amber-100 dark:bg-gray-700 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i data-feather="users" class="w-10 h-10 text-amber-600 dark:text-amber-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-amber-900 dark:text-amber-200 mb-3">Ambiente Acogedor</h3>
+                    <p class="text-gray-700 dark:text-gray-300">Un espacio diseñado para que te sientas como en casa, perfecto para trabajar, leer o charlar.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-amber-100 dark:bg-gray-700 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i data-feather="award" class="w-10 h-10 text-amber-600 dark:text-amber-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-amber-900 dark:text-amber-200 mb-3">Baristas Expertos</h3>
+                    <p class="text-gray-700 dark:text-gray-300">Nuestro equipo está capacitado para preparar cada bebida a la perfección, con arte y dedicación.</p>
+                </div>
+            </div>
+            
+            <!-- Testimonials -->
+            <div class="mt-16">
+                <h3 class="text-2xl font-bold text-center text-amber-900 dark:text-amber-200 mb-8">Lo que dicen nuestros clientes</h3>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-amber-50 dark:bg-gray-800 p-6 rounded-lg shadow">
+                        <div class="flex items-center mb-4">
+                            <img src="http://static.photos/people/200x200/1" alt="Cliente" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-bold text-amber-900 dark:text-amber-200">María González</h4>
+                                <div class="flex text-amber-400">
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 italic">"El mejor café de la ciudad. Cada vez que vengo descubro un nuevo sabor. ¡Adoro su latte con canela!"</p>
+                    </div>
+                    
+                    <div class="bg-amber-50 dark:bg-gray-800 p-6 rounded-lg shadow">
+                        <div class="flex items-center mb-4">
+                            <img src="http://static.photos/people/200x200/2" alt="Cliente" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-bold text-amber-900 dark:text-amber-200">Carlos Rodríguez</h4>
+                                <div class="flex text-amber-400">
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 italic">"Mi lugar favorito para trabajar. WiFi rápido, enchufes por todos lados y un café que te mantiene productivo."</p>
+                    </div>
+                    
+                    <div class="bg-amber-50 dark:bg-gray-800 p-6 rounded-lg shadow">
+                        <div class="flex items-center mb-4">
+                            <img src="http://static.photos/people/200x200/3" alt="Cliente" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-bold text-amber-900 dark:text-amber-200">Laura Méndez</h4>
+                                <div class="flex text-amber-400">
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300 italic">"La atención es increíble y el ambiente es tan acogedor. Siempre que quedo con amigos, elegimos Brewed Bliss."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="location" class="section py-20 bg-amber-50 dark:bg-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                    <h2 class="text-3xl md:text-4xl font-bold text-amber-900 dark:text-amber-200 mb-6">Visítanos</h2>
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">
+                        <i data-feather="map-pin" class="inline-block text-amber-600 dark:text-amber-400"></i>
+                        <span class="ml-2">Av. Siempre Viva 123, Local 45, Buenos Aires</span>
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">
+                        <i data-feather="clock" class="inline-block text-amber-600 dark:text-amber-400"></i>
+                        <span class="ml-2">Lunes a Viernes: 7:30 - 20:00</span>
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6">
+                        <i data-feather="clock" class="inline-block text-amber-600 dark:text-amber-400"></i>
+                        <span class="ml-2">Sábados y Domingos: 9:00 - 21:00</span>
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6">Estamos ubicados en el corazón del barrio, con fácil acceso en transporte público y estacionamiento cercano.</p>
+                    <a href="https://maps.app.goo.gl/example" target="_blank" class="inline-block bg-amber-700 hover:bg-amber-800 text-white px-6 py-2 rounded-full font-medium transition">
+                        <i data-feather="navigation" class="inline-block mr-2"></i> Cómo llegar
+                    </a>
+                </div>
+                <div class="md:w-1/2 h-96">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.016887889485!2d-58.383759!3d-34.6037389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDM2JzEzLjUiUyA1OMKwMjMnMDEuNSJX!5e0!3m2!1ses!2sar!4v1234567890123!5m2!1ses!2sar" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            class="rounded-lg shadow-lg">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-amber-900 dark:bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-2xl font-bold mb-2">Brewed Bliss Café</h3>
+                    <p class="text-amber-200 dark:text-amber-100">El arte del buen café</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-amber-200 dark:text-amber-100 hover:text-white transition" aria-label="Instagram">
+                        <i data-feather="instagram"></i>
+                    </a>
+                    <a href="#" class="text-amber-200 dark:text-amber-100 hover:text-white transition" aria-label="Facebook">
+                        <i data-feather="facebook"></i>
+                    </a>
+                    <a href="#" class="text-amber-200 dark:text-amber-100 hover:text-white transition" aria-label="Twitter">
+                        <i data-feather="twitter"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-amber-800 dark:border-gray-700 mt-6 pt-6 text-center text-amber-200 dark:text-amber-100">
+                <p>
+                    © 2025 — Ejemplo de sitio para negocio local
+                    <span class="mx-2">•</span>
+                    <a href="https://www.andromadorian.site/" class="underline hover:text-white">Volver al sitio original</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+        });
+
+        closeMobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+
+        // Smooth scrolling for hash links (sin afectar enlaces externos)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (!target) return;
+                target.scrollIntoView({ behavior: 'smooth' });
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Highlight active nav link
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Initialize Feather Icons
+        feather.replace();
+    </script>
+</body>
+</html>

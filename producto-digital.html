@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marketing Maestría Pro - Domina el Mercado Digital</title>
+
+  <!-- Favicon actualizado -->
+  <link rel="icon" type="image/png" href="/assets/eg/producto-digital.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/assets/eg/producto-digital.png" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js" defer></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; }
+    .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .section-padding { padding: 5rem 0; }
+    .hover-lift { transition: transform .3s ease, box-shadow .3s ease; }
+    .hover-lift:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,.1); }
+    .text-gradient {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    /* Botón flotante WhatsApp */
+    .wa-fab {
+      position: fixed; right: 1rem; bottom: 1rem; z-index: 60;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 56px; height: 56px; border-radius: 9999px;
+      background: #25D366; color: #fff; box-shadow: 0 10px 20px rgba(0,0,0,.25);
+    }
+    .wa-fab:hover { filter: brightness(1.08); transform: translateY(-2px); transition: all .2s ease; }
+    /* Mejoras de accesibilidad al foco */
+    a:focus, button:focus { outline: 3px solid rgba(102,126,234,.45); outline-offset: 2px; }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+  <nav class="fixed w-full bg-white/95 backdrop-blur-sm z-50 shadow-sm" role="navigation" aria-label="Principal">
+    <div class="container mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <a href="#inicio" class="flex items-center space-x-2">
+          <div class="w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
+            <i data-feather="trending-up" class="text-white" aria-hidden="true"></i>
+          </div>
+          <span class="text-xl font-bold text-gray-800">MarketingPro</span>
+        </a>
+
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#inicio" class="text-gray-600 hover:text-purple-600 font-medium transition-colors">Inicio</a>
+          <a href="#beneficios" class="text-gray-600 hover:text-purple-600 font-medium transition-colors">Beneficios</a>
+          <a href="#modulos" class="text-gray-600 hover:text-purple-600 font-medium transition-colors">Módulos</a>
+          <a href="#testimonios" class="text-gray-600 hover:text-purple-600 font-medium transition-colors">Testimonios</a>
+          <a href="#precios" class="text-gray-600 hover:text-purple-600 font-medium transition-colors">Precios</a>
+          <a href="https://www.andromadorian.site/" class="text-gray-600 hover:text-purple-600 font-medium transition-colors">Volver al sitio original</a>
+        </div>
+
+        <div class="flex items-center">
+          <button id="mobileMenuBtn" class="md:hidden" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menú">
+            <i data-feather="menu" class="text-gray-700"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="md:hidden hidden pt-4">
+        <div class="flex flex-col space-y-3">
+          <a href="#inicio" class="py-2 text-gray-700 hover:text-purple-600">Inicio</a>
+          <a href="#beneficios" class="py-2 text-gray-700 hover:text-purple-600">Beneficios</a>
+          <a href="#modulos" class="py-2 text-gray-700 hover:text-purple-600">Módulos</a>
+          <a href="#testimonios" class="py-2 text-gray-700 hover:text-purple-600">Testimonios</a>
+          <a href="#precios" class="py-2 text-gray-700 hover:text-purple-600">Precios</a>
+          <a href="#contacto" class="py-2 text-gray-700 hover:text-purple-600">Contacto</a>
+          <a href="https://www.andromadorian.site/" class="py-2 text-gray-700 hover:text-purple-600">Volver al sitio original</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section id="inicio" class="py-24 md:min-h-screen flex items-center gradient-bg relative overflow-hidden">
+    <div id="vanta-globe" class="absolute inset-0"></div>
+    <div class="container mx-auto px-6 relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+          Domina el <span class="text-yellow-300">Marketing Digital</span> Hoy Mismo
+        </h1>
+        <p class="text-lg sm:text-xl md:text-2xl text-black font-bold mb-8 leading-relaxed">
+          Transforma tu carrera con nuestro curso profesional de marketing. Aprende estrategias comprobadas que generan resultados reales en el mundo digital.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="#precios" class="bg-white text-purple-600 px-8 py-4 rounded-lg font-bold text-lg hover:shadow-2xl transition-all hover-lift">
+            Inscribirse al Curso
+          </a>
+          <a href="#modulos" class="border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-purple-600 transition-all">
+            Ver Demo Gratis
+          </a>
+        </div>
+        <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8 text-white">
+          <div class="text-center">
+            <div class="text-3xl font-bold">5000+</div>
+            <div class="text-white/80">Estudiantes</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold">98%</div>
+            <div class="text-white/80">Satisfacción</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold">24/7</div>
+            <div class="text-white/80">Soporte</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold">Certificación</div>
+            <div class="text-white/80">Internacional</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="beneficios" class="section-padding bg-gray-50">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">¿Por Qué Elegir Nuestro Curso?</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Descubre las ventajas exclusivas que te ofrecemos para impulsar tu carrera en marketing digital</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg hover-lift">
+          <div class="w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl flex items-center justify-center mb-6">
+            <i data-feather="users" class="text-white" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">Mentoría Personalizada</h3>
+          <p class="text-gray-600">Acceso directo a expertos de la industria que te guiarán paso a paso en tu aprendizaje.</p>
+        </div>
+
+        <div class="bg-white p-8 rounded-2xl shadow-lg hover-lift">
+          <div class="w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl flex items-center justify-center mb-6">
+            <i data-feather="book-open" class="text-white" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">Contenido Actualizado</h3>
+          <p class="text-gray-600">Material constantemente actualizado con las últimas tendencias y estrategias del mercado.</p>
+        </div>
+
+        <div class="bg-white p-8 rounded-2xl shadow-lg hover-lift">
+          <div class="w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl flex items-center justify-center mb-6">
+            <i data-feather="award" class="text-white" aria-hidden="true"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">Certificación Reconocida</h3>
+          <p class="text-gray-600">Certificación internacional que valida tus conocimientos ante empleadores globales.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="modulos" class="section-padding">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Módulos del Curso</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Un programa completo diseñado para convertirte en un experto en marketing digital</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-2xl border border-purple-100 hover-lift">
+          <div class="text-4xl font-bold text-purple-600 mb-4">01</div>
+          <h3 class="text-xl font-bold text-gray-800 mb-4">Fundamentos del Marketing Digital</h3>
+          <p class="text-gray-600 mb-6">Aprende los conceptos básicos y las bases sólidas del marketing en la era digital.</p>
+          <ul class="space-y-2">
+            <li class="flex items-center text-gray-600"><i data-feather="check" class="mr-2 text-green-500" aria-hidden="true"></i>Estrategias básicas</li>
+            <li class="flex items-center text-gray-600"><i data-feather="check" class="mr-2 text-green-500" aria-hidden="true"></i>Análisis de mercado</li>
+            <li class="flex items-center text-gray-600"><i data-feather="check" class="mr-2 text-green-500" aria-hidden="true"></i>Buyer persona</li>
+          </ul>
+        </div>
+
+        <div class="bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-2xl border border-purple-100 hover-lift">
+          <div class="text-4xl font-bold text-purple-600 mb-4">02</div>
+          <h3 class="text-xl font-bold text-gray-800 mb-4">SEO y Contenido</h3>
+          <p class="text-gray-600 mb-6">Domina el posicionamiento orgánico y la creación de contenido de valor.</p>
+          <ul class="space-y-2">
+            <li class="flex items-center text-gray-600"><i data-feather="check" class="mr-2 text-green-500" aria-hidden="true"></i>Optimización SEO</li>
+            <li class="flex items-center text-gray-600"><i data-feather="check" class="mr-2 text-green-500" aria-hidden="true"></i>Estrategias de contenido</li>
+            <li class="flex items-center text-gray-600"><i data-feather="check" class="mr-2 text-green-500" aria-hidden="true"></i>Marketing de contenidos</li>
+          </ul>
+        </div>
+
+        <div class="bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-2xl border border-purple-100 hover-lift">
+          <div class="text-4xl font-bold text-purple-600 mb-4">03</div>
+          <h3 class="text-xl font-bold text-gray-800 mb-4">Publicidad Digital</h3>
+          <p class="text-gray-600 mb-6">Aprende a crear campañas publicitarias efectivas en diferentes plataformas.</p>
+          <ul class="space-y-2">
+            <li class="flex items-center text-gray-600"><i data-feather="check" class="mr-2 text-green-500" aria-hidden="true"></i>Google Ads</li>
+            <li class="flex items-center text-gray-600"><i data-feather="check" class="mr-2 text-green-500" aria-hidden="true"></i>Facebook Ads</li>
+            <li class="flex items-center text-gray-600"><i data-feather="check" class="mr-2 text-green-500" aria-hidden="true"></i>Instagram Marketing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonios" class="section-padding bg-gray-900">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Lo Que Dicen Nuestros Estudiantes</h2>
+        <p class="text-xl text-gray-300 max-w-2xl mx-auto">Descubre las experiencias de quienes ya transformaron su carrera con nosotros</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-gray-800 p-8 rounded-2xl hover-lift">
+          <div class="flex items-center mb-6">
+            <img src="https://picsum.photos/seed/a1/200/200" alt="Ana López" class="w-16 h-16 rounded-full mr-4" loading="lazy" />
+            <div>
+              <h4 class="text-white font-bold text-lg">Ana López</h4>
+              <p class="text-purple-400">Marketing Manager</p>
+            </div>
+          </div>
+          <p class="text-gray-300 leading-relaxed">"Este curso revolucionó mi forma de ver el marketing. Las estrategias aprendidas las apliqué inmediatamente en mi trabajo y los resultados fueron increíbles."</p>
+        </div>
+
+        <div class="bg-gray-800 p-8 rounded-2xl hover-lift">
+          <div class="flex items-center mb-6">
+            <img src="https://picsum.photos/seed/a2/200/200" alt="Carlos Rodríguez" class="w-16 h-16 rounded-full mr-4" loading="lazy" />
+            <div>
+              <h4 class="text-white font-bold text-lg">Carlos Rodríguez</h4>
+              <p class="text-purple-400">Emprendedor</p>
+            </div>
+          </div>
+          <p class="text-gray-300 leading-relaxed">"Como emprendedor, necesitaba entender el marketing digital rápidamente. Este curso me dio las herramientas exactas para hacer crecer mi negocio online."</p>
+        </div>
+
+        <div class="bg-gray-800 p-8 rounded-2xl hover-lift">
+          <div class="flex items-center mb-6">
+            <img src="https://picsum.photos/seed/a3/200/200" alt="María García" class="w-16 h-16 rounded-full mr-4" loading="lazy" />
+            <div>
+              <h4 class="text-white font-bold text-lg">María García</h4>
+              <p class="text-purple-400">Freelancer</p>
+            </div>
+          </div>
+          <p class="text-gray-300 leading-relaxed">"La mentoría personalizada hizo toda la diferencia. Pude resolver mis dudas específicas y ahora ofrezco servicios de marketing con mucha más confianza."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="precios" class="section-padding bg-white">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Elige Tu Plan Ideal</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Invierte en tu futuro con planes diseñados para diferentes necesidades y presupuestos</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover-lift">
+          <div class="text-center mb-8">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Básico</h3>
+            <div class="text-4xl font-bold text-gray-800 mb-2">$299</div>
+            <p class="text-gray-600">Por única vez</p>
+          </div>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center text-gray-600"><i data-feather="check" class="text-green-500 mr-2" aria-hidden="true"></i>Acceso a todos los módulos</li>
+            <li class="flex items-center text-gray-600"><i data-feather="check" class="text-green-500 mr-2" aria-hidden="true"></i>Material descargable</li>
+            <li class="flex items-center text-gray-600"><i data-feather="x" class="text-red-500 mr-2" aria-hidden="true"></i>Mentoría personalizada</li>
+            <li class="flex items-center text-gray-600"><i data-feather="x" class="text-red-500 mr-2" aria-hidden="true"></i>Certificación</li>
+          </ul>
+          <a href="#contacto" class="w-full inline-block text-center bg-gray-200 text-gray-800 py-3 rounded-lg font-bold hover:bg-gray-300 transition-colors">Comenzar</a>
+        </div>
+
+        <div class="bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl p-8 text-white relative hover-lift transform md:scale-105">
+          <div class="absolute top-0 right-0 bg-yellow-400 text-purple-900 px-4 py-1 rounded-bl-lg font-bold">Más Popular</div>
+          <div class="text-center mb-8">
+            <h3 class="text-2xl font-bold mb-4">Profesional</h3>
+            <div class="text-4xl font-bold mb-2">$599</div>
+            <p>Por única vez</p>
+          </div>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center"><i data-feather="check" class="mr-2" aria-hidden="true"></i>Acceso a todos los módulos</li>
+            <li class="flex items-center"><i data-feather="check" class="mr-2" aria-hidden="true"></i>Material descargable</li>
+            <li class="flex items-center"><i data-feather="check" class="mr-2" aria-hidden="true"></i>Mentoría personalizada (6 meses)</li>
+            <li class="flex items-center"><i data-feather="check" class="mr-2" aria-hidden="true"></i>Certificación internacional</li>
+          </ul>
+          <a href="#contacto" class="w-full inline-block text-center bg-white text-purple-600 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">Comenzar</a>
+        </div>
+
+        <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover-lift">
+          <div class="text-center mb-8">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Empresarial</h3>
+            <div class="text-4xl font-bold text-gray-800 mb-2">$999</div>
+            <p class="text-gray-600">Por única vez</p>
+          </div>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center text-gray-600"><i data-feather="check" class="text-green-500 mr-2" aria-hidden="true"></i>Acceso ilimitado para equipos</li>
+            <li class="flex items-center text-gray-600"><i data-feather="check" class="text-green-500 mr-2" aria-hidden="true"></i>Material descargable</li>
+            <li class="flex items-center text-gray-600"><i data-feather="check" class="text-green-500 mr-2" aria-hidden="true"></i>Mentoría personalizada (12 meses)</li>
+            <li class="flex items-center text-gray-600"><i data-feather="check" class="text-green-500 mr-2" aria-hidden="true"></i>Certificaciones para todo el equipo</li>
+          </ul>
+          <a href="#contacto" class="w-full inline-block text-center bg-gray-200 text-gray-800 py-3 rounded-lg font-bold hover:bg-gray-300 transition-colors">Comenzar</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-gradient-to-r from-purple-600 to-blue-600 py-20">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">¿Listo para Transformar Tu Carrera?</h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">Únete a miles de profesionales que ya están aplicando estas estrategias con éxito en el mundo real.</p>
+      <a href="#precios" class="bg-white text-purple-600 px-8 py-4 rounded-lg font-bold text-lg hover:shadow-2xl transition-all hover-lift">Inscribirse Ahora - 50% de Descuento</a>
+    </div>
+  </section>
+
+  <section id="contacto" class="section-padding bg-gray-50">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Contacto</h2>
+        <p class="text-xl text-gray-600">¿Consultas? Escribinos y te respondemos a la brevedad.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+        <form action="#" method="post" class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+              <input id="nombre" name="nombre" type="text" required
+                     class="w-full rounded-lg border-gray-300 focus:border-purple-500 focus:ring-purple-500" placeholder="Tu nombre" />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <input id="email" name="email" type="email" required
+                     class="w-full rounded-lg border-gray-300 focus:border-purple-500 focus:ring-purple-500" placeholder="tu@email.com" />
+            </div>
+            <div class="sm:col-span-2">
+              <label for="telefono" class="block text-sm font-medium text-gray-700 mb-1">Teléfono (opcional)</label>
+              <input id="telefono" name="telefono" type="tel"
+                     class="w-full rounded-lg border-gray-300 focus:border-purple-500 focus:ring-purple-500" placeholder="+54 9 ..." />
+            </div>
+            <div class="sm:col-span-2">
+              <label for="mensaje" class="block text-sm font-medium text-gray-700 mb-1">Mensaje</label>
+              <textarea id="mensaje" name="mensaje" rows="5" required
+                        class="w-full rounded-lg border-gray-300 focus:border-purple-500 focus:ring-purple-500" placeholder="Contanos en qué podemos ayudarte"></textarea>
+            </div>
+          </div>
+          <button type="submit"
+                  class="mt-6 w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg">
+            Enviar
+          </button>
+        </form>
+
+        <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+          <h3 class="text-2xl font-bold mb-4">También podés escribirnos</h3>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-center"><i data-feather="mail" class="mr-2" aria-hidden="true"></i>info@marketingpro.com</li>
+            <li class="flex items-center"><i data-feather="phone" class="mr-2" aria-hidden="true"></i>+1 (555) 123-4567</li>
+          </ul>
+          <div class="mt-8">
+            <h4 class="font-semibold mb-3">Seguinos</h4>
+            <div class="flex items-center space-x-4">
+              <a href="#" aria-label="X/Twitter" class="p-2 rounded-lg border border-gray-200 hover:border-gray-400">
+                <i data-feather="twitter"></i>
+              </a>
+              <a href="#" aria-label="Instagram" class="p-2 rounded-lg border border-gray-200 hover:border-gray-400">
+                <i data-feather="instagram"></i>
+              </a>
+              <a href="#" aria-label="LinkedIn" class="p-2 rounded-lg border border-gray-200 hover:border-gray-400">
+                <i data-feather="linkedin"></i>
+              </a>
+              <a href="#" aria-label="Facebook" class="p-2 rounded-lg border border-gray-200 hover:border-gray-400">
+                <i data-feather="facebook"></i>
+              </a>
+            </div>
+          </div>
+          <div class="mt-8">
+            <a href="https://wa.me/5491162857653" class="inline-flex items-center text-green-600 font-semibold hover:underline">
+              <i data-feather="message-circle" class="mr-2"></i> Chatear por WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <div class="w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
+              <i data-feather="trending-up" class="text-white" aria-hidden="true"></i>
+            </div>
+            <span class="text-xl font-bold">MarketingPro</span>
+          </div>
+          <p class="text-gray-400">Transformando profesionales en expertos de marketing digital desde 2020.</p>
+          <div class="flex items-center space-x-3 mt-4">
+            <a href="#" class="p-2 rounded bg-white/10 hover:bg-white/20" aria-label="X/Twitter">
+              <i data-feather="twitter"></i>
+            </a>
+            <a href="#" class="p-2 rounded bg-white/10 hover:bg-white/20" aria-label="Instagram">
+              <i data-feather="instagram"></i>
+            </a>
+            <a href="#" class="p-2 rounded bg-white/10 hover:bg-white/20" aria-label="LinkedIn">
+              <i data-feather="linkedin"></i>
+            </a>
+            <a href="#" class="p-2 rounded bg-white/10 hover:bg-white/20" aria-label="Facebook">
+              <i data-feather="facebook"></i>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-lg mb-4">Enlaces Rápidos</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#inicio" class="hover:text-white transition-colors">Inicio</a></li>
+            <li><a href="#beneficios" class="hover:text-white transition-colors">Beneficios</a></li>
+            <li><a href="#modulos" class="hover:text-white transition-colors">Módulos</a></li>
+            <li><a href="#precios" class="hover:text-white transition-colors">Precios</a></li>
+            <li><a href="#contacto" class="hover:text-white transition-colors">Contacto</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-lg mb-4">Legal</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">Términos y Condiciones</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Política de Privacidad</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Cookies</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-lg mb-4">Contacto</h4>
+          <div class="space-y-2 text-gray-400">
+            <div class="flex items-center"><i data-feather="mail" class="mr-2" aria-hidden="true"></i><span>info@marketingpro.com</span></div>
+            <div class="flex items-center"><i data-feather="phone" class="mr-2" aria-hidden="true"></i><span>+1 (555) 123-4567</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 space-y-1">
+        <p>© 2024 MarketingPro. Todos los derechos reservados. <span class="block md:inline md:ml-2">— Sitio web de ejemplo</span></p>
+        <p><a href="https://www.andromadorian.site/" class="text-purple-300 hover:text-white">Volver al sitio original</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/5491162857653" class="wa-fab" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <i data-feather="phone-call" aria-hidden="true"></i>
+  </a>
+
+  <script>
+    // Menú móvil
+    document.addEventListener('DOMContentLoaded', function () {
+      const btn = document.getElementById('mobileMenuBtn');
+      const menu = document.getElementById('mobileMenu');
+      if (btn && menu) {
+        btn.addEventListener('click', () => {
+          const isHidden = menu.classList.contains('hidden');
+          menu.classList.toggle('hidden');
+          btn.setAttribute('aria-expanded', String(isHidden));
+        });
+      }
+    });
+
+    // Inicializar Vanta cuando carguen scripts
+    window.addEventListener('load', function () {
+      if (window.VANTA && window.VANTA.GLOBE) {
+        window.VANTA.GLOBE({
+          el: "#vanta-globe",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          scaleMobile: 1.00,
+          color: 0x667eea,
+          backgroundColor: 0x764ba2,
+          size: 1.00
+        });
+      }
+      // Feather icons
+      if (window.feather) window.feather.replace();
+    });
+  </script>
+</body>
+</html>
