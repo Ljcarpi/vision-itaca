@@ -1,226 +1,278 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sugar Party - Repostería & Cotillón</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cotillon Sugar Party</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background: #ffffff;
-            color: #3a3060;
-        }
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: #ffffff;
+        color: #4a4a4a;
+    }
 
-        /* ---------- NAVBAR ---------- */
-        header {
-            background: rgba(210, 180, 255, 0.75);
-            backdrop-filter: blur(8px);
-            border-bottom: 2px solid rgba(255, 170, 220, 0.5);
-            padding: 10px 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    /* Encabezado */
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+        background: rgba(200, 160, 255, 0.35);
+        backdrop-filter: blur(8px);
+        position: sticky;
+        top: 0;
+        z-index: 999;
+    }
 
-        header img {
-            height: 55px;
-        }
+    header h1 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 700;
+        color: #7A3FFF;
+    }
 
-        nav a {
-            margin-left: 20px;
-            text-decoration: none;
-            font-weight: 600;
-            color: #3a3060;
-            transition: 0.3s;
-        }
+    nav a {
+        margin-left: 20px;
+        text-decoration: none;
+        color: #4a4a4a;
+        font-weight: 600;
+    }
 
-        nav a:hover {
-            color: #7d5dfc;
-        }
+    nav a:hover {
+        color: #A43FFF;
+    }
 
-        /* ---------- HERO ---------- */
-        .hero {
-            text-align: center;
-            padding: 70px 20px;
-            background: linear-gradient(145deg, rgba(255,182,222,0.45), rgba(166,150,255,0.35), rgba(162,219,255,0.45));
-        }
+    /* Hero */
+    .hero {
+        position: relative;
+        text-align: center;
+        padding: 80px 20px;
+        color: #7A3FFF;
+        background: #fefaff;
+        overflow: hidden;
+    }
 
-        .hero h1 {
-            font-size: 42px;
-            margin-bottom: 10px;
-            font-weight: 800;
-            color: #503488;
-        }
+    .hero img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 480px;
+        opacity: 0.15;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
 
-        .hero p {
-            font-size: 20px;
-            max-width: 700px;
-            margin: 0 auto;
-        }
+    .hero h2 {
+        font-size: 42px;
+        margin-bottom: 15px;
+        font-weight: 700;
+    }
 
-        /* ---------- CARROUSEL ---------- */
-        .carousel {
-            width: 100%;
-            max-width: 950px;
-            margin: 40px auto;
-            overflow: hidden;
-            border-radius: 18px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
+    .hero p {
+        font-size: 20px;
+        max-width: 850px;
+        margin: auto;
+        color: #6a5a8c;
+        font-weight: 600;
+    }
 
-        .carousel-inner {
-            display: flex;
-            width: 300%;
-            animation: slide 12s infinite;
-        }
+    /* Sección genérica */
+    section {
+        padding: 60px 30px;
+        text-align: center;
+    }
 
-        .carousel-inner img {
-            width: 100%;
-            object-fit: cover;
-        }
+    /* Carrusel */
+    .carousel-container {
+        width: 90%;
+        max-width: 900px;
+        margin: auto;
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
 
-        @keyframes slide {
-            0% { transform: translateX(0); }
-            33% { transform: translateX(-100%); }
-            66% { transform: translateX(-200%); }
-            100% { transform: translateX(0); }
-        }
+    .carousel-slide {
+        display: flex;
+        width: 100%;
+        transition: transform 0.5s ease-in-out;
+    }
 
-        /* ---------- INFO SECTION ---------- */
-        .section {
-            padding: 50px 20px;
-            max-width: 1100px;
-            margin: auto;
-            text-align: center;
-        }
+    .carousel-slide img {
+        width: 100%;
+        border-radius: 20px;
+    }
 
-        .section h2 {
-            color: #5a3fa3;
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
+    .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.7);
+        border: none;
+        font-size: 28px;
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 50%;
+    }
 
-        .section p {
-            font-size: 18px;
-            line-height: 1.6;
-        }
+    #prevBtn {
+        left: 10px;
+    }
 
-        /* ---------- CONTACTO ---------- */
-        .map-container {
-            width: 100%;
-            max-width: 900px;
-            height: 400px;
-            margin: 40px auto;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-        }
+    #nextBtn {
+        right: 10px;
+    }
 
-        /* ---------- WHATSAPP FLOAT ---------- */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background: #25D366;
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            z-index: 200;
-        }
+    /* Contacto */
+    .contact-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 40px;
+        align-items: center;
+    }
 
-        .whatsapp-float img {
-            width: 38px;
-        }
+    .contact-info {
+        max-width: 350px;
+        text-align: left;
+        font-size: 18px;
+    }
 
-        /* ---------- FOOTER ---------- */
-        footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            background: rgba(200,160,255,0.3);
-        }
-    </style>
+    .contact-info b {
+        color: #7A3FFF;
+    }
+
+    iframe {
+        border: 0;
+        width: 380px;
+        height: 300px;
+        border-radius: 15px;
+    }
+
+    /* Botón WhatsApp flotante */
+    .whatsapp-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 65px;
+        height: 65px;
+        background: #25D366;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        z-index: 9999;
+    }
+
+    .whatsapp-btn img {
+        width: 40px;
+        height: 40px;
+    }
+
+</style>
 </head>
+
 <body>
 
-    <!-- NAVBAR -->
-    <header>
-        <img src="/assets/sugarparty/logo.png" alt="Sugar Party">
-        <nav>
-            <a href="#sobre">Sobre Nosotros</a>
-            <a href="#productos">Productos</a>
-            <a href="#contacto">Contacto</a>
-        </nav>
-    </header>
+<header>
+    <h1>Cotillon Sugar Party</h1>
+    <nav>
+        <a href="#sobre">Sobre Nosotros</a>
+        <a href="#productos">Productos</a>
+        <a href="#galeria">Galería</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+</header>
 
-    <!-- HERO -->
-    <section class="hero">
-        <h1>Bienvenidos a Sugar Party</h1>
-        <p>Repostería • Cotillón • Productos para Celíacos • Golosinas • Papelera • Todo para tu fiesta</p>
-    </section>
+<!-- HERO -->
+<div class="hero">
+    <img src="/assets/sugarparty/logo.png" alt="Logo Sugar Party">
+    <h2>Bienvenidos a Sugar Party</h2>
+    <p>Repostería • Cotillón • Productos para Celíacos • Golosinas • Papelera • Todo para tu fiesta</p>
+</div>
 
-    <!-- CARROUSEL -->
-    <div class="carousel">
-        <div class="carousel-inner">
+<!-- Sobre nosotros -->
+<section id="sobre">
+    <h2 style="color:#7A3FFF;">Sobre Nosotros</h2>
+    <p style="max-width:800px;margin:auto;font-size:18px;color:#6a5a8c;">
+        En Sugar Party nos especializamos en repostería artesanal, cotillón, papelera, productos para celíacos,
+        decoración y artículos completos para fiestas.  
+        Realizamos tortas y repostería a pedido, mesas dulces, souvenirs personalizados y más.
+        Nuestro objetivo es ayudarte a crear celebraciones inolvidables con productos de calidad y atención cercana.
+    </p>
+</section>
+
+<!-- Carrusel -->
+<section id="galeria">
+    <h2 style="color:#7A3FFF;">Galería</h2>
+
+    <div class="carousel-container">
+        <button id="prevBtn" class="carousel-btn">&#10094;</button>
+        <button id="nextBtn" class="carousel-btn">&#10095;</button>
+
+        <div class="carousel-slide" id="slide">
             <img src="/assets/sugarparty/imagen1.png" alt="">
             <img src="/assets/sugarparty/imagen2.png" alt="">
             <img src="/assets/sugarparty/imagen3.png" alt="">
         </div>
     </div>
+</section>
 
-    <!-- SOBRE NOSOTROS -->
-    <section class="section" id="sobre">
-        <h2>Sobre Nosotros</h2>
-        <p>
-            En <b>Sugar Party</b> nos especializamos en brindar todo lo necesario para que tus celebraciones brillen.  
-            Contamos con productos para celíacos, artículos de repostería, cotillón, golosinas, papelera y venta general de artículos para fiestas.
-        </p>
-    </section>
+<!-- Productos -->
+<section id="productos">
+    <h2 style="color:#7A3FFF;">Nuestros Productos</h2>
+    <p style="max-width:800px;margin:auto;font-size:18px;color:#6a5a8c;">
+        Cotillón temático, repostería personalizada, golosinas, artículos para fiestas,
+        productos para celíacos, vajilla descartable, papelera, decoración y mucho más.
+        Todo lo que necesitás para lograr un evento único, colorido y lleno de magia.
+    </p>
+</section>
 
-    <!-- PRODUCTOS -->
-    <section class="section" id="productos">
-        <h2>Productos y Servicios</h2>
-        <p>
-            Insumos para repostería, decoraciones temáticas, globos, productos sin TACC, packaging, velas, piñatas,  
-            golosinas, guirnaldas, cajas, moldes, confitería y mucho más.
-        </p>
-    </section>
+<!-- Contacto -->
+<section id="contacto">
+    <h2 style="color:#7A3FFF;">Contacto</h2>
 
-    <!-- CONTACTO -->
-    <section class="section" id="contacto">
-        <h2>Contacto y Ubicación</h2>
-        <p>Nos encontramos en <b>Gral. Martín de Gainza 1093, CABA</b>.</p>
-
-        <div class="map-container">
-            <iframe 
-                src="https://www.google.com/maps?q=Gral.%20Mart%C3%ADn%20de%20Gainza%201093,%20CABA&output=embed"
-                width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen>
-            </iframe>
+    <div class="contact-container">
+        <div class="contact-info">
+            <p><b>Dirección:</b><br>
+               Gral. Martín de Gainza 1093, C1405, CABA</p>
+            <p><b>Teléfono / WhatsApp:</b><br>
+               +54 9 11 7621 4957</p>
+            <p><b>Horario:</b><br>
+               Lunes a Sábado • 10:00 a 20:00 hs</p>
         </div>
-    </section>
 
-    <!-- WHATSAPP FLOAT -->
-    <a 
-        class="whatsapp-float"
-        href="https://wa.me/5491176214957" 
-        target="_blank"
-    >
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
-    </a>
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.531195486742!2d-58.43685!3d-34.59046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcca7f93926fd7%3A0xefd871a8c1b1a2b!2sGral.%20Mart%C3%ADn%20de%20Gainza%201093%2C%20C1405%20CABA!5e0!3m2!1ses!2sar!4v1702230000000"
+            allowfullscreen="" loading="lazy">
+        </iframe>
+    </div>
+</section>
 
-    <!-- FOOTER -->
-    <footer>
-        © 2025 Sugar Party – Repostería & Cotillón
-    </footer>
+<!-- Botón WhatsApp -->
+<a class="whatsapp-btn" href="https://wa.me/5491176214957" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+</a>
+
+<script>
+    const slide = document.getElementById("slide");
+    const images = slide.querySelectorAll("img");
+    let counter = 0;
+
+    document.getElementById("nextBtn").addEventListener("click", () => {
+        counter = (counter + 1) % images.length;
+        slide.style.transform = `translateX(-${counter * 100}%)`;
+    });
+
+    document.getElementById("prevBtn").addEventListener("click", () => {
+        counter = (counter - 1 + images.length) % images.length;
+        slide.style.transform = `translateX(-${counter * 100}%)`;
+    });
+</script>
 
 </body>
 </html>
