@@ -5,8 +5,8 @@
     <title>Cotillon Sugar Party</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Fuente -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -60,6 +60,7 @@
             font-size: 22px;
             color: var(--violeta-oscuro);
             letter-spacing: 0.03em;
+            font-family: 'Fredoka', 'Poppins', sans-serif;
         }
 
         .nav-links {
@@ -115,29 +116,25 @@
             color: var(--violeta-oscuro);
         }
 
-        .hero-logo-bg {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 520px;
-            max-width: 80vw;
-            opacity: 0.18;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            animation: float 8s ease-in-out infinite;
-        }
-
         .hero h2 {
             font-size: 40px;
             margin-bottom: 15px;
         }
 
-        .hero p {
+        .hero-mainline {
             font-size: 20px;
             max-width: 800px;
-            margin: 0 auto 20px;
+            margin: 0 auto 10px;
             color: #6b5d8b;
             font-weight: 600;
+        }
+
+        .hero-logo {
+            display: block;
+            width: 260px;
+            max-width: 60vw;
+            margin: 20px auto 15px;
+            animation: float 8s ease-in-out infinite;
         }
 
         .hero-sub {
@@ -476,8 +473,8 @@
 
         /* ANIMACIONES */
         @keyframes float {
-            0%, 100% { transform: translate(-50%, -52%); }
-            50% { transform: translate(-50%, -48%); }
+            0%, 100% { transform: translateY(-4px); }
+            50% { transform: translateY(4px); }
         }
 
         .fade-in-up {
@@ -511,7 +508,7 @@
                 font-size: 32px;
             }
 
-            .hero p {
+            .hero-mainline {
                 font-size: 18px;
             }
         }
@@ -553,8 +550,8 @@
                 grid-template-columns: 1fr;
             }
 
-            .hero-logo-bg {
-                width: 420px;
+            .hero-logo {
+                width: 220px;
             }
         }
     </style>
@@ -573,7 +570,7 @@
             <a href="#productos">Productos</a>
             <a href="#servicios">Servicios</a>
             <a href="#contacto">Contacto</a>
-            <a href="#contacto" class="nav-cta">Pedí tu fiesta a medida</a>
+            <a href="https://wa.me/5491176214957" target="_blank" class="nav-cta">Pedí tu fiesta a medida</a>
         </nav>
     </div>
 </header>
@@ -581,19 +578,25 @@
 <!-- HERO -->
 <section class="hero">
     <div class="hero-inner fade-in-up">
-        <img class="hero-logo-bg" src="/assets/sugarparty/logo.png" alt="Logo Sugar Party">
         <h2>Bienvenidos a Sugar Party</h2>
-        <p>Repostería • Cotillón • Productos para Celíacos • Golosinas • Papelera • Todo para tu fiesta</p>
+        <div class="hero-mainline">
+            Repostería • Cotillón • Productos para Celíacos • Golosinas • Papelera • Todo para tu fiesta
+        </div>
+
+        <img class="hero-logo" src="/assets/sugarparty/logo.png" alt="Logo Sugar Party">
+
         <div class="hero-sub">
             Endulzamos tus eventos con tortas y mesas dulces a pedido, kits completos de cotillón
             y todos los detalles de decoración para que no tengas que preocuparte por nada.
         </div>
+
         <div class="hero-tags">
             <div class="tag-pill">Tortas personalizadas</div>
             <div class="tag-pill">Cumpleaños infantiles y adultos</div>
             <div class="tag-pill">Fiestas infantiles, comuniones y más</div>
             <div class="tag-pill">Opciones sin TACC</div>
         </div>
+
         <div class="hero-badge">
             Reservá tu fecha con anticipación y armamos un combo ideal para tu celebración.
         </div>
