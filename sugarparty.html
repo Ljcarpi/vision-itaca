@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Fuentes -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Pompiere&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -56,11 +56,11 @@
         }
 
         .logo-text {
-            font-weight: 700;
-            font-size: 22px;
+            font-family: 'Pompiere', cursive;
+            font-weight: 400;
+            font-size: 30px;
             color: var(--violeta-oscuro);
-            letter-spacing: 0.03em;
-            font-family: 'Fredoka', 'Poppins', sans-serif;
+            letter-spacing: 0.05em;
         }
 
         .nav-links {
@@ -111,7 +111,6 @@
         .hero-inner {
             max-width: 1100px;
             margin: 0 auto;
-            position: relative;
             text-align: center;
             color: var(--violeta-oscuro);
         }
@@ -213,12 +212,13 @@
         }
 
         .highlight-box {
-            background: linear-gradient(135deg, rgba(255,196,235,0.85), rgba(196,166,255,0.9));
+            background: linear-gradient(135deg, rgba(255,196,235,0.9), rgba(196,166,255,0.95));
             padding: 18px 20px;
             border-radius: 18px;
             color: #2f244b;
             font-size: 14px;
             box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+            margin-bottom: 18px;
         }
 
         .info-badges {
@@ -252,6 +252,50 @@
             content: "•";
             color: var(--violeta-oscuro);
             margin-right: 6px;
+        }
+
+        /* CARRUSEL SOBRE NOSOTROS */
+        .about-carousel-container {
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 18px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+            background: #fff;
+        }
+
+        .about-carousel-slide {
+            display: flex;
+            width: 300%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .about-carousel-slide img {
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .about-carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.85);
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 50%;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+
+        #aboutPrevBtn {
+            left: 8px;
+        }
+
+        #aboutNextBtn {
+            right: 8px;
         }
 
         /* PRODUCTOS (tarjetas) */
@@ -511,6 +555,10 @@
             .hero-mainline {
                 font-size: 18px;
             }
+
+            .about-carousel-container {
+                max-width: 100%;
+            }
         }
 
         @media (max-width: 680px) {
@@ -646,12 +694,19 @@
             <div>
                 <div class="highlight-box">
                     <b>Repostería a pedido</b><br>
-                    Diseñamos la mesa dulce completa según tu temática:
-                    tortas decoradas, cupcakes, cake pops, cookies, shots dulces y mucho más.
-                    También podemos sugerirte combinación de colores, packaging y etiquetas personalizadas.
-                    <br><br>
-                    Si necesitás opciones para invitados celíacos, contamos con proveedores de confianza y productos
-                    sin TACC señalizados para que todos puedan disfrutar con tranquilidad.
+                    Tortas y mesas dulces personalizadas según tu temática,
+                    con opciones clásicas y sin TACC. Reservás tu fecha, elegimos sabores
+                    y te entregamos todo listo para servir.
+                </div>
+
+                <div class="about-carousel-container">
+                    <button id="aboutPrevBtn" class="about-carousel-btn">&#10094;</button>
+                    <button id="aboutNextBtn" class="about-carousel-btn">&#10095;</button>
+                    <div class="about-carousel-slide" id="aboutSlide">
+                        <img src="/assets/sugarparty/imagen1.png" alt="Sugar Party 1">
+                        <img src="/assets/sugarparty/imagen2.png" alt="Sugar Party 2">
+                        <img src="/assets/sugarparty/imagen3.png" alt="Sugar Party 3">
+                    </div>
                 </div>
             </div>
         </div>
@@ -876,6 +931,21 @@
 
     // Año en footer
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Carrusel sección Sobre Nosotros
+    const aboutSlide = document.getElementById('aboutSlide');
+    const aboutImages = aboutSlide.querySelectorAll('img');
+    let aboutCounter = 0;
+
+    document.getElementById('aboutNextBtn').addEventListener('click', function () {
+        aboutCounter = (aboutCounter + 1) % aboutImages.length;
+        aboutSlide.style.transform = 'translateX(-' + (aboutCounter * 100) + '%)';
+    });
+
+    document.getElementById('aboutPrevBtn').addEventListener('click', function () {
+        aboutCounter = (aboutCounter - 1 + aboutImages.length) % aboutImages.length;
+        aboutSlide.style.transform = 'translateX(-' + (aboutCounter * 100) + '%)';
+    });
 </script>
 
 </body>
