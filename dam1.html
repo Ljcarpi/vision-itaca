@@ -88,9 +88,9 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(253,253,253,0.96);
+      background: #1f2937; /* azul marino claro */
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border-soft);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
     .nav-container {
@@ -119,7 +119,7 @@
       font-size: 1.1rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--text-main);
+      color: #ffffff;
     }
 
     nav ul {
@@ -136,7 +136,7 @@
       position: relative;
       padding-bottom: 0.2rem;
       font-weight: 500;
-      color: var(--text-main);
+      color: #ffffff;
     }
 
     nav a::after {
@@ -146,7 +146,7 @@
       bottom: 0;
       width: 0;
       height: 1px;
-      background: var(--accent);
+      background: #ffffff;
       transition: width 0.25s ease;
     }
 
@@ -163,9 +163,10 @@
 
     .hero-inner {
       display: grid;
-      grid-template-columns: minmax(0,1.4fr) minmax(0,1fr);
+      grid-template-columns: minmax(0,1.4fr);
       gap: 2.6rem;
       align-items: center;
+      justify-content: center;
     }
 
     .hero-text {
@@ -235,51 +236,6 @@
 
     .hero-note {
       font-size: 0.83rem;
-      color: var(--text-muted);
-    }
-
-    .hero-side {
-      background: var(--bg-card);
-      border-radius: 1.4rem;
-      padding: 1.6rem 1.5rem;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.06);
-      border: 1px solid var(--border-soft);
-      display: flex;
-      flex-direction: column;
-      gap: 1.1rem;
-    }
-
-    .hero-side-title {
-      font-size: 0.82rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--accent-soft);
-      margin-bottom: 0.4rem;
-    }
-
-    .hero-side-grid {
-      display: grid;
-      grid-template-columns: repeat(2,minmax(0,1fr));
-      gap: 0.8rem;
-    }
-
-    .hero-side-item {
-      background: #f7f7f7;
-      border-radius: 0.9rem;
-      padding: 0.8rem 0.9rem;
-      font-size: 0.8rem;
-      border: 1px solid rgba(0,0,0,0.03);
-    }
-
-    .hero-side-item strong {
-      display: block;
-      font-size: 0.82rem;
-      margin-bottom: 0.15rem;
-      color: var(--text-main);
-    }
-
-    .hero-side-note {
-      font-size: 0.8rem;
       color: var(--text-muted);
     }
 
@@ -507,7 +463,10 @@
     /* RESPONSIVE */
 
     @media (max-width: 920px) {
-      .hero-inner,
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+
       #sobre-nosotros .content,
       .contact-grid {
         grid-template-columns: 1fr;
@@ -524,11 +483,6 @@
 
       .hero-cta-row {
         justify-content: center;
-      }
-
-      .hero-side {
-        max-width: 480px;
-        margin: 0 auto;
       }
     }
 
@@ -643,34 +597,6 @@
               </span>
             </div>
           </div>
-
-          <aside class="hero-side">
-            <div>
-              <div class="hero-side-title">Experiencia Damasco</div>
-              <div class="hero-side-grid">
-                <div class="hero-side-item">
-                  <strong>Asesoría Personalizada</strong>
-                  Acompañamos cada elección según agenda y estilo personal.
-                </div>
-                <div class="hero-side-item">
-                  <strong>Calce y Terminaciones</strong>
-                  Prendas pensadas para vestir con comodidad todo el día.
-                </div>
-                <div class="hero-side-item">
-                  <strong>Selección Curada</strong>
-                  Colecciones reducidas elegidas por calidad y confección.
-                </div>
-                <div class="hero-side-item">
-                  <strong>Estilo Atemporal</strong>
-                  Diseños sobrios que trascienden temporadas y tendencias.
-                </div>
-              </div>
-            </div>
-            <p class="hero-side-note">
-              Un espacio pensado para el hombre que busca vestir con sobriedad, carácter y comodidad,
-              desde el ámbito laboral hasta las ocasiones especiales.
-            </p>
-          </aside>
         </div>
       </div>
     </section>
