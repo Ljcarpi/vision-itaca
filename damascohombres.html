@@ -10,14 +10,13 @@
 
   <style>
     :root {
-      --bg-main: #050609;
-      --bg-elevated: #10121a;
-      --bg-soft: #151823;
-      --accent: #c7a67a;
-      --accent-soft: #8f7b5a;
-      --text-main: #f5f5f7;
-      --text-muted: #a3a7b5;
-      --border-soft: rgba(255,255,255,0.06);
+      --bg-main: #f6f5f3;
+      --bg-elevated: #ffffff;
+      --accent: #8b7a63;
+      --accent-soft: #b2a18a;
+      --text-main: #333333;
+      --text-muted: #666666;
+      --border-soft: rgba(0,0,0,0.06);
     }
 
     * {
@@ -28,7 +27,7 @@
 
     body {
       font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #151925 0, #050609 55%);
+      background: var(--bg-main);
       color: var(--text-main);
       line-height: 1.6;
     }
@@ -38,19 +37,62 @@
       color: inherit;
     }
 
-    /* NAVBAR */
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* CONTENEDORES GENERALES */
+
+    .wrapper {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    section {
+      padding: 3.1rem 0;
+    }
+
+    .section-label {
+      font-size: 0.82rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      text-align: center;
+      margin-bottom: 0.35rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.85rem;
+      margin-bottom: 0.6rem;
+      text-align: center;
+      color: var(--text-main);
+    }
+
+    .section-description {
+      font-size: 0.97rem;
+      max-width: 34rem;
+      margin: 0 auto;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    /* HEADER / NAV */
 
     header {
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(5, 6, 9, 0.95);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(246,245,243,0.96);
       backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-soft);
     }
 
     .nav-container {
-      max-width: 1100px;
+      max-width: 1080px;
       margin: 0 auto;
       padding: 0.75rem 1.25rem;
       display: flex;
@@ -66,15 +108,13 @@
     }
 
     .logo img {
-      height: 46px;
-      width: auto;
-      display: block;
+      height: 44px;
     }
 
     .logo-text {
       display: none;
       font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--text-main);
@@ -84,15 +124,15 @@
       list-style: none;
       display: flex;
       align-items: center;
-      gap: 1.75rem;
-      font-size: 0.95rem;
+      gap: 1.7rem;
+      font-size: 0.9rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
     nav a {
       position: relative;
-      padding-bottom: 0.18rem;
+      padding-bottom: 0.2rem;
       font-weight: 500;
       color: var(--text-main);
     }
@@ -105,7 +145,7 @@
       width: 0;
       height: 1px;
       background: var(--accent);
-      transition: width 0.3s ease;
+      transition: width 0.25s ease;
     }
 
     nav a:hover::after {
@@ -115,27 +155,23 @@
     /* HERO */
 
     .hero {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 4.2rem 1.25rem 3.2rem;
+      padding-top: 3.2rem;
+      padding-bottom: 2.6rem;
+    }
+
+    .hero-inner {
       display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-      gap: 3rem;
+      grid-template-columns: minmax(0,1.4fr) minmax(0,1fr);
+      gap: 2.8rem;
       align-items: center;
     }
 
     .hero-text {
-      padding-right: 0.5rem;
+      text-align: left;
     }
 
     .hero-logo {
-      margin-bottom: 1.3rem;
-    }
-
-    .hero-logo img {
-      max-width: 100%;
-      height: auto;
-      filter: drop-shadow(0 12px 24px rgba(0,0,0,0.7));
+      margin-bottom: 1.2rem;
     }
 
     .hero-subtitle {
@@ -143,21 +179,21 @@
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--accent-soft);
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.7rem;
     }
 
     .hero-title {
       font-family: 'Playfair Display', serif;
-      font-size: 2.35rem;
-      line-height: 1.2;
-      margin-bottom: 1.25rem;
+      font-size: 2.25rem;
+      line-height: 1.25;
+      margin-bottom: 1.1rem;
       color: var(--text-main);
     }
 
     .hero-description {
-      font-size: 0.98rem;
-      max-width: 32rem;
-      margin-bottom: 1.75rem;
+      font-size: 0.97rem;
+      max-width: 30rem;
+      margin-bottom: 1.8rem;
       color: var(--text-muted);
     }
 
@@ -167,15 +203,15 @@
       gap: 0.55rem;
       padding: 0.8rem 1.9rem;
       border-radius: 999px;
-      background: var(--accent);
-      color: #080808;
+      background: var(--text-main);
+      color: #ffffff;
       font-size: 0.9rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       border: none;
       cursor: pointer;
-      transition: background 0.25s ease, transform 0.1s ease, box-shadow 0.2s ease;
-      box-shadow: 0 14px 30px rgba(0,0,0,0.6);
+      transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+      box-shadow: 0 12px 26px rgba(0,0,0,0.18);
     }
 
     .hero-cta span {
@@ -183,50 +219,47 @@
     }
 
     .hero-cta:hover {
-      background: #b39265;
+      background: #111111;
       transform: translateY(-1px);
-      box-shadow: 0 18px 38px rgba(0,0,0,0.75);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.22);
     }
 
     .hero-side {
-      background: linear-gradient(145deg, rgba(16,18,26,0.98), rgba(9,11,18,0.98));
-      border-radius: 1.5rem;
-      padding: 1.6rem 1.5rem 1.4rem;
-      box-shadow: 0 22px 45px rgba(0,0,0,0.85);
+      background: var(--bg-elevated);
+      border-radius: 1.3rem;
+      padding: 1.6rem 1.5rem;
+      box-shadow: 0 18px 36px rgba(0,0,0,0.08);
+      border: 1px solid var(--border-soft);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       gap: 1rem;
-      border: 1px solid var(--border-soft);
     }
 
     .hero-side-title {
-      font-size: 0.85rem;
-      letter-spacing: 0.15em;
+      font-size: 0.82rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--accent-soft);
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.5rem;
     }
 
     .hero-side-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 0.8rem;
-      margin-bottom: 0.8rem;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 0.75rem;
     }
 
     .hero-side-item {
-      background: #151823;
+      background: #f3f2ef;
       border-radius: 0.9rem;
-      padding: 0.8rem 0.85rem;
+      padding: 0.75rem 0.85rem;
       font-size: 0.8rem;
-      border: 1px solid var(--border-soft);
     }
 
     .hero-side-item strong {
       display: block;
       font-size: 0.82rem;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.18rem;
       color: var(--text-main);
     }
 
@@ -235,60 +268,30 @@
       color: var(--text-muted);
     }
 
-    /* SECCIONES GENERALES */
-
-    section {
-      padding: 3.3rem 1.25rem;
-    }
-
-    .section-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-size: 0.85rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--accent-soft);
-      margin-bottom: 0.4rem;
-    }
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      margin-bottom: 0.85rem;
-      color: var(--text-main);
-    }
-
-    .section-description {
-      font-size: 0.98rem;
-      max-width: 36rem;
-      color: var(--text-muted);
-    }
-
     /* SOBRE NOSOTROS */
 
     #sobre-nosotros {
-      background: radial-gradient(circle at top left, #151925 0, #050609 40%);
+      background: #f8f7f5;
+      border-top: 1px solid var(--border-soft);
+      border-bottom: 1px solid var(--border-soft);
     }
 
     #sobre-nosotros .content {
       display: grid;
       grid-template-columns: minmax(0,1.4fr) minmax(0,1fr);
-      gap: 2.5rem;
-      margin-top: 1.9rem;
+      gap: 2.3rem;
+      margin-top: 1.8rem;
       align-items: start;
     }
 
     #sobre-nosotros p {
-      font-size: 0.96rem;
+      font-size: 0.95rem;
       margin-bottom: 0.9rem;
       color: var(--text-muted);
     }
 
     .about-highlight {
-      margin-top: 0.9rem;
+      margin-top: 0.8rem;
       padding-left: 0.7rem;
       border-left: 2px solid var(--accent-soft);
       font-size: 0.9rem;
@@ -317,13 +320,13 @@
     /* COLECCIÓN */
 
     #coleccion {
-      background: #080a11;
+      background: #efedea;
     }
 
     .grid-prendas {
       margin-top: 1.9rem;
       display: grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
+      grid-template-columns: repeat(3,minmax(0,1fr));
       gap: 1.4rem;
     }
 
@@ -331,21 +334,19 @@
       background: var(--bg-elevated);
       border-radius: 1rem;
       overflow: hidden;
-      box-shadow: 0 18px 36px rgba(0,0,0,0.9);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.08);
       display: flex;
       flex-direction: column;
       border: 1px solid var(--border-soft);
     }
 
     .prenda img {
-      width: 100%;
       height: 210px;
       object-fit: cover;
-      display: block;
     }
 
     .prenda-info {
-      padding: 0.9rem 1rem 1rem;
+      padding: 0.9rem 1rem 1.1rem;
       font-size: 0.88rem;
     }
 
@@ -357,7 +358,7 @@
     }
 
     .prenda-info span {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--accent-soft);
       letter-spacing: 0.16em;
       text-transform: uppercase;
@@ -368,10 +369,11 @@
       color: var(--text-muted);
     }
 
-    /* CONTACTO / MAPA */
+    /* CONTACTO */
 
     #contacto {
-      background: radial-gradient(circle at top, #151925 0, #050609 45%);
+      background: #f6f5f3;
+      border-top: 1px solid var(--border-soft);
     }
 
     .contact-grid {
@@ -388,7 +390,7 @@
     }
 
     .contact-info p {
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.9rem;
     }
 
     .contact-details {
@@ -409,33 +411,32 @@
     .map-wrapper {
       border-radius: 1.1rem;
       overflow: hidden;
-      box-shadow: 0 22px 44px rgba(0,0,0,0.95);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.15);
       border: 1px solid var(--border-soft);
       min-height: 280px;
-      background: #000;
+      background: #ddd;
     }
 
     .map-wrapper iframe {
       width: 100%;
       height: 100%;
       border: 0;
-      display: block;
-      filter: grayscale(40%) contrast(1.05);
     }
 
     /* FOOTER */
 
     footer {
-      background: #020307;
-      color: rgba(255,255,255,0.7);
-      padding: 1.8rem 1.25rem 1.5rem;
+      background: #252322;
+      color: rgba(255,255,255,0.78);
+      padding: 1.7rem 0 1.4rem;
       font-size: 0.82rem;
-      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 0.3rem;
     }
 
     .footer-inner {
-      max-width: 1100px;
+      max-width: 1080px;
       margin: 0 auto;
+      padding: 0 1.25rem;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -449,16 +450,11 @@
       flex-wrap: wrap;
     }
 
-    .footer-links a {
-      opacity: 0.9;
-    }
-
     .footer-links a:hover {
-      opacity: 1;
       color: var(--accent);
     }
 
-    /* WHATSAPP FLOTANTE */
+    /* BOTÓN WHATSAPP FLOTANTE */
 
     .whatsapp-float {
       position: fixed;
@@ -468,7 +464,7 @@
       height: 60px;
       border-radius: 999px;
       background: #25d366;
-      box-shadow: 0 14px 28px rgba(0,0,0,0.85);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.3);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -478,52 +474,50 @@
 
     .whatsapp-float:hover {
       transform: translateY(-2px);
-      box-shadow: 0 18px 36px rgba(0,0,0,0.9);
+      box-shadow: 0 16px 34px rgba(0,0,0,0.35);
     }
 
     .whatsapp-float svg {
       width: 30px;
       height: 30px;
       fill: #ffffff;
-      display: block;
     }
 
     /* RESPONSIVE */
 
-    @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: 1fr;
-        padding-top: 3.2rem;
-      }
-
-      .hero-side {
-        order: -1;
-      }
-
+    @media (max-width: 920px) {
+      .hero-inner,
       #sobre-nosotros .content,
       .contact-grid {
         grid-template-columns: 1fr;
       }
 
-      .grid-prendas {
-        grid-template-columns: repeat(2,minmax(0,1fr));
+      .hero-text {
+        text-align: center;
+      }
+
+      .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-side {
+        max-width: 480px;
+        margin: 0 auto;
       }
     }
 
     @media (max-width: 720px) {
       .nav-container {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
       }
 
       nav ul {
         gap: 1.1rem;
         font-size: 0.82rem;
         flex-wrap: wrap;
-      }
-
-      .hero {
-        padding-top: 2.6rem;
+        justify-content: center;
       }
 
       .hero-title {
@@ -531,15 +525,19 @@
       }
 
       .grid-prendas {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2,minmax(0,1fr));
       }
 
-      .logo-text {
-        display: none;
+      .section-description {
+        padding-inline: 0.4rem;
       }
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 540px) {
+      .grid-prendas {
+        grid-template-columns: 1fr;
+      }
+
       .whatsapp-float {
         width: 54px;
         height: 54px;
@@ -555,7 +553,7 @@
   </style>
 
   <script>
-    // Scroll suave
+    // Scroll suave para los enlaces internos
     document.addEventListener('DOMContentLoaded', function () {
       const links = document.querySelectorAll('a[href^="#"]');
       links.forEach(link => {
@@ -564,13 +562,15 @@
           const target = document.getElementById(targetId);
           if (target) {
             e.preventDefault();
-            window.scrollTo({
-              top: target.offsetTop - 80,
-              behavior: 'smooth'
-            });
+            const top = target.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top, behavior: 'smooth' });
           }
         });
       });
+
+      // Año dinámico
+      const yearEl = document.getElementById('year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
     });
   </script>
 </head>
@@ -580,7 +580,7 @@
   <header>
     <div class="nav-container">
       <div class="logo">
-        <!-- Ajusta la ruta del archivo del logo según tu repositorio -->
+        <!-- Logo principal -->
         <img src="assets/logo-damasco-hombres.png" alt="Damasco Hombres">
         <span class="logo-text">Damasco Hombres</span>
       </div>
@@ -597,54 +597,57 @@
   <!-- HERO -->
   <main>
     <section class="hero">
-      <div class="hero-text">
-        <div class="hero-logo">
-          <!-- Reutiliza el mismo archivo del logo en mayor tamaño si lo deseas -->
-          <img src="assets/logo-damasco-hombres.png" alt="Damasco Hombres – Indumentaria Masculina">
-        </div>
-        <div class="hero-subtitle">Indumentaria Masculina</div>
-        <h1 class="hero-title">Elegancia contemporánea para el hombre de hoy.</h1>
-        <p class="hero-description">
-          Damasco Hombres ofrece una selección curada de trajes, camisas, pantalones y accesorios
-          pensados para quienes valoran el estilo, la calidad y la atención personalizada.
-        </p>
-        <button class="hero-cta" onclick="document.getElementById('coleccion').scrollIntoView({behavior:'smooth'})">
-          Ver colección
-          <span>›</span>
-        </button>
-      </div>
-
-      <aside class="hero-side">
-        <div>
-          <div class="hero-side-title">Experiencia Damasco</div>
-          <div class="hero-side-grid">
-            <div class="hero-side-item">
-              <strong>Asesoría Personalizada</strong>
-              Ajustamos cada look a la personalidad y agenda de cada cliente.
+      <div class="wrapper">
+        <div class="hero-inner">
+          <div class="hero-text">
+            <div class="hero-logo">
+              <img src="assets/logo-damasco-hombres.png" alt="Damasco Hombres – Indumentaria Masculina">
             </div>
-            <div class="hero-side-item">
-              <strong>Calce y Terminaciones</strong>
-              Prendas pensadas para vestir con comodidad durante toda la jornada.
-            </div>
-            <div class="hero-side-item">
-              <strong>Selección Curada</strong>
-              Colecciones reducidas, elegidas por calidad de tejido y confección.
-            </div>
-            <div class="hero-side-item">
-              <strong>Estilo Atemporal</strong>
-              Diseños sobrios que trascienden las temporadas.
-            </div>
+            <div class="hero-subtitle">Indumentaria Masculina</div>
+            <h1 class="hero-title">Elegancia contemporánea para el hombre de hoy.</h1>
+            <p class="hero-description">
+              Damasco Hombres ofrece una selección curada de trajes, camisas, pantalones y accesorios
+              pensados para quienes valoran el estilo, la calidad y la atención personalizada.
+            </p>
+            <button class="hero-cta" onclick="document.getElementById('coleccion').scrollIntoView({behavior:'smooth'})">
+              Ver colección
+              <span>›</span>
+            </button>
           </div>
+
+          <aside class="hero-side">
+            <div>
+              <div class="hero-side-title">Experiencia Damasco</div>
+              <div class="hero-side-grid">
+                <div class="hero-side-item">
+                  <strong>Asesoría Personalizada</strong>
+                  Ajustamos cada look a la personalidad y agenda de cada cliente.
+                </div>
+                <div class="hero-side-item">
+                  <strong>Calce y Terminaciones</strong>
+                  Prendas pensadas para vestir con comodidad durante toda la jornada.
+                </div>
+                <div class="hero-side-item">
+                  <strong>Selección Curada</strong>
+                  Colecciones elegidas por calidad de tejido y confección.
+                </div>
+                <div class="hero-side-item">
+                  <strong>Estilo Atemporal</strong>
+                  Diseños sobrios que trascienden las temporadas.
+                </div>
+              </div>
+            </div>
+            <p class="hero-side-note">
+              Reserve una visita o contáctenos por WhatsApp para coordinar una atención a medida.
+            </p>
+          </aside>
         </div>
-        <p class="hero-side-note">
-          Reserve una visita o contáctenos por WhatsApp para coordinar una atención a medida.
-        </p>
-      </aside>
+      </div>
     </section>
 
     <!-- SOBRE NOSOTROS -->
     <section id="sobre-nosotros">
-      <div class="section-inner">
+      <div class="wrapper">
         <div class="section-label">Sobre Nosotros</div>
         <h2 class="section-title">Un espacio dedicado al vestir masculino.</h2>
         <p class="section-description">
@@ -681,7 +684,7 @@
 
     <!-- COLECCIÓN -->
     <section id="coleccion">
-      <div class="section-inner">
+      <div class="wrapper">
         <div class="section-label">Colección</div>
         <h2 class="section-title">Prendas para cada momento del día.</h2>
         <p class="section-description">
@@ -690,9 +693,9 @@
         </p>
 
         <div class="grid-prendas">
-          <!-- Reemplaza las imágenes por las de tu repositorio, por ejemplo en /assets/prendas/ -->
+          <!-- Reemplaza las imágenes por las de tu repositorio, en /assets/prendas/ -->
           <article class="prenda">
-            <img src="assets/prendas/traje-azul.jpg" alt="Traje azul marino">
+            <img src="assets/prendas/traje-azul.png" alt="Traje azul marino">
             <div class="prenda-info">
               <h3>Traje azul marino</h3>
               <span>Sastrería</span>
@@ -701,7 +704,7 @@
           </article>
 
           <article class="prenda">
-            <img src="assets/prendas/camisa-blanca.jpg" alt="Camisa blanca de algodón">
+            <img src="assets/prendas/camisa-blanca.png" alt="Camisa blanca de algodón">
             <div class="prenda-info">
               <h3>Camisa blanca de algodón</h3>
               <span>Esenciales</span>
@@ -710,7 +713,7 @@
           </article>
 
           <article class="prenda">
-            <img src="assets/prendas/chino-beige.jpg" alt="Pantalón chino beige">
+            <img src="assets/prendas/chino-beige.png" alt="Pantalón chino beige">
             <div class="prenda-info">
               <h3>Pantalón chino beige</h3>
               <span>Casual de vestir</span>
@@ -719,7 +722,7 @@
           </article>
 
           <article class="prenda">
-            <img src="assets/prendas/saco-deportivo.jpg" alt="Saco deportivo texturado">
+            <img src="assets/prendas/saco-deportivo.png" alt="Saco deportivo texturado">
             <div class="prenda-info">
               <h3>Saco deportivo texturado</h3>
               <span>Casual</span>
@@ -728,7 +731,7 @@
           </article>
 
           <article class="prenda">
-            <img src="assets/prendas/sweater-lana.jpg" alt="Sweater de lana fina">
+            <img src="assets/prendas/sweater-lana.png" alt="Sweater de lana fina">
             <div class="prenda-info">
               <h3>Sweater de lana fina</h3>
               <span>Knitwear</span>
@@ -737,7 +740,7 @@
           </article>
 
           <article class="prenda">
-            <img src="assets/prendas/campera-cuero.jpg" alt="Campera de cuero">
+            <img src="assets/prendas/campera-cuero.png" alt="Campera de cuero">
             <div class="prenda-info">
               <h3>Campera de cuero</h3>
               <span>Iconos</span>
@@ -748,9 +751,9 @@
       </div>
     </section>
 
-    <!-- CONTACTO / MAPA -->
+    <!-- CONTACTO -->
     <section id="contacto">
-      <div class="section-inner">
+      <div class="wrapper">
         <div class="section-label">Contacto</div>
         <h2 class="section-title">Visítenos en nuestro local.</h2>
         <p class="section-description">
@@ -781,7 +784,7 @@
           </div>
 
           <div class="map-wrapper">
-            <!-- Google Maps Embed API (funciona en GitHub Pages) -->
+            <!-- Google Maps Embed (funciona en GitHub Pages estático) -->
             <iframe
               loading="lazy"
               allowfullscreen
@@ -806,22 +809,16 @@
     </div>
   </footer>
 
-  <!-- BOTÓN FLOTANTE WHATSAPP -->
+  <!-- BOTÓN WHATSAPP FLOTANTE -->
   <a
     href="https://wa.me/541141903945"
     class="whatsapp-float"
     target="_blank"
     rel="noopener noreferrer"
     aria-label="Contacto por WhatsApp">
-    <!-- Icono WhatsApp SVG -->
     <svg viewBox="0 0 32 32" aria-hidden="true">
       <path d="M16.02 5C10.95 5 6.84 9.11 6.84 14.18c0 2.02.62 3.92 1.79 5.55L6 27l7.5-2.41a8.98 8.98 0 0 0 2.51.36c5.07 0 9.18-4.11 9.18-9.18C25.18 9.11 21.09 5 16.02 5Zm0 16.3c-1.44 0-2.85-.38-4.08-1.11l-.29-.17-2.7.86.88-2.63-.18-.27a7.01 7.01 0 0 1-1.1-3.76c0-3.89 3.16-7.05 7.05-7.05 3.89 0 7.05 3.16 7.05 7.05-.01 3.88-3.17 7.05-7.05 7.05Zm3.93-5.28c-.22-.11-1.3-.64-1.5-.71-.2-.07-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.17-.48.06-.22-.11-.94-.35-1.78-1.11-.66-.59-1.11-1.31-1.24-1.53-.13-.22-.01-.34.1-.45.11-.11.22-.26.35-.38.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.39-.06-.11-.5-1.2-.69-1.65-.18-.44-.37-.38-.5-.39h-.43c-.15 0-.39.06-.59.28-.2.22-.78.76-.78 1.85 0 1.09.8 2.15.91 2.3.11.15 1.58 2.41 3.83 3.38.54.23.96.37 1.28.47.54.17 1.03.14 1.42.08.43-.06 1.3-.53 1.49-1.04.18-.51.18-.94.13-1.04-.05-.1-.2-.16-.42-.27Z"/>
     </svg>
   </a>
-
-  <script>
-    // Año dinámico en el footer
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
