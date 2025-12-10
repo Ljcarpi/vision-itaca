@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
@@ -386,14 +388,15 @@
       overflow: hidden;
       box-shadow: 0 16px 34px rgba(0,0,0,0.15);
       border: 1px solid var(--border-soft);
-      min-height: 280px;
       background: #ddd;
+      aspect-ratio: 4 / 3; /* asegura un alto proporcional y estable */
     }
 
     .map-wrapper iframe {
       width: 100%;
       height: 100%;
       border: 0;
+      display: block;
     }
 
     /* FOOTER */
@@ -531,7 +534,7 @@
     }
   </style>
 
-  <script>
+  <script defer>
     // Scroll suave para los enlaces internos
     document.addEventListener('DOMContentLoaded', function () {
       const links = document.querySelectorAll('a[href^="#"]');
@@ -652,7 +655,7 @@
         <div class="grid-prendas">
           <!-- Imágenes de ejemplo en /assets/prendas/ -->
           <article class="prenda">
-            <img src="assets/prendas/traje-azul.png" alt="Traje azul marino">
+            <img src="assets/prendas/traje-azul.png" alt="Traje azul marino" loading="lazy" decoding="async">
             <div class="prenda-info">
               <h3>Traje azul marino</h3>
               <span>Sastrería</span>
@@ -661,7 +664,7 @@
           </article>
 
           <article class="prenda">
-            <img src="assets/prendas/camisa-blanca.png" alt="Camisa blanca de algodón">
+            <img src="assets/prendas/camisa-blanca.png" alt="Camisa blanca de algodón" loading="lazy" decoding="async">
             <div class="prenda-info">
               <h3>Camisa blanca de algodón</h3>
               <span>Esenciales</span>
@@ -670,7 +673,7 @@
           </article>
 
           <article class="prenda">
-            <img src="assets/prendas/chino-beige.png" alt="Pantalón chino beige">
+            <img src="assets/prendas/chino-beige.png" alt="Pantalón chino beige" loading="lazy" decoding="async">
             <div class="prenda-info">
               <h3>Pantalón chino beige</h3>
               <span>Casual de vestir</span>
@@ -679,7 +682,7 @@
           </article>
 
           <article class="prenda">
-            <img src="assets/prendas/saco-deportivo.png" alt="Saco deportivo texturado">
+            <img src="assets/prendas/saco-deportivo.png" alt="Saco deportivo texturado" loading="lazy" decoding="async">
             <div class="prenda-info">
               <h3>Saco deportivo texturado</h3>
               <span>Casual</span>
@@ -688,7 +691,7 @@
           </article>
 
           <article class="prenda">
-            <img src="assets/prendas/sweater-lana.png" alt="Sweater de lana fina">
+            <img src="assets/prendas/sweater-lana.png" alt="Sweater de lana fina" loading="lazy" decoding="async">
             <div class="prenda-info">
               <h3>Sweater de lana fina</h3>
               <span>Knitwear</span>
@@ -697,7 +700,7 @@
           </article>
 
           <article class="prenda">
-            <img src="assets/prendas/campera-cuero.png" alt="Campera de cuero">
+            <img src="assets/prendas/campera-cuero.png" alt="Campera de cuero" loading="lazy" decoding="async">
             <div class="prenda-info">
               <h3>Campera de cuero</h3>
               <span>Iconos</span>
