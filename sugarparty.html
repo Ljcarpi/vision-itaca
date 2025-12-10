@@ -28,7 +28,13 @@
             margin: 0;
             font-family: 'Poppins', sans-serif;
             color: var(--texto);
-            background: radial-gradient(circle at top left, #fff7ff 0%, #f9f3ff 25%, #f4fbff 55%, #ffffff 100%);
+            /* Fondo difuminado mezcla rosa/violeta/celeste/blanco */
+            background:
+                radial-gradient(circle at 0% 0%, rgba(255,196,235,0.75), transparent 55%),
+                radial-gradient(circle at 100% 0%, rgba(158,232,255,0.75), transparent 55%),
+                radial-gradient(circle at 0% 100%, rgba(196,166,255,0.75), transparent 55%),
+                radial-gradient(circle at 100% 100%, rgba(255,255,255,1), rgba(255,255,255,1));
+            background-attachment: fixed;
         }
 
         a {
@@ -257,7 +263,7 @@
         /* CARRUSEL SOBRE NOSOTROS */
         .about-carousel-container {
             width: 100%;
-            max-width: 420px;
+            max-width: 320px; /* un poco más pequeño */
             margin: 0 auto;
             position: relative;
             overflow: hidden;
@@ -281,13 +287,18 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255,255,255,0.85);
+            background: rgba(255,255,255,0.9);
             border: none;
             font-size: 22px;
             cursor: pointer;
             padding: 6px 10px;
             border-radius: 50%;
             box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+        .about-carousel-btn:focus {
+            outline: none;
         }
 
         #aboutPrevBtn {
@@ -699,8 +710,8 @@
                 </div>
 
                 <div class="about-carousel-container">
-                    <button id="aboutPrevBtn" class="about-carousel-btn">&#10094;</button>
-                    <button id="aboutNextBtn" class="about-carousel-btn">&#10095;</button>
+                    <button id="aboutPrevBtn" class="about-carousel-btn" type="button">&#10094;</button>
+                    <button id="aboutNextBtn" class="about-carousel-btn" type="button">&#10095;</button>
                     <div class="about-carousel-slide" id="aboutSlide">
                         <img src="/assets/sugarparty/imagen1.png" alt="Sugar Party 1">
                         <img src="/assets/sugarparty/imagen2.png" alt="Sugar Party 2">
@@ -936,14 +947,21 @@
     const aboutImages = aboutSlide.querySelectorAll('img');
     let aboutCounter = 0;
 
-    document.getElementById('aboutNextBtn').addEventListener('click', function () {
+    function updateAboutSlide() {
+        const offset = -(aboutCounter * 100);
+        aboutSlide.style.transform = 'translateX(' + offset + '%)';
+    }
+
+    document.getElementById('aboutNextBtn').addEventListener('click', function (e) {
+        e.preventDefault();
         aboutCounter = (aboutCounter + 1) % aboutImages.length;
-        aboutSlide.style.transform = 'translateX(-' + (aboutCounter * 100) + '%)';
+        updateAboutSlide();
     });
 
-    document.getElementById('aboutPrevBtn').addEventListener('click', function () {
+    document.getElementById('aboutPrevBtn').addEventListener('click', function (e) {
+        e.preventDefault();
         aboutCounter = (aboutCounter - 1 + aboutImages.length) % aboutImages.length;
-        aboutSlide.style.transform = 'translateX(-' + (aboutCounter * 100) + '%)';
+        updateAboutSlide();
     });
 </script>
 
