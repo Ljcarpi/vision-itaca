@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Damasco Hombres – Indumentaria Masculina</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --color-fondo: #f6f5f3;
+      --color-primario: #4f4b48;
+      --color-secundario: #9a8c7b;
+      --color-texto: #333333;
+      --color-claro: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--color-fondo);
+      color: var(--color-texto);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* NAVBAR */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(246, 245, 243, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo img {
+      height: 46px;
+      width: auto;
+      display: block;
+    }
+
+    .logo-text {
+      display: none;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primario);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      font-size: 0.95rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      position: relative;
+      padding-bottom: 0.15rem;
+      font-weight: 500;
+      color: var(--color-primario);
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1px;
+      background: var(--color-secundario);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* HERO */
+
+    .hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 1.25rem 3rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-text {
+      padding-right: 0.5rem;
+    }
+
+    .hero-logo {
+      margin-bottom: 1.3rem;
+    }
+
+    .hero-logo img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .hero-subtitle {
+      font-size: 0.9rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-secundario);
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.3rem;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+      color: var(--color-primario);
+    }
+
+    .hero-description {
+      font-size: 0.98rem;
+      max-width: 32rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.75rem 1.7rem;
+      border-radius: 999px;
+      background: var(--color-primario);
+      color: var(--color-claro);
+      font-size: 0.9rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.25s ease, transform 0.1s ease;
+    }
+
+    .hero-cta span {
+      font-size: 1.1rem;
+    }
+
+    .hero-cta:hover {
+      background: #302d2a;
+      transform: translateY(-1px);
+    }
+
+    .hero-side {
+      background: var(--color-claro);
+      border-radius: 1.5rem;
+      padding: 1.5rem 1.5rem 1.3rem;
+      box-shadow: 0 18px 35px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .hero-side-title {
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-secundario);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-side-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 0.7rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-side-item {
+      background: #f8f6f4;
+      border-radius: 0.9rem;
+      padding: 0.7rem 0.75rem;
+      font-size: 0.8rem;
+    }
+
+    .hero-side-item strong {
+      display: block;
+      font-size: 0.8rem;
+      margin-bottom: 0.2rem;
+      color: var(--color-primario);
+    }
+
+    .hero-side-note {
+      font-size: 0.78rem;
+      color: #777;
+    }
+
+    /* SECCIONES GENERALES */
+
+    section {
+      padding: 3rem 1.25rem;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.85rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--color-secundario);
+      margin-bottom: 0.4rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      margin-bottom: 0.8rem;
+      color: var(--color-primario);
+    }
+
+    .section-description {
+      font-size: 0.98rem;
+      max-width: 36rem;
+      color: #555;
+    }
+
+    /* SOBRE NOSOTROS */
+
+    #sobre-nosotros .content {
+      display: grid;
+      grid-template-columns: minmax(0,1.4fr) minmax(0,1fr);
+      gap: 2.5rem;
+      margin-top: 1.8rem;
+      align-items: start;
+    }
+
+    #sobre-nosotros p {
+      font-size: 0.96rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .about-highlight {
+      margin-top: 0.8rem;
+      padding-left: 0.7rem;
+      border-left: 2px solid var(--color-secundario);
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .about-list {
+      list-style: none;
+      font-size: 0.9rem;
+    }
+
+    .about-list li {
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+    }
+
+    .about-list li::before {
+      content: "•";
+      color: var(--color-secundario);
+      font-size: 1.1rem;
+    }
+
+    /* COLECCIÓN */
+
+    #coleccion {
+      background: #f0eeeb;
+    }
+
+    .grid-prendas {
+      margin-top: 1.8rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 1.4rem;
+    }
+
+    .prenda {
+      background: var(--color-claro);
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .prenda img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .prenda-info {
+      padding: 0.85rem 1rem 1rem;
+      font-size: 0.88rem;
+    }
+
+    .prenda-info h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+      color: var(--color-primario);
+      font-weight: 600;
+    }
+
+    .prenda-info span {
+      font-size: 0.82rem;
+      color: var(--color-secundario);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    /* CONTACTO / MAPA */
+
+    #contacto {
+      background: #f6f5f3;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0,1.1fr) minmax(0,1.2fr);
+      gap: 2rem;
+      margin-top: 1.7rem;
+      align-items: start;
+    }
+
+    .contact-info {
+      font-size: 0.95rem;
+    }
+
+    .contact-info p {
+      margin-bottom: 0.8rem;
+    }
+
+    .contact-details {
+      margin-top: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    .contact-details div {
+      margin-bottom: 0.55rem;
+    }
+
+    .contact-label {
+      font-weight: 600;
+      color: var(--color-primario);
+      font-size: 0.9rem;
+    }
+
+    .map-wrapper {
+      border-radius: 1.1rem;
+      overflow: hidden;
+      box-shadow: 0 14px 28px rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.05);
+      min-height: 280px;
+    }
+
+    .map-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #292624;
+      color: rgba(255,255,255,0.78);
+      padding: 1.75rem 1.25rem 1.4rem;
+      font-size: 0.82rem;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .footer-inner span {
+      opacity: 0.9;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.4rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      opacity: 0.9;
+    }
+
+    .footer-links a:hover {
+      opacity: 1;
+    }
+
+    /* WHATSAPP FLOTANTE */
+
+    .whatsapp-float {
+      position: fixed;
+      right: 1.3rem;
+      bottom: 1.3rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 999px;
+      background: #25d366;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 60;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .whatsapp-float:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(0,0,0,0.28);
+    }
+
+    .whatsapp-float svg {
+      width: 30px;
+      height: 30px;
+      fill: #ffffff;
+      display: block;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 3rem;
+      }
+
+      .hero-side {
+        order: -1;
+      }
+
+      #sobre-nosotros .content,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-prendas {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav ul {
+        gap: 1.1rem;
+        font-size: 0.82rem;
+        flex-wrap: wrap;
+      }
+
+      .hero {
+        padding-top: 2.5rem;
+      }
+
+      .hero-title {
+        font-size: 1.9rem;
+      }
+
+      .grid-prendas {
+        grid-template-columns: 1fr;
+      }
+
+      .logo-text {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .whatsapp-float {
+        width: 54px;
+        height: 54px;
+        right: 1rem;
+        bottom: 1rem;
+      }
+
+      .whatsapp-float svg {
+        width: 26px;
+        height: 26px;
+      }
+    }
+  </style>
+
+  <script>
+    // Scroll suave
+    document.addEventListener('DOMContentLoaded', function () {
+      const links = document.querySelectorAll('a[href^="#"]');
+      links.forEach(link => {
+        link.addEventListener('click', function (e) {
+          const targetId = this.getAttribute('href').substring(1);
+          const target = document.getElementById(targetId);
+          if (target) {
+            e.preventDefault();
+            window.scrollTo({
+              top: target.offsetTop - 80,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <!-- Ajusta la ruta del archivo del logo según tu repositorio -->
+        <img src="assets/logo-damasco-hombres.png" alt="Damasco Hombres">
+        <span class="logo-text">Damasco Hombres</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#sobre-nosotros">Sobre Nosotros</a></li>
+          <li><a href="#coleccion">Colección</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section class="hero">
+      <div class="hero-text">
+        <div class="hero-logo">
+          <!-- Reutiliza el mismo archivo del logo en mayor tamaño si lo deseas -->
+          <img src="assets/logo-damasco-hombres.png" alt="Damasco Hombres – Indumentaria Masculina">
+        </div>
+        <div class="hero-subtitle">Indumentaria Masculina</div>
+        <h1 class="hero-title">Elegancia contemporánea para el hombre de hoy.</h1>
+        <p class="hero-description">
+          Damasco Hombres ofrece una selección curada de trajes, camisas, pantalones y accesorios
+          pensados para quienes valoran el estilo, la calidad y la atención personalizada.
+        </p>
+        <button class="hero-cta" onclick="document.getElementById('coleccion').scrollIntoView({behavior:'smooth'})">
+          VER COLECCIÓN
+          <span>›</span>
+        </button>
+      </div>
+
+      <aside class="hero-side">
+        <div>
+          <div class="hero-side-title">Experiencia Damasco</div>
+          <div class="hero-side-grid">
+            <div class="hero-side-item">
+              <strong>Asesoría Personalizada</strong>
+              Ajustamos cada look a la personalidad y agenda de cada cliente.
+            </div>
+            <div class="hero-side-item">
+              <strong>Calce y Terminaciones</strong>
+              Prendas pensadas para vestir con comodidad durante toda la jornada.
+            </div>
+            <div class="hero-side-item">
+              <strong>Selección Curada</strong>
+              Colecciones reducidas, elegidas por calidad de tejido y confección.
+            </div>
+            <div class="hero-side-item">
+              <strong>Estilo Atemporal</strong>
+              Diseños sobrios que trascienden las temporadas.
+            </div>
+          </div>
+        </div>
+        <p class="hero-side-note">
+          Reserve una visita o contáctenos por WhatsApp para coordinar una atención a medida.
+        </p>
+      </aside>
+    </section>
+
+    <!-- SOBRE NOSOTROS -->
+    <section id="sobre-nosotros">
+      <div class="section-inner">
+        <div class="section-label">Sobre Nosotros</div>
+        <h2 class="section-title">Un espacio dedicado al vestir masculino.</h2>
+        <p class="section-description">
+          Combinamos sastrería clásica con una mirada contemporánea, para acompañar a hombres que
+          buscan vestirse con seguridad, sobriedad y carácter propio.
+        </p>
+
+        <div class="content">
+          <div>
+            <p>
+              Desde nuestra casa en Av. Gaona, trabajamos con líneas cuidadosamente seleccionadas
+              de trajes, camisas, pantalones, denim y knitwear, priorizando tejidos nobles,
+              terminaciones prolijas y un calce pensado para el uso diario.
+            </p>
+            <p>
+              Nuestro equipo acompaña a cada cliente en la elección de sus prendas clave:
+              desde el traje para una ocasión especial hasta las combinaciones para la semana laboral.
+            </p>
+            <div class="about-highlight">
+              Creemos que un buen guardarropa masculino debe ser funcional, elegante y fácil de combinar.
+            </div>
+          </div>
+          <div>
+            <ul class="about-list">
+              <li>Colecciones limitadas de sastrería y casual de vestir.</li>
+              <li>Prendas pensadas para oficinas, eventos y fines de semana elegantes.</li>
+              <li>Asesoramiento en combinaciones de color y accesorios.</li>
+              <li>Ajustes y arreglos a medida (en consulta en el local).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLECCIÓN -->
+    <section id="coleccion">
+      <div class="section-inner">
+        <div class="section-label">Colección</div>
+        <h2 class="section-title">Prendas para cada momento del día.</h2>
+        <p class="section-description">
+          Algunas propuestas de nuestro universo de indumentaria masculina. Las imágenes son ilustrativas;
+          la selección puede variar según temporada y disponibilidad en el local.
+        </p>
+
+        <div class="grid-prendas">
+          <!-- Reemplaza las imágenes por las de tu repositorio, por ejemplo en /assets/prendas/ -->
+          <article class="prenda">
+            <img src="assets/prendas/traje-azul.jpg" alt="Traje azul marino">
+            <div class="prenda-info">
+              <h3>Traje azul marino</h3>
+              <span>Sastrería</span>
+              <p>Ideal para reuniones, presentaciones y eventos formales.</p>
+            </div>
+          </article>
+
+          <article class="prenda">
+            <img src="assets/prendas/camisa-blanca.jpg" alt="Camisa blanca de algodón">
+            <div class="prenda-info">
+              <h3>Camisa blanca de algodón</h3>
+              <span>Esenciales</span>
+              <p>Un básico infaltable, adaptable a traje, jean o chino.</p>
+            </div>
+          </article>
+
+          <article class="prenda">
+            <img src="assets/prendas/chino-beige.jpg" alt="Pantalón chino beige">
+            <div class="prenda-info">
+              <h3>Pantalón chino beige</h3>
+              <span>Casual de vestir</span>
+              <p>Versátil, cómodo y elegante para todos los días.</p>
+            </div>
+          </article>
+
+          <article class="prenda">
+            <img src="assets/prendas/saco-deportivo.jpg" alt="Saco deportivo texturado">
+            <div class="prenda-info">
+              <h3>Saco deportivo texturado</h3>
+              <span>Casual</span>
+              <p>Para elevar el look sin perder comodidad.</p>
+            </div>
+          </article>
+
+          <article class="prenda">
+            <img src="assets/prendas/sweater-lana.jpg" alt="Sweater de lana">
+            <div class="prenda-info">
+              <h3>Sweater de lana fina</h3>
+              <span>Knitwear</span>
+              <p>Capas livianas para media estación y oficina.</p>
+            </div>
+          </article>
+
+          <article class="prenda">
+            <img src="assets/prendas/campera-cuero.jpg" alt="Campera de cuero">
+            <div class="prenda-info">
+              <h3>Campera de cuero</h3>
+              <span>Iconos</span>
+              <p>Una prenda de carácter para completar el guardarropa.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO / MAPA -->
+    <section id="contacto">
+      <div class="section-inner">
+        <div class="section-label">Contacto</div>
+        <h2 class="section-title">Visítenos en nuestro local.</h2>
+        <p class="section-description">
+          Estamos en el corazón de la Ciudad de Buenos Aires. Lo esperamos para conocer la colección
+          y recibir asesoramiento personalizado.
+        </p>
+
+        <div class="contact-grid">
+          <div class="contact-info">
+            <p>
+              Puede acercarse directamente o escribirnos por WhatsApp para coordinar una visita,
+              consultar talles disponibles o conocer las opciones de cada temporada.
+            </p>
+            <div class="contact-details">
+              <div>
+                <div class="contact-label">Dirección</div>
+                Av. Gaona 1564, C1416 Cdad. Autónoma de Buenos Aires
+              </div>
+              <div>
+                <div class="contact-label">Teléfono / WhatsApp</div>
+                011 4190-3945
+              </div>
+              <div>
+                <div class="contact-label">Horarios de atención</div>
+                Lunes a sábado, de 10 a 20 hs.
+              </div>
+            </div>
+          </div>
+
+          <div class="map-wrapper">
+            <!-- Google Maps Embed API (no requiere backend, funciona en GitHub Pages) -->
+            <iframe
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3285.648144916681!2d-58.44417352369373!3d-34.56295185527005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb59f1e5eb96d%3A0xe1c6fba32b92e91a!2sAv.%20Gaona%201564%2C%20C1416%20CABA!5e0!3m2!1ses-419!2sar!4v1700000000000">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <span>© <span id="year"></span> Damasco Hombres. Todos los derechos reservados.</span>
+      <div class="footer-links">
+        <a href="#sobre-nosotros">Sobre nosotros</a>
+        <a href="#coleccion">Colección</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BOTÓN FLOTANTE WHATSAPP -->
+  <a
+    href="https://wa.me/541141903945"
+    class="whatsapp-float"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Contacto por WhatsApp">
+    <!-- Icono WhatsApp SVG -->
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M16.02 5C10.95 5 6.84 9.11 6.84 14.18c0 2.02.62 3.92 1.79 5.55L6 27l7.5-2.41a8.98 8.98 0 0 0 2.51.36c5.07 0 9.18-4.11 9.18-9.18C25.18 9.11 21.09 5 16.02 5Zm0 16.3c-1.44 0-2.85-.38-4.08-1.11l-.29-.17-2.7.86.88-2.63-.18-.27a7.01 7.01 0 0 1-1.1-3.76c0-3.89 3.16-7.05 7.05-7.05 3.89 0 7.05 3.16 7.05 7.05-.01 3.88-3.17 7.05-7.05 7.05Zm3.93-5.28c-.22-.11-1.3-.64-1.5-.71-.2-.07-.35-.11-.5.11-.15.22-.57.71-.7.86-.13.15-.26.17-.48.06-.22-.11-.94-.35-1.78-1.11-.66-.59-1.11-1.31-1.24-1.53-.13-.22-.01-.34.1-.45.11-.11.22-.26.35-.38.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.39-.06-.11-.5-1.2-.69-1.65-.18-.44-.37-.38-.5-.39h-.43c-.15 0-.39.06-.59.28-.2.22-.78.76-.78 1.85 0 1.09.8 2.15.91 2.3.11.15 1.58 2.41 3.83 3.38.54.23.96.37 1.28.47.54.17 1.03.14 1.42.08.43-.06 1.3-.53 1.49-1.04.18-.51.18-.94.13-1.04-.05-.1-.2-.16-.42-.27Z"/>
+    </svg>
+  </a>
+
+  <script>
+    // Año dinámico en el footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
