@@ -85,7 +85,7 @@
             align-items: center;
             justify-content: space-between;
             height: 68px;
-            column-gap: 4rem; /* separa más el nombre del menú */
+            column-gap: 4.5rem;
         }
 
         .nav-brand {
@@ -93,7 +93,7 @@
             font-weight: 400;
             letter-spacing: 0.35em;
             text-transform: uppercase;
-            font-size: 0.78rem; /* más chico */
+            font-size: 0.95rem;
             color: #1b1b1b;
             white-space: nowrap;
         }
@@ -101,15 +101,15 @@
         .nav-menu {
             display: flex;
             align-items: center;
-            gap: 1.6rem;
-            font-size: 0.8rem; /* opciones un poco más chicas */
+            gap: 1.8rem;
+            font-size: 0.88rem;
         }
 
         .nav-menu a {
             position: relative;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
-            font-weight: 400;
+            letter-spacing: 0.22em;
+            font-weight: 300;
             color: var(--color-text-muted);
         }
 
@@ -133,15 +133,14 @@
         }
 
         .nav-cta {
-            padding: 0.4rem 0.9rem;
+            padding: 0.45rem 1rem;
             border-radius: 999px;
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.9), transparent 70%),
-            radial-gradient(circle at 100% 100%, rgba(200, 29, 37, 0.18), transparent 55%);
-            font-size: 0.78rem;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: linear-gradient(135deg, #151515, #2b2b2b); /* fondo oscuro */
+            font-size: 0.82rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: #231f20;
+            color: #ffffff; /* texto blanco */
         }
 
         .nav-toggle {
@@ -215,12 +214,13 @@
 
         .hero-badge {
             border-radius: 999px;
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            border: 1px solid #b8e2c9;
             padding: 0.38rem 0.85rem;
             font-size: 0.76rem;
             text-transform: uppercase;
             letter-spacing: 0.16em;
-            background: #ffffff;
+            background: #e9f8f0; /* fondo verdoso claro */
+            color: #245c43;
         }
 
         .hero-actions {
@@ -259,6 +259,14 @@
             font-size: 0.84rem;
             text-transform: uppercase;
             letter-spacing: 0.16em;
+        }
+
+        /* versión roja para el botón "Coordinar reserva" del hero */
+        .btn-secondary-red {
+            background: linear-gradient(135deg, var(--color-primary), #f13b3b);
+            color: #fff;
+            border: none;
+            box-shadow: 0 12px 24px rgba(160, 24, 30, 0.4);
         }
 
         /* SECCIONES GENERALES */
@@ -562,7 +570,7 @@
         }
 
         .gallery .carousel {
-            height: 230px; /* ancho y no muy alto */
+            height: 230px;
         }
 
         .gallery .carousel-slide img {
@@ -700,7 +708,7 @@
             color: rgba(255, 255, 255, 0.48);
         }
 
-        /* WHATSAPP FLOTANTE (DOS BOTONES CON ÍCONO) */
+        /* WHATSAPP FLOTANTE (con icono tipo WhatsApp) */
         .whatsapp-float {
             position: fixed;
             bottom: 1.5rem;
@@ -719,13 +727,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #25D366, #128C7E);
+            background: radial-gradient(circle at 0 0, #2fe07a, #17a75a);
             box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
             color: #fff;
         }
 
-        .whatsapp-btn i {
-            font-size: 1.85rem; /* icono bien visible */
+        .wa-icon {
+            font-size: 1.9rem;
+            line-height: 1;
         }
 
         .whatsapp-btn span.badge {
@@ -805,7 +814,7 @@
 
             .nav-brand {
                 letter-spacing: 0.28em;
-                font-size: 0.76rem;
+                font-size: 0.88rem;
             }
 
             .whatsapp-float {
@@ -829,6 +838,10 @@
                 align-items: stretch;
             }
 
+            .hero-title {
+                font-size: 1.6rem;
+            }
+
             .gallery .carousel {
                 height: 190px;
             }
@@ -837,6 +850,10 @@
             .reservas-block,
             .contact-info-card {
                 padding: 1.05rem 1rem;
+            }
+
+            .nav-bar {
+                column-gap: 1.5rem;
             }
         }
     </style>
@@ -880,8 +897,8 @@
                         para pocos comensales
                     </h1>
                     <p class="hero-subtitle">
-                        Experiencia de omakase en formato privado, con servicio pensado para un grupo reducido y un menú
-                        que sigue la temporada y el producto disponible cada noche.
+                        Experiencia de omakase en formato privado, con servicio para un grupo reducido y un menú que
+                        sigue la temporada y el producto disponible cada noche.
                     </p>
                     <div class="hero-badges">
                         <div class="hero-badge">Pasco 740 · CABA</div>
@@ -895,7 +912,7 @@
                             Ver menú de la experiencia
                             <i class="fa-solid fa-arrow-up-right-from-square"></i>
                         </a>
-                        <a class="btn-secondary" href="#reservas">
+                        <a class="btn-secondary btn-secondary-red" href="#reservas">
                             Coordinar reserva
                             <i class="fa-regular fa-calendar"></i>
                         </a>
@@ -911,14 +928,14 @@
                     <div class="section-eyebrow">Sobre nosotros</div>
                     <h2 class="section-title">Hirose Sushi en Pasco 740</h2>
                     <p class="section-description">
-                        Una barra de sushi escondida en Balvanera, pensada para recibir pocos comensales por noche y
+                        Barra de sushi escondida en Balvanera, pensada para recibir pocos comensales por noche y
                         trabajar cada servicio de forma dedicada.
                     </p>
                 </div>
                 <div class="about-grid">
                     <div class="about-text">
                         <p>
-                            Trabajamos con un menú de pasos acotado y muy enfocado en el producto. No hay carta extensa:
+                            Trabajamos con un menú de pasos acotado y enfocado en el producto. No hay carta extensa:
                             la propuesta es sentarse, dejarse guiar y disfrutar la secuencia diseñada para ese turno.
                         </p>
                         <p>
@@ -935,7 +952,7 @@
                             <li>Menú omakase con piezas frías y calientes.</li>
                             <li>Selección de productos frescos según temporada.</li>
                             <li>Opciones de maridaje a consultar al reservar.</li>
-                            <li>Posibilidad de experiencias privadas para grupos reducidos.</li>
+                            <li>Experiencias privadas para grupos reducidos.</li>
                         </ul>
                     </div>
                 </div>
@@ -957,11 +974,11 @@
                 <div class="experience-layout">
                     <div class="experience-text">
                         <p>
-                            La noche avanza en una secuencia de nigiri, sashimi y pequeños bocados calientes. No hay
-                            apuro: el servicio marca el ritmo mientras la barra se mantiene siempre a la vista.
+                            La noche avanza en una secuencia de nigiri, sashimi y pequeños bocados calientes. El
+                            servicio marca el ritmo mientras la barra se mantiene siempre a la vista.
                         </p>
                         <p>
-                            Buscamos equilibrio entre técnica japonesa y pequeños guiños personales, siempre desde una
+                            Buscamos equilibrio entre técnica japonesa y guiños personales, siempre desde una
                             presentación sobria y limpia.
                         </p>
                         <div class="experience-tags">
@@ -1189,12 +1206,12 @@
     <div class="whatsapp-float">
         <a href="https://wa.me/5491124793833" target="_blank" rel="noopener"
            class="whatsapp-btn" aria-label="WhatsApp Hirose Sushi 1">
-            <i class="fa-brands fa-whatsapp"></i>
+            <i class="fa-brands fa-whatsapp wa-icon" aria-hidden="true"></i>
             <span class="badge">1</span>
         </a>
         <a href="https://wa.me/5491130663831" target="_blank" rel="noopener"
            class="whatsapp-btn" aria-label="WhatsApp Hirose Sushi 2">
-            <i class="fa-brands fa-whatsapp"></i>
+            <i class="fa-brands fa-whatsapp wa-icon" aria-hidden="true"></i>
             <span class="badge">2</span>
         </a>
     </div>
