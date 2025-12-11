@@ -7,14 +7,14 @@
     <meta name="description" content="Hirose Sushi · Experiencia de sushi de autor a puertas cerradas en Pasco 740, CABA. Reservas exclusivas y menú de degustación.">
     <link rel="icon" type="image/png" href="/assets/hirose/icon.png">
 
-    <!-- Fuentes elegantes -->
+    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Montserrat:wght@300;400;500;600&display=swap"
         rel="stylesheet">
 
-    <!-- Iconos para WhatsApp (Font Awesome, sólo CSS) -->
+    <!-- Iconos (para algunos botones, no para los flotantes) -->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
           integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
@@ -22,15 +22,15 @@
 
     <style>
         :root {
-            --color-bg: #050608;
-            --color-bg-soft: #111217;
-            --color-bg-soft-alt: #15161c;
-            --color-primary: #c81d25; /* rojo elegante */
-            --color-primary-soft: rgba(200, 29, 37, 0.12);
-            --color-text: #f7f7f7;
-            --color-text-muted: #b8bcc7;
-            --color-border: #262833;
-            --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
+            --color-bg: #faf7f4;
+            --color-bg-soft: #ffffff;
+            --color-bg-soft-alt: #f5f1ec;
+            --color-primary: #c81d25;
+            --color-primary-soft: rgba(200, 29, 37, 0.06);
+            --color-text: #171717;
+            --color-text-muted: #6b6b6b;
+            --color-border: #ded3c7;
+            --shadow-soft: 0 18px 40px rgba(15, 10, 5, 0.12);
         }
 
         * {
@@ -41,7 +41,7 @@
 
         body {
             font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: radial-gradient(circle at top, #151824 0, #050608 48%, #020308 100%);
+            background: var(--color-bg);
             color: var(--color-text);
             line-height: 1.6;
         }
@@ -75,18 +75,17 @@
             top: 0;
             z-index: 50;
             backdrop-filter: blur(14px);
-            background: linear-gradient(to bottom,
-            rgba(5, 6, 8, 0.98),
-            rgba(5, 6, 8, 0.92),
-            rgba(5, 6, 8, 0.75));
-            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            background: rgba(250, 247, 244, 0.96);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 6px 18px rgba(25, 15, 5, 0.08);
         }
 
         .nav-bar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 72px;
+            height: 68px;
+            column-gap: 4.5rem; /* más separación entre nombre y menú */
         }
 
         .nav-brand {
@@ -94,23 +93,23 @@
             font-weight: 400;
             letter-spacing: 0.35em;
             text-transform: uppercase;
-            font-size: 0.85rem;
-            color: #fdfdfd;
+            font-size: 0.95rem; /* letras finas pero más grandes */
+            color: #1b1b1b;
             white-space: nowrap;
         }
 
         .nav-menu {
             display: flex;
             align-items: center;
-            gap: 1.75rem;
-            font-size: 0.9rem;
+            gap: 1.8rem;
+            font-size: 0.88rem; /* opciones más grandes */
         }
 
         .nav-menu a {
             position: relative;
             text-transform: uppercase;
             letter-spacing: 0.22em;
-            font-weight: 400;
+            font-weight: 300;
             color: var(--color-text-muted);
         }
 
@@ -118,15 +117,15 @@
             content: "";
             position: absolute;
             left: 0;
-            bottom: -0.35rem;
+            bottom: -0.3rem;
             width: 0;
-            height: 2px;
+            height: 1px;
             background: linear-gradient(to right, var(--color-primary), transparent);
             transition: width 0.25s ease;
         }
 
         .nav-menu a:hover {
-            color: #ffffff;
+            color: #111;
         }
 
         .nav-menu a:hover::after {
@@ -134,14 +133,15 @@
         }
 
         .nav-cta {
-            padding: 0.45rem 0.95rem;
+            padding: 0.45rem 1rem;
             border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.14), transparent 70%),
-            radial-gradient(circle at 100% 100%, rgba(200, 29, 37, 0.45), transparent 55%);
-            font-size: 0.8rem;
-            letter-spacing: 0.18em;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.9), transparent 70%),
+            radial-gradient(circle at 100% 100%, rgba(200, 29, 37, 0.18), transparent 55%);
+            font-size: 0.82rem;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
+            color: #231f20;
         }
 
         .nav-toggle {
@@ -152,7 +152,8 @@
 
         /* HERO / LOGO */
         .hero {
-            padding: 2.8rem 0 2.4rem;
+            padding: 2.6rem 0 2.4rem;
+            background: linear-gradient(to bottom, #fdfbf9 0, #faf7f4 60%, #f7f1ea 100%);
         }
 
         .hero-inner {
@@ -169,45 +170,41 @@
         }
 
         .hero-logo-card {
-            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.02), transparent 70%);
+            background: #ffffff;
             border-radius: 20px;
             padding: 1.8rem 1.4rem;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(0, 0, 0, 0.04);
             box-shadow: var(--shadow-soft);
             max-width: 380px;
             width: 100%;
         }
 
-        .hero-logo-card img {
-            width: 100%;
-            height: auto;
-        }
-
         .hero-content {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1.4rem;
         }
 
         .eyebrow {
             text-transform: uppercase;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             letter-spacing: 0.22em;
             color: var(--color-primary);
         }
 
         .hero-title {
             font-family: 'Cinzel', serif;
-            font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+            font-size: clamp(1.7rem, 2.4vw, 2.3rem);
             line-height: 1.3;
             letter-spacing: 0.12em;
             text-transform: uppercase;
+            color: #191515;
         }
 
         .hero-subtitle {
-            font-size: 0.98rem;
+            font-size: 0.95rem;
             color: var(--color-text-muted);
-            max-width: 32rem;
+            max-width: 31rem;
         }
 
         .hero-badges {
@@ -218,19 +215,19 @@
 
         .hero-badge {
             border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            padding: 0.45rem 0.9rem;
-            font-size: 0.78rem;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 0.38rem 0.85rem;
+            font-size: 0.76rem;
             text-transform: uppercase;
             letter-spacing: 0.16em;
-            background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.08), transparent 60%);
+            background: #ffffff;
         }
 
         .hero-actions {
             display: flex;
             flex-wrap: wrap;
             gap: 0.75rem;
-            margin-top: 0.2rem;
+            margin-top: 0.1rem;
         }
 
         .btn-primary {
@@ -243,11 +240,11 @@
             cursor: pointer;
             background: linear-gradient(135deg, var(--color-primary), #f13b3b);
             color: #fff;
-            font-size: 0.85rem;
+            font-size: 0.84rem;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.16em;
-            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 12px 24px rgba(160, 24, 30, 0.4);
         }
 
         .btn-secondary {
@@ -256,83 +253,91 @@
             gap: 0.45rem;
             padding: 0.7rem 1.1rem;
             border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            background: rgba(4, 5, 8, 0.9);
-            color: #f5f5f5;
-            font-size: 0.85rem;
+            border: 1px solid rgba(0, 0, 0, 0.09);
+            background: #ffffff;
+            color: #222;
+            font-size: 0.84rem;
             text-transform: uppercase;
             letter-spacing: 0.16em;
         }
 
         /* SECCIONES GENERALES */
         section {
-            padding: 2.8rem 0;
+            padding: 2.6rem 0;
         }
 
         .section-header {
-            margin-bottom: 1.8rem;
+            margin-bottom: 1.7rem;
             text-align: left;
         }
 
         .section-eyebrow {
             text-transform: uppercase;
-            font-size: 0.78rem;
+            font-size: 0.76rem;
             letter-spacing: 0.24em;
             color: var(--color-primary);
         }
 
         .section-title {
             font-family: 'Cinzel', serif;
-            font-size: 1.45rem;
+            font-size: 1.4rem;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            margin-top: 0.4rem;
+            margin-top: 0.35rem;
+            color: #1a1716;
         }
 
         .section-description {
             max-width: 34rem;
-            margin-top: 0.6rem;
-            font-size: 0.96rem;
+            margin-top: 0.5rem;
+            font-size: 0.94rem;
             color: var(--color-text-muted);
         }
 
         /* SOBRE NOSOTROS */
         .about {
-            background: radial-gradient(circle at 0 0, rgba(200, 29, 37, 0.18), transparent 55%),
-            linear-gradient(to bottom, var(--color-bg-soft), #050609);
+            background: #ffffff;
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
         }
 
         .about-grid {
             display: grid;
             grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-            gap: 2.3rem;
+            gap: 2.1rem;
             align-items: flex-start;
         }
 
         .about-text p + p {
-            margin-top: 0.9rem;
+            margin-top: 0.7rem;
+        }
+
+        .about-text p {
+            font-size: 0.94rem;
+            color: var(--color-text-muted);
         }
 
         .about-highlight {
-            margin-top: 1.4rem;
-            padding: 1.1rem 1.2rem;
+            margin-top: 1.1rem;
+            padding: 1rem 1.1rem;
             border-radius: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(8, 9, 12, 0.95));
-            font-size: 0.9rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            background: #fbf8f6;
+            font-size: 0.88rem;
             color: var(--color-text-muted);
         }
 
         .about-highlight strong {
-            color: #ffffff;
+            color: #1b1817;
         }
 
         .about-list {
             list-style: none;
             display: grid;
-            gap: 0.45rem;
+            gap: 0.4rem;
             font-size: 0.9rem;
-            margin-top: 0.8rem;
+            margin-top: 0.2rem;
+            color: var(--color-text-muted);
         }
 
         .about-list li::before {
@@ -341,45 +346,53 @@
             margin-right: 0.4rem;
         }
 
-        /* CARROUSEL PRINCIPAL (SECCIÓN EXPERIENCIA / IMÁGENES) */
+        /* EXPERIENCIA + CARROUSEL PRINCIPAL */
         .experience {
-            background: radial-gradient(circle at 100% 0, rgba(255, 255, 255, 0.03), transparent 55%),
-            linear-gradient(to bottom, var(--color-bg), var(--color-bg-soft-alt));
+            background: var(--color-bg-soft-alt);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
         }
 
         .experience-layout {
             display: grid;
             grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.1fr);
-            gap: 2.4rem;
+            gap: 2.3rem;
             align-items: center;
         }
 
+        .experience-text p {
+            font-size: 0.94rem;
+            color: var(--color-text-muted);
+        }
+
         .experience-text p + p {
-            margin-top: 0.8rem;
+            margin-top: 0.7rem;
         }
 
         .experience-tags {
-            margin-top: 1.2rem;
+            margin-top: 1rem;
             display: flex;
             flex-wrap: wrap;
             gap: 0.6rem;
         }
 
         .experience-tag {
-            padding: 0.3rem 0.8rem;
+            padding: 0.32rem 0.85rem;
             border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(0, 0, 0, 0.07);
             font-size: 0.78rem;
             text-transform: uppercase;
             letter-spacing: 0.18em;
+            background: #ffffff;
+            color: #262322;
         }
 
         .carousel {
             position: relative;
-            border-radius: 20px;
+            border-radius: 18px;
             overflow: hidden;
             box-shadow: var(--shadow-soft);
             background: #000;
+            border: 1px solid rgba(0, 0, 0, 0.04);
         }
 
         .carousel-inner {
@@ -420,19 +433,19 @@
             pointer-events: auto;
             border: none;
             border-radius: 999px;
-            width: 34px;
-            height: 34px;
+            width: 32px;
+            height: 32px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.55);
             color: #fff;
             cursor: pointer;
             transition: background 0.2s ease, transform 0.2s ease;
         }
 
         .carousel-btn:hover {
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.8);
             transform: translateY(-1px);
         }
 
@@ -452,21 +465,19 @@
             width: 7px;
             height: 7px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.5);
             transition: transform 0.2s ease, background 0.2s ease, width 0.2s ease;
         }
 
         .carousel-indicators span.active {
-            width: 20px;
-            background: #fff;
+            width: 18px;
+            background: #ffffff;
             transform: translateY(-1px);
         }
 
-        /* SECCIÓN RESERVAS (SIN FORMULARIO) */
+        /* RESERVAS */
         .reservas {
-            background: linear-gradient(135deg, var(--color-bg-soft-alt), #080a10);
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            background: #ffffff;
         }
 
         .reservas-grid {
@@ -477,20 +488,20 @@
         }
 
         .reservas-block {
-            border-radius: 22px;
-            padding: 1.5rem 1.4rem;
-            background: radial-gradient(circle at 0 0, var(--color-primary-soft), transparent 70%),
-            linear-gradient(to bottom, #070912, #05060a);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: var(--shadow-soft);
+            border-radius: 20px;
+            padding: 1.4rem 1.3rem;
+            background: #fbf8f6;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 28px rgba(32, 23, 15, 0.05);
         }
 
         .reservas-block h3 {
             font-family: 'Cinzel', serif;
             text-transform: uppercase;
             letter-spacing: 0.16em;
-            font-size: 0.98rem;
-            margin-bottom: 0.4rem;
+            font-size: 0.96rem;
+            margin-bottom: 0.35rem;
+            color: #1d1816;
         }
 
         .reservas-block p {
@@ -500,20 +511,21 @@
 
         .reservas-list {
             list-style: none;
-            margin-top: 0.9rem;
+            margin-top: 0.8rem;
             font-size: 0.9rem;
+            color: var(--color-text-muted);
         }
 
         .reservas-list li + li {
-            margin-top: 0.35rem;
+            margin-top: 0.3rem;
         }
 
         .reservas-list strong {
-            color: #ffffff;
+            color: #1c1816;
         }
 
         .reservas-horario {
-            margin-top: 1.1rem;
+            margin-top: 1rem;
             font-size: 0.9rem;
             color: var(--color-text-muted);
         }
@@ -523,7 +535,7 @@
         }
 
         .reservas-cta {
-            margin-top: 1.1rem;
+            margin-top: 1rem;
             display: flex;
             flex-wrap: wrap;
             gap: 0.6rem;
@@ -536,13 +548,12 @@
         .reservas-note {
             font-size: 0.8rem;
             color: var(--color-text-muted);
-            margin-top: 0.9rem;
+            margin-top: 0.8rem;
         }
 
-        /* CARROUSEL FINAL (RECTANGULAR, BAJO) */
+        /* GALERÍA FINAL */
         .gallery {
-            background: radial-gradient(circle at 50% 0, rgba(255, 255, 255, 0.03), transparent 55%),
-            linear-gradient(to bottom, #05060a, #050609);
+            background: var(--color-bg-soft-alt);
         }
 
         .gallery-carousel {
@@ -551,7 +562,7 @@
         }
 
         .gallery .carousel {
-            height: 260px;
+            height: 230px;
         }
 
         .gallery .carousel-slide img {
@@ -562,7 +573,8 @@
 
         /* CONTACTO + MAPA */
         .contact {
-            background: linear-gradient(to bottom, #050609, #050509);
+            background: #ffffff;
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
         }
 
         .contact-grid {
@@ -573,12 +585,11 @@
         }
 
         .contact-info-card {
-            border-radius: 22px;
-            padding: 1.4rem 1.3rem;
-            background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.08), transparent 60%),
-            linear-gradient(135deg, rgba(7, 9, 14, 0.98), rgba(3, 4, 8, 0.98));
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: var(--shadow-soft);
+            border-radius: 20px;
+            padding: 1.3rem 1.2rem;
+            background: #fbf8f6;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 26px rgba(32, 23, 15, 0.06);
             display: flex;
             flex-direction: column;
             gap: 0.7rem;
@@ -599,11 +610,13 @@
 
         .contact-value {
             font-size: 0.95rem;
+            color: #211d1b;
         }
 
         .contact-phone-list {
             list-style: none;
             font-size: 0.9rem;
+            color: var(--color-text-muted);
         }
 
         .contact-phone-list li + li {
@@ -611,11 +624,12 @@
         }
 
         .contact-phone-list a {
-            color: #ffffff;
+            color: #211d1b;
+            font-weight: 500;
         }
 
         .map-wrapper {
-            border-radius: 22px;
+            border-radius: 20px;
             overflow: hidden;
             border: 1px solid var(--color-border);
             box-shadow: var(--shadow-soft);
@@ -629,46 +643,90 @@
             border: 0;
         }
 
-        /* FOOTER */
+        /* FOOTER PROFESIONAL */
         footer {
-            padding: 1.6rem 0 2.2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            background: #050508;
-            font-size: 0.78rem;
-            color: var(--color-text-muted);
+            padding: 1.9rem 0 2.2rem;
+            background: #151313;
+            color: #f1ece7;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
         }
 
         .footer-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1.2fr);
+            gap: 2.2rem;
+            font-size: 0.8rem;
         }
 
-        /* WHATSAPP FLOTANTE (DOS BOTONES) */
+        .footer-brand {
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            font-size: 0.82rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-brand span {
+            color: var(--color-primary);
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-links {
+            list-style: none;
+            display: grid;
+            gap: 0.3rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+
+        .footer-meta {
+            text-align: right;
+        }
+
+        .footer-meta div {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-meta small {
+            color: rgba(255, 255, 255, 0.48);
+        }
+
+        /* WHATSAPP FLOTANTE (DOS BOTONES CON ÍCONO DE TELÉFONO) */
         .whatsapp-float {
             position: fixed;
             bottom: 1.5rem;
-            right: 1.5rem;
+            right: 1.4rem;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.55rem;
             z-index: 60;
         }
 
         .whatsapp-btn {
             position: relative;
-            width: 52px;
-            height: 52px;
+            width: 54px;
+            height: 54px;
             border-radius: 999px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.75);
+            background: radial-gradient(circle at 0 0, #2fe07a, #17a75a);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
             color: #fff;
-            font-size: 1.4rem;
+        }
+
+        .wa-icon {
+            font-size: 1.8rem;
+            line-height: 1;
         }
 
         .whatsapp-btn span.badge {
@@ -679,7 +737,7 @@
             height: 18px;
             border-radius: 999px;
             background: var(--color-primary);
-            border: 2px solid #05060a;
+            border: 2px solid #151313;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -706,7 +764,16 @@
             }
 
             .gallery .carousel {
-                height: 220px;
+                height: 210px;
+            }
+
+            .footer-inner {
+                grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            }
+
+            .footer-meta {
+                text-align: left;
+                grid-column: 1 / -1;
             }
         }
 
@@ -718,10 +785,10 @@
             .nav-menu {
                 position: absolute;
                 inset-inline: 0;
-                top: 72px;
-                padding: 0.75rem 1.5rem 1.4rem;
-                background: rgba(5, 6, 9, 0.97);
-                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                top: 68px;
+                padding: 0.7rem 1.5rem 1.3rem;
+                background: rgba(250, 247, 244, 0.98);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
                 flex-direction: column;
                 align-items: flex-end;
                 transform-origin: top;
@@ -738,13 +805,22 @@
             }
 
             .nav-brand {
-                letter-spacing: 0.26em;
-                font-size: 0.8rem;
+                letter-spacing: 0.28em;
+                font-size: 0.88rem;
             }
 
             .whatsapp-float {
                 bottom: 1rem;
                 right: 1rem;
+            }
+
+            .footer-inner {
+                grid-template-columns: minmax(0, 1fr);
+                text-align: left;
+            }
+
+            .footer-meta {
+                text-align: left;
             }
         }
 
@@ -761,7 +837,7 @@
             .about-highlight,
             .reservas-block,
             .contact-info-card {
-                padding: 1.15rem 1rem;
+                padding: 1.05rem 1rem;
             }
         }
     </style>
@@ -795,7 +871,6 @@
             <div class="container hero-inner">
                 <div class="hero-logo-wrapper">
                     <div class="hero-logo-card">
-                        <!-- Logo principal -->
                         <img src="/assets/hirose/logo.png" alt="Logo Hirose Sushi">
                     </div>
                 </div>
@@ -806,9 +881,8 @@
                         para pocos comensales
                     </h1>
                     <p class="hero-subtitle">
-                        Hirose Sushi es una experiencia de omakase en formato privado, donde cada servicio se diseña
-                        para un grupo reducido de invitados. Un recorrido por el producto, la técnica y el equilibrio
-                        entre tradición japonesa y cocina contemporánea.
+                        Experiencia de omakase en formato privado, con servicio para un grupo reducido y un menú que
+                        sigue la temporada y el producto disponible cada noche.
                     </p>
                     <div class="hero-badges">
                         <div class="hero-badge">Pasco 740 · CABA</div>
@@ -816,7 +890,6 @@
                         <div class="hero-badge">Menú degustación</div>
                     </div>
                     <div class="hero-actions">
-                        <!-- Botón de menú cerca de la parte superior -->
                         <a class="btn-primary"
                            href="https://drive.google.com/file/d/11w659K5Y-KB_FySgDFqVSEJ4fTcoiloJ/view"
                            target="_blank" rel="noopener">
@@ -839,34 +912,31 @@
                     <div class="section-eyebrow">Sobre nosotros</div>
                     <h2 class="section-title">Hirose Sushi en Pasco 740</h2>
                     <p class="section-description">
-                        Un espacio discreto, de iluminación baja y detalles mínimos, pensado para que el foco esté en
-                        la barra, el producto y el instante. Cada servicio es único y se reserva con anticipación.
+                        Barra de sushi escondida en Balvanera, pensada para recibir pocos comensales por noche y
+                        trabajar cada servicio de forma dedicada.
                     </p>
                 </div>
                 <div class="about-grid">
                     <div class="about-text">
                         <p>
-                            En Hirose Sushi trabajamos con un menú de pasos que cambia según la estación y la
-                            disponibilidad de los mejores productos. La idea es descomprender el tiempo: sentarse,
-                            observar y dejarse guiar por la secuencia propuesta por el itamae.
+                            Trabajamos con un menú de pasos acotado y enfocado en el producto. No hay carta extensa:
+                            la propuesta es sentarse, dejarse guiar y disfrutar la secuencia diseñada para ese turno.
                         </p>
                         <p>
-                            Priorizamos cortes precisos, arroz trabajado al momento y combinaciones sobrias. No hay
-                            cartas extensas ni opciones infinitas: sólo una curaduría pensada para que cada bocado
-                            tenga sentido dentro de la experiencia completa.
+                            La estética es mínima: luz suave, madera y una barra donde se ve todo lo que sucede. El
+                            objetivo es que el protagonista sea el corte, el arroz y el momento.
                         </p>
                         <div class="about-highlight">
-                            <strong>Capacidad limitada.</strong> Trabajamos con pocos cubiertos por noche, para
-                            garantizar atención plena en cada servicio y mantener el clima íntimo de una cena a puertas
-                            cerradas.
+                            <strong>Capacidad limitada.</strong> Atendemos un número pequeño de personas por noche para
+                            cuidar el ritmo del servicio y mantener el clima íntimo de una cena a puertas cerradas.
                         </div>
                     </div>
                     <div>
                         <ul class="about-list">
-                            <li>Menú omakase con secuencia de nigiri, sashimi y preparaciones calientes.</li>
-                            <li>Productos seleccionados diariamente con foco en frescura y origen.</li>
-                            <li>Maridajes sugeridos y opciones sin alcohol por reserva.</li>
-                            <li>Posibilidad de experiencias privadas para grupos reducidos.</li>
+                            <li>Menú omakase con piezas frías y calientes.</li>
+                            <li>Selección de productos frescos según temporada.</li>
+                            <li>Opciones de maridaje a consultar al reservar.</li>
+                            <li>Experiencias privadas para grupos reducidos.</li>
                         </ul>
                     </div>
                 </div>
@@ -880,31 +950,29 @@
                     <div class="section-eyebrow">Experiencia</div>
                     <h2 class="section-title">Cocina de precisión y ritmo pausado</h2>
                     <p class="section-description">
-                        Buscamos que cada visita sea un pequeño ritual. Los tiempos están marcados por el servicio, la
-                        charla en barra y la observación de la mise en place en plena acción.
+                        Un recorrido corto pero cuidado, donde cada pieza aparece en el momento justo y con la
+                        temperatura adecuada.
                     </p>
                 </div>
 
                 <div class="experience-layout">
                     <div class="experience-text">
                         <p>
-                            La experiencia comienza con una breve introducción al menú de la noche y continúa con una
-                            secuencia de piezas que alternan temperatura, textura y técnica. No hay música alta ni
-                            sobremesas aceleradas: sólo el sonido del cuchillo, el fuego y la conversación.
+                            La noche avanza en una secuencia de nigiri, sashimi y pequeños bocados calientes. El
+                            servicio marca el ritmo mientras la barra se mantiene siempre a la vista.
                         </p>
                         <p>
-                            A lo largo del recorrido aparecen clásicos revisados, cortes menos habituales y pequeños
-                            guiños de cocina de autor, siempre dentro de una estética limpia y contenida.
+                            Buscamos equilibrio entre técnica japonesa y guiños personales, siempre desde una
+                            presentación sobria y limpia.
                         </p>
                         <div class="experience-tags">
                             <div class="experience-tag">Omakase</div>
-                            <div class="experience-tag">Nigiri &amp; Sashimi</div>
+                            <div class="experience-tag">Nigiri &amp; sashimi</div>
                             <div class="experience-tag">Caliente &amp; frío</div>
-                            <div class="experience-tag">Experiencia privada</div>
+                            <div class="experience-tag">Servicio privado</div>
                         </div>
                     </div>
                     <div>
-                        <!-- Carrousel de imágenes principal -->
                         <div class="carousel" data-carousel="principal">
                             <div class="carousel-inner">
                                 <div class="carousel-slide active">
@@ -932,62 +1000,61 @@
             </div>
         </section>
 
-        <!-- RESERVAS (SIN FORMULARIO) -->
+        <!-- RESERVAS -->
         <section class="reservas" id="reservas">
             <div class="container">
                 <div class="section-header">
                     <div class="section-eyebrow">Reservas</div>
                     <h2 class="section-title">Un solo servicio por turno</h2>
                     <p class="section-description">
-                        Las reservas se coordinan directamente por WhatsApp. Te compartimos los turnos disponibles, el
-                        formato de menú y los detalles del servicio antes de confirmar.
+                        Las reservas se coordinan directamente por WhatsApp. Te compartimos horarios disponibles, valor
+                        de la experiencia y detalles antes de confirmar.
                     </p>
                 </div>
                 <div class="reservas-grid">
                     <div class="reservas-block">
                         <h3>Cómo reservar</h3>
                         <p>
-                            Escribinos indicando cantidad de comensales y un rango de fechas tentativo. Te responderemos
-                            con las opciones de horario, el valor de la experiencia y el tiempo estimado de duración.
+                            Escribinos indicando cantidad de personas y un rango de fechas. Te responderemos con las
+                            opciones de horario y la información del menú vigente.
                         </p>
                         <ul class="reservas-list">
-                            <li><strong>Duración estimada:</strong> entre 1 h 45 y 2 h 15 por servicio.</li>
-                            <li><strong>Modalidad:</strong> menú degustación cerrado (consultar opciones).</li>
-                            <li><strong>Restricciones alimentarias:</strong> informar al momento de reservar.</li>
+                            <li><strong>Duración estimada:</strong> entre 1 h 45 y 2 h 15.</li>
+                            <li><strong>Modalidad:</strong> menú degustación cerrado.</li>
+                            <li><strong>Restricciones:</strong> informar al momento de reservar.</li>
                         </ul>
                         <div class="reservas-horario">
                             <span><strong>Turnos habituales:</strong></span>
-                            <span>Jueves a sábado · Noches</span>
-                            <span>(otros días, sujeto a disponibilidad).</span>
+                            <span>Jueves a sábado · Noche.</span>
+                            <span>Otros días, sujeto a disponibilidad.</span>
                         </div>
                         <div class="reservas-cta">
                             <a class="btn-primary"
                                href="https://wa.me/5491124793833"
                                target="_blank" rel="noopener">
-                                Reservar por WhatsApp 1
+                                WhatsApp 1
                                 <i class="fa-brands fa-whatsapp"></i>
                             </a>
                             <a class="btn-secondary"
                                href="https://wa.me/5491130663831"
                                target="_blank" rel="noopener">
-                                Reservar por WhatsApp 2
+                                WhatsApp 2
                                 <i class="fa-brands fa-whatsapp"></i>
                             </a>
                         </div>
                         <div class="reservas-note">
-                            Para grupos privados o experiencias especiales (aniversarios, celebraciones discretas),
-                            escribinos detallando el tipo de ocasión.
+                            Para grupos privados o celebraciones especiales, comentanos la ocasión al escribir.
                         </div>
                     </div>
                     <div class="reservas-block">
                         <h3>Antes de tu visita</h3>
                         <p>
-                            Te recomendamos llegar unos minutos antes del horario acordado. El menú se trabaja casi por
-                            completo al momento, por lo que cada atraso impacta en la secuencia de servicio.
+                            Te sugerimos llegar unos minutos antes del horario acordado. El menú se trabaja casi por
+                            completo al momento y cada retraso modifica el ritmo del servicio.
                         </p>
                         <p style="margin-top: 0.7rem;">
-                            Contamos con un espacio reducido; si necesitás realizar alguna modificación, agradeceremos
-                            que nos avises con la mayor anticipación posible.
+                            Si necesitás reprogramar, por favor avisá con la mayor anticipación posible para liberar el
+                            turno y permitir que otro grupo pueda tomarlo.
                         </p>
                     </div>
                 </div>
@@ -1001,13 +1068,11 @@
                     <div class="section-eyebrow">Galería</div>
                     <h2 class="section-title">Instantes de la barra</h2>
                     <p class="section-description" style="margin-left:auto;margin-right:auto;">
-                        Un vistazo al clima de Hirose Sushi: luz baja, madera, cuchillos afilados y el ritmo calmo de
-                        una cena pensada para ser vivida sin prisa.
+                        Una muestra del clima de Hirose: luz baja, madera y una barra en la que todo ocurre a la vista.
                     </p>
                 </div>
 
                 <div class="gallery-carousel">
-                    <!-- Carrousel final: ancho, no muy alto -->
                     <div class="carousel" data-carousel="galeria">
                         <div class="carousel-inner">
                             <div class="carousel-slide active">
@@ -1041,8 +1106,8 @@
                     <div class="section-eyebrow">Contacto</div>
                     <h2 class="section-title">Dónde estamos</h2>
                     <p class="section-description">
-                        La dirección se comparte nuevamente al confirmar la reserva. El acceso es discreto y el timbre
-                        indica el ingreso a Hirose Sushi.
+                        Te compartimos la ubicación del espacio. El acceso es discreto; el timbre indica el ingreso a
+                        Hirose Sushi.
                     </p>
                 </div>
 
@@ -1074,13 +1139,12 @@
                         <div class="contact-row">
                             <div class="contact-label">Reservas</div>
                             <div class="contact-value">
-                                Reservas únicamente con coordinación previa por WhatsApp. Por favor indicá cantidad de
-                                personas y fecha estimada de visita.
+                                Reservas únicamente por WhatsApp. Indicá cantidad de personas y fecha estimada para que
+                                podamos compartirte las opciones.
                             </div>
                         </div>
                     </div>
                     <div class="map-wrapper">
-                        <!-- Mapa de Google Maps con dirección solicitada -->
                         <iframe
                             loading="lazy"
                             allowfullscreen
@@ -1093,11 +1157,32 @@
         </section>
     </main>
 
-    <!-- FOOTER -->
+    <!-- FOOTER PROFESIONAL -->
     <footer>
         <div class="container footer-inner">
-            <div>© <span id="year"></span> Hirose Sushi. Todos los derechos reservados.</div>
-            <div>Experiencia de sushi de autor a puertas cerradas · Pasco 740, CABA.</div>
+            <div>
+                <div class="footer-brand">
+                    <span>Hirose</span>&nbsp;Sushi
+                </div>
+                <div class="footer-text">
+                    Cocina de sushi de autor a puertas cerradas en Pasco 740, CABA. Barra íntima, pocos comensales y un
+                    menú de degustación que sigue la temporada.
+                </div>
+            </div>
+            <div>
+                <ul class="footer-links">
+                    <li><a href="#sobre">Sobre nosotros</a></li>
+                    <li><a href="#experiencia">Experiencia</a></li>
+                    <li><a href="#reservas">Reservas</a></li>
+                    <li><a href="#contacto">Ubicación y contacto</a></li>
+                    <li><a href="https://drive.google.com/file/d/11w659K5Y-KB_FySgDFqVSEJ4fTcoiloJ/view"
+                           target="_blank" rel="noopener">Menú degustación</a></li>
+                </ul>
+            </div>
+            <div class="footer-meta">
+                <div>© <span id="year"></span> Hirose Sushi. Todos los derechos reservados.</div>
+                <small>Desarrollado como espacio web informativo. Imágenes ilustrativas.</small>
+            </div>
         </div>
     </footer>
 
@@ -1105,12 +1190,12 @@
     <div class="whatsapp-float">
         <a href="https://wa.me/5491124793833" target="_blank" rel="noopener"
            class="whatsapp-btn" aria-label="WhatsApp Hirose Sushi 1">
-            <i class="fa-brands fa-whatsapp"></i>
+            <span class="wa-icon">☎</span>
             <span class="badge">1</span>
         </a>
         <a href="https://wa.me/5491130663831" target="_blank" rel="noopener"
            class="whatsapp-btn" aria-label="WhatsApp Hirose Sushi 2">
-            <i class="fa-brands fa-whatsapp"></i>
+            <span class="wa-icon">☎</span>
             <span class="badge">2</span>
         </a>
     </div>
@@ -1188,7 +1273,7 @@
             });
         }
 
-        // Auto-play suave
+        // Auto-play
         let autoPlay = setInterval(nextSlide, 7000);
 
         // Pausa auto-play al pasar el mouse (desktop)
