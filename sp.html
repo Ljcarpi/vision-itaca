@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cotillon Sugar Party</title>
+    <link rel="icon" href="/assets/sugarparty/logo.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Pompiere&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --rosa: #ffc4eb;
+            --rosa-intenso: #ff9fd6;
+            --violeta: #c4a6ff;
+            --violeta-oscuro: #7A3FFF;
+            --celeste: #9ee8ff;
+            --texto: #4a4a4a;
+            --blanco: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: var(--texto);
+            /* Fondo difuminado mezcla rosa/violeta/celeste/blanco */
+            background:
+                radial-gradient(circle at 0% 0%, rgba(255,196,235,0.75), transparent 55%),
+                radial-gradient(circle at 100% 0%, rgba(158,232,255,0.75), transparent 55%),
+                radial-gradient(circle at 0% 100%, rgba(196,166,255,0.75), transparent 55%),
+                radial-gradient(circle at 100% 100%, rgba(255,255,255,1), rgba(255,255,255,1));
+            background-attachment: fixed;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* HEADER / NAV */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            background: linear-gradient(90deg, rgba(255,196,235,0.9), rgba(156,232,255,0.9));
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-text {
+            font-family: 'Pompiere', cursive;
+            font-weight: 400;
+            font-size: 30px;
+            color: var(--violeta-oscuro);
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            font-size: 15px;
+            color: #5a4f77;
+            padding-bottom: 2px;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: #ff9fd6;
+            color: #2e244f;
+        }
+
+        .nav-cta {
+            padding: 7px 14px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--rosa-intenso), var(--violeta));
+            color: var(--blanco);
+            font-size: 13px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+        }
+
+        /* Botón Instagram */
+        .social-icon-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+            padding: 4px;
+        }
+
+        .social-icon-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* Botón hamburguesa mobile */
+        .nav-toggle {
+            display: none;
+            border: none;
+            background: transparent;
+            font-size: 26px;
+            cursor: pointer;
+            color: #5a4f77;
+        }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 90px 20px 80px;
+        }
+
+        .hero-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--violeta-oscuro);
+        }
+
+        .hero h2 {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .hero-mainline {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 10px;
+            color: #6b5d8b;
+            font-weight: 600;
+        }
+
+        .hero-logo {
+            display: block;
+            width: 260px;
+            max-width: 60vw;
+            margin: 20px auto 15px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero-sub {
+            max-width: 800px;
+            margin: 0 auto;
+            color: #7b7197;
+            font-size: 16px;
+        }
+
+        .hero-tags {
+            margin-top: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .tag-pill {
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(255,196,235,0.9), rgba(156,232,255,0.9));
+            font-size: 13px;
+            color: #4c3e71;
+            box-shadow: 0 3px 7px rgba(0,0,0,0.08);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            margin-top: 18px;
+            font-size: 13px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.9);
+            color: #7a3fff;
+            box-shadow: 0 2px 8px rgba(122,63,255,0.15);
+        }
+
+        /* SECCIONES GENERALES */
+        section {
+            padding: 60px 20px;
+        }
+
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h2.section-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 12px;
+            color: var(--violeta-oscuro);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            margin: 0 auto 35px;
+            max-width: 700px;
+            font-size: 15px;
+            color: #72688e;
+        }
+
+        /* SOBRE NOSOTROS */
+        .about-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
+            gap: 30px;
+            align-items: center;
+        }
+
+        .about-text p {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 14px;
+            color: #5a4f77;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(255,196,235,0.9), rgba(196,166,255,0.95));
+            padding: 18px 20px;
+            border-radius: 18px;
+            color: #2f244b;
+            font-size: 14px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+            margin-bottom: 18px;
+        }
+
+        .info-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+            font-size: 13px;
+        }
+
+        .info-badge {
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.85);
+            color: #5a4f77;
+        }
+
+        .about-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 15px;
+            color: #5a4f77;
+        }
+
+        .about-list li {
+            margin-bottom: 8px;
+        }
+
+        .about-list li::before {
+            content: "•";
+            color: var(--violeta-oscuro);
+            margin-right: 6px;
+        }
+
+        /* CARRUSEL SOBRE NOSOTROS */
+        .about-carousel-container {
+            width: 100%;
+            max-width: 320px; /* un poco más pequeño */
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 18px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+            background: #fff;
+        }
+
+        .about-carousel-slide {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .about-carousel-slide img {
+            flex: 0 0 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .about-carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.9);
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 50%;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+        .about-carousel-btn:focus {
+            outline: none;
+        }
+
+        #aboutPrevBtn {
+            left: 8px;
+        }
+
+        #aboutNextBtn {
+            right: 8px;
+        }
+
+        /* PRODUCTOS (tarjetas) */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #ffffff, #ffeefd);
+            border-radius: 20px;
+            padding: 16px 18px 20px;
+            box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(156,232,255,0.9), rgba(196,166,255,0.0));
+            opacity: 0.9;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 28px rgba(0,0,0,0.12);
+        }
+
+        .card-title {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: var(--violeta-oscuro);
+        }
+
+        .card-tagline {
+            font-size: 13px;
+            color: #a06bb7;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #5c5378;
+            line-height: 1.7;
+        }
+
+        /* SERVICIOS / CÓMO FUNCIONA */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .step {
+            background: rgba(255,255,255,0.95);
+            border-radius: 18px;
+            padding: 16px 18px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.07);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 26px;
+            height: 26px;
+            border-radius: 999px;
+            text-align: center;
+            line-height: 26px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, var(--rosa-intenso), var(--violeta));
+            margin-bottom: 8px;
+        }
+
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 16px;
+            color: #473968;
+        }
+
+        .step p {
+            font-size: 14px;
+            color: #5d5378;
+            line-height: 1.6;
+        }
+
+        /* POR QUÉ ELEGIRNOS */
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .pill {
+            padding: 10px 14px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.9);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            font-size: 14px;
+            color: #5a4f77;
+        }
+
+        /* CONTACTO */
+        .contact-container {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.6fr);
+            gap: 30px;
+            align-items: center;
+        }
+
+        .contact-info p {
+            margin: 10px 0;
+            font-size: 15px;
+            color: #5a4f77;
+        }
+
+        .contact-info b {
+            color: var(--violeta-oscuro);
+        }
+
+        .contact-highlight {
+            margin-top: 15px;
+            padding: 12px 14px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(255,196,235,0.85), rgba(158,232,255,0.9));
+            font-size: 14px;
+            color: #2f244b;
+        }
+
+        iframe {
+            width: 100%;
+            height: 320px;
+            border: 0;
+            border-radius: 18px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        /* FOOTER */
+        footer {
+            background: linear-gradient(135deg, #fbe0ff, #e0f7ff);
+            padding: 30px 20px 18px;
+            margin-top: 30px;
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr) minmax(0, 1.4fr);
+            gap: 24px;
+            font-size: 14px;
+            color: #5a4f77;
+        }
+
+        .footer-brand {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--violeta-oscuro);
+            margin-bottom: 6px;
+        }
+
+        .footer-links a {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: #2e244f;
+        }
+
+        .footer-bottom {
+            margin-top: 18px;
+            font-size: 12px;
+            text-align: center;
+            color: #8278a2;
+        }
+
+        /* WHATSAPP FLOTANTE */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 18px;
+            right: 18px;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: #25D366;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+            z-index: 2000;
+        }
+
+        .whatsapp-btn img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* ANIMACIONES */
+        @keyframes float {
+            0%, 100% { transform: translateY(-4px); }
+            50% { transform: translateY(4px); }
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .about-grid,
+            .contact-container,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cards-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .steps-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .hero h2 {
+                font-size: 32px;
+            }
+
+            .hero-mainline {
+                font-size: 18px;
+            }
+
+            .about-carousel-container {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 58px;
+                right: 15px;
+                flex-direction: column;
+                background: rgba(255,255,255,0.98);
+                padding: 10px 14px;
+                border-radius: 18px;
+                box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+                display: none;
+            }
+
+            .nav-links a {
+                margin: 6px 0;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .hero {
+                padding-top: 75px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-logo {
+                width: 220px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="nav-container">
+        <div class="logo-text">Cotillon Sugar Party</div>
+
+        <button class="nav-toggle" aria-label="Abrir menú">&#9776;</button>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="#sobre">Sobre Nosotros</a>
+            <a href="#productos">Productos</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#contacto">Contacto</a>
+            <a href="https://www.instagram.com/cotillonsugarparty/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Instagram Cotillon Sugar Party">
+                <img src="/assets/hirose/insta.png" alt="Instagram">
+            </a>
+            <a href="https://wa.me/5491176214957" target="_blank" class="nav-cta">Pedí tu fiesta a medida</a>
+        </nav>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-inner fade-in-up">
+        <h2>Bienvenidos a Sugar Party</h2>
+        <div class="hero-mainline">
+            Repostería • Cotillón • Productos para Celíacos • Golosinas • Papelera • Todo para tu fiesta
+        </div>
+
+        <img class="hero-logo" src="/assets/sugarparty/logo.png" alt="Logo Sugar Party">
+
+        <div class="hero-sub">
+            Endulzamos tus eventos con tortas y mesas dulces a pedido, kits completos de cotillón
+            y todos los detalles de decoración para que no tengas que preocuparte por nada.
+        </div>
+
+        <div class="hero-tags">
+            <div class="tag-pill">Tortas personalizadas</div>
+            <div class="tag-pill">Cumpleaños infantiles y adultos</div>
+            <div class="tag-pill">Fiestas infantiles, comuniones y más</div>
+            <div class="tag-pill">Opciones sin TACC</div>
+        </div>
+
+        <div class="hero-badge">
+            Reservá tu fecha con anticipación y armamos un combo ideal para tu celebración.
+        </div>
+    </div>
+</section>
+
+<!-- SOBRE NOSOTROS -->
+<section id="sobre">
+    <div class="section-inner fade-in-up">
+        <h2 class="section-title">Sobre Sugar Party</h2>
+        <p class="section-subtitle">
+            Somos un comercio de barrio especializado en repostería, cotillón y artículos para fiestas,
+            con una atención cercana para que tus eventos sean únicos y llenos de color.
+        </p>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>
+                    En <b>Sugar Party</b> trabajamos con productos seleccionados y repostería artesanal,
+                    cuidando tanto el sabor como la presentación para que la mesa dulce sea protagonista.
+                </p>
+                <p>
+                    Tenemos productos para celíacos, golosinas, descartables, velas, globos, piñatas
+                    y cotillón luminoso. Si tenés una temática en mente, te ayudamos a combinar
+                    la decoración con la repostería.
+                </p>
+
+                <ul class="about-list">
+                    <li>Repostería a pedido para todo tipo de eventos.</li>
+                    <li>Combos de cotillón, golosinas y papelera listos para usar.</li>
+                    <li>Variedad de opciones sin TACC señalizadas.</li>
+                    <li>Asesoramiento personalizado según tu presupuesto.</li>
+                </ul>
+
+                <div class="info-badges">
+                    <div class="info-badge">Eventos infantiles</div>
+                    <div class="info-badge">Cumpleaños de adultos</div>
+                    <div class="info-badge">Baby showers</div>
+                    <div class="info-badge">Comuniones y bautismos</div>
+                    <div class="info-badge">Reuniones empresariales</div>
+                </div>
+            </div>
+
+            <div>
+                <div class="highlight-box">
+                    <b>Repostería a pedido</b><br>
+                    Diseñamos la mesa dulce completa según tu temática:
+                    tortas decoradas, cupcakes, cake pops, cookies, shots dulces y mucho más.
+                    También podemos sugerirte combinación de colores, packaging y etiquetas personalizadas.
+                    <br><br>
+                    Si necesitás opciones para invitados celíacos, contamos con proveedores de confianza
+                    y productos sin TACC señalizados para que todos puedan disfrutar con tranquilidad.
+                </div>
+
+                <div class="about-carousel-container">
+                    <button id="aboutPrevBtn" class="about-carousel-btn" type="button">&#10094;</button>
+                    <button id="aboutNextBtn" class="about-carousel-btn" type="button">&#10095;</button>
+                    <div class="about-carousel-slide" id="aboutSlide">
+                        <img src="/assets/sugarparty/imagen1.png" alt="Sugar Party 1">
+                        <img src="/assets/sugarparty/imagen2.png" alt="Sugar Party 2">
+                        <img src="/assets/sugarparty/imagen3.png" alt="Sugar Party 3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRODUCTOS (tarjetas) -->
+<section id="productos">
+    <div class="section-inner fade-in-up">
+        <h2 class="section-title">Productos Destacados</h2>
+        <p class="section-subtitle">
+            Estos son algunos de los rubros que podés encontrar en Sugar Party. Visitándonos en el local te mostramos
+            más modelos, colores y combinaciones para adaptar todo a tu estilo.
+        </p>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-title">Repostería artesanal</div>
+                <div class="card-tagline">Tortas, cupcakes &amp; mesas dulces</div>
+                <p>
+                    Tortas clásicas, drip cakes y diseños temáticos.
+                    Cupcakes decorados, minibudines, brownies y postres listos para armar tu candy bar.
+                </p>
+            </div>
+            <div class="card">
+                <div class="card-title">Productos para celíacos</div>
+                <div class="card-tagline">Opciones sin TACC señalizadas</div>
+                <p>
+                    Bizcochuelos, premezclas, galletitas, golosinas y snacks aptos celíacos.
+                    Ideal para mesas dulces inclusivas y seguras para todos.
+                </p>
+            </div>
+            <div class="card">
+                <div class="card-title">Cotillón &amp; decoración</div>
+                <div class="card-tagline">Todo para ambientar tu fiesta</div>
+                <p>
+                    Globos de helio, guirnaldas, banderines, números gigantes,
+                    velas, piñatas, cotillón luminoso y temático para todas las edades.
+                </p>
+            </div>
+            <div class="card">
+                <div class="card-title">Golosinas &amp; candy bar</div>
+                <div class="card-tagline">Color y sabor en la mesa</div>
+                <p>
+                    Caramelos, chocolates, chupetines, gomitas, paletas, pastillas
+                    y todo tipo de dulces para rellenar frascos, cajitas y souvenirs.
+                </p>
+            </div>
+            <div class="card">
+                <div class="card-title">Papelera &amp; descartables</div>
+                <div class="card-tagline">Práctico y decorativo</div>
+                <p>
+                    Platos, vasos, manteles, servilletas, cajas, bolsas de regalo y
+                    packaging temático para ayudarte a armar una mesa prolija y colorida.
+                </p>
+            </div>
+            <div class="card">
+                <div class="card-title">Souvenirs &amp; detalles</div>
+                <div class="card-tagline">Toques finales para tus invitados</div>
+                <p>
+                    Cajas y bolsitas personalizables, etiquetas, cintas, toppers y stickers
+                    para que cada invitado se lleve un recuerdo especial de tu fiesta.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICIOS / CÓMO FUNCIONA -->
+<section id="servicios">
+    <div class="section-inner fade-in-up">
+        <h2 class="section-title">Servicios a Medida</h2>
+        <p class="section-subtitle">
+            Podés acercarte al local para ver todos los productos o escribirnos por WhatsApp
+            y te ayudamos a armar el combo ideal sin moverte de tu casa.
+        </p>
+
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-title">Contanos tu evento</div>
+                <p>
+                    Tipo de festejo, cantidad estimada de invitados, temática y fecha.
+                    Con esa información ya podemos sugerirte una lista base de productos.
+                </p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-title">Armamos la propuesta</div>
+                <p>
+                    Te mostramos opciones de tortas, combos de golosinas, cotillón y papelera.
+                    Ajustamos lo que haga falta a tu presupuesto y necesidades.
+                </p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-title">Retiro en el local</div>
+                <p>
+                    Coordinamos la fecha de retiro de la repostería y el combo de cotillón.
+                    Te llevás todo listo: solo falta poner música y empezar a celebrar.
+                </p>
+            </div>
+        </div>
+
+        <h3 style="text-align:center;margin-top:40px;color:#5a4f77;font-size:18px;">
+            ¿Por qué elegir Sugar Party?
+        </h3>
+        <div class="pill-row" style="margin-top:12px;">
+            <div class="pill">Atención cálida y cercana de comercio de barrio</div>
+            <div class="pill">Variedad de productos para celíacos</div>
+            <div class="pill">Repostería artesanal con sabores caseros</div>
+            <div class="pill">Amplia línea de cotillón y decoración</div>
+            <div class="pill">Combos armados para que ahorres tiempo</div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+    <div class="section-inner fade-in-up">
+        <h2 class="section-title">Contacto y Ubicación</h2>
+        <p class="section-subtitle">
+            Estamos en el corazón del barrio para que puedas pasar a elegir todo para tu fiesta.
+            Si preferís coordinar por WhatsApp, respondemos tus consultas y reservamos tus pedidos.
+        </p>
+
+        <div class="contact-container">
+            <div class="contact-info">
+                <p><b>Dirección:</b><br>
+                    Gral. Martín de Gainza 1093, C1405, Cdad. Autónoma de Buenos Aires</p>
+
+                <p><b>Teléfono / WhatsApp:</b><br>
+                    +54 9 11 7621 4957</p>
+
+                <p><b>Horarios de atención:</b><br>
+                    Lunes a Viernes: 10:00 a 20:00 hs<br>
+                    Sábados: 10:00 a 17:00 hs</p>
+
+                <p><b>Cómo llego:</b><br>
+                    A pocos minutos de Av. Gaona y Av. San Martín.
+                    Varias líneas de colectivo y fácil acceso en auto.</p>
+
+                <div class="contact-highlight">
+                    Escribinos por WhatsApp para consultar disponibilidad de productos,
+                    reservar tu torta o pedir sugerencias para armar tu fiesta de principio a fin.
+                </div>
+            </div>
+
+            <div>
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.531195486742!2d-58.43685!3d-34.59046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcca7f93926fd7%3A0xefd871a8c1b1a2b!2sGral.%20Mart%C3%ADn%20de%20Gainza%201093%2C%20C1405%20CABA!5e0!3m2!1ses!2sar!4v1702230000000"
+                    loading="lazy" allowfullscreen="">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">Cotillon Sugar Party</div>
+                <p>
+                    Repostería, cotillón, papelera, golosinas y productos para celíacos.
+                    Todo lo que necesitás para que tu fiesta sea colorida, dulce y divertida.
+                </p>
+            </div>
+            <div class="footer-links">
+                <b>Secciones</b>
+                <a href="#sobre">Sobre nosotros</a>
+                <a href="#productos">Productos</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#contacto">Contacto</a>
+            </div>
+            <div>
+                <b>Datos de contacto</b><br>
+                Gral. Martín de Gainza 1093, C1405, CABA<br>
+                Tel/WhatsApp: +54 9 11 7621 4957<br>
+                <br>
+                Seguinos en redes (próximamente)<br>
+                Instagram · Facebook
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © <span id="year"></span> Sugar Party. Todos los derechos reservados.
+        </div>
+    </div>
+</footer>
+
+<!-- BOTÓN WHATSAPP -->
+<a class="whatsapp-btn" href="https://wa.me/5491176214957" target="_blank" aria-label="Contactar por WhatsApp">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+
+<script>
+    // Menú Mobile
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', function () {
+        navLinks.classList.toggle('open');
+    });
+
+    // Animaciones de aparición al hacer scroll
+    const animated = document.querySelectorAll('.fade-in-up');
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    animated.forEach(function(el) {
+        observer.observe(el);
+    });
+
+    // Año en footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Carrusel sección Sobre Nosotros
+    const aboutSlide = document.getElementById('aboutSlide');
+    const aboutImages = aboutSlide.querySelectorAll('img');
+    let aboutCounter = 0;
+
+    function updateAboutSlide() {
+        const offset = -(aboutCounter * 100);
+        aboutSlide.style.transform = 'translateX(' + offset + '%)';
+    }
+
+    document.getElementById('aboutNextBtn').addEventListener('click', function (e) {
+        e.preventDefault();
+        aboutCounter = (aboutCounter + 1) % aboutImages.length;
+        updateAboutSlide();
+    });
+
+    document.getElementById('aboutPrevBtn').addEventListener('click', function (e) {
+        e.preventDefault();
+        aboutCounter = (aboutCounter - 1 + aboutImages.length) % aboutImages.length;
+        updateAboutSlide();
+    });
+</script>
+
+</body>
+</html>
