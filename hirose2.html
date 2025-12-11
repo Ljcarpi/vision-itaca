@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Hirose Sushi · Experiencia de sushi de autor a puertas cerradas en Pasco 740, CABA. Reservas exclusivas y menú de degustación.">
     <link rel="icon" type="image/png" href="/assets/hirose/icon.png">
+    <!-- Preload para que la primera imagen del carrusel cargue más rápido -->
+    <link rel="preload" as="image" href="/assets/hirose/imagen1.png">
 
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -706,7 +708,7 @@
             color: rgba(255, 255, 255, 0.48);
         }
 
-        /* WHATSAPP FLOTANTE (con icono tipo WhatsApp) */
+        /* WHATSAPP FLOTANTE */
         .whatsapp-float {
             position: fixed;
             bottom: 1.5rem;
@@ -730,9 +732,18 @@
             color: #fff;
         }
 
-        .wa-icon {
-            font-size: 1.9rem;
-            line-height: 1;
+        /* Icono WhatsApp (botones de reserva) */
+        .wa-icon-svg {
+            width: 1.55rem;
+            height: 1.55rem;
+            fill: #ffffff;
+        }
+
+        /* Icono más grande para los botones flotantes */
+        .wa-icon-svg-float {
+            width: 2.2rem;
+            height: 2.2rem;
+            fill: #ffffff;
         }
 
         .whatsapp-btn span.badge {
@@ -1023,13 +1034,17 @@
                                href="https://wa.me/5491124793833"
                                target="_blank" rel="noopener">
                                 WhatsApp 1
-                                <i class="fa-brands fa-whatsapp"></i>
+                                <svg class="wa-icon-svg" viewBox="0 0 32 32" aria-hidden="true">
+                                    <path d="M21.6 19.8l-2.1-.9a1 1 0 0 0-1 .1l-1.2.8a8.9 8.9 0 0 1-4.1-4.1l.8-1.2a1 1 0 0 0 .1-1l-.9-2.1A1 1 0 0 0 11.3 11l-1.7.7a1.5 1.5 0 0 0-.9 1.3 10.8 10.8 0 0 0 10.3 10.3 1.5 1.5 0 0 0 1.3-.9l.7-1.7a1 1 0 0 0-.4-1.9z"/>
+                                </svg>
                             </a>
                             <a class="btn-primary"
                                href="https://wa.me/5491130663831"
                                target="_blank" rel="noopener">
                                 WhatsApp 2
-                                <i class="fa-brands fa-whatsapp"></i>
+                                <svg class="wa-icon-svg" viewBox="0 0 32 32" aria-hidden="true">
+                                    <path d="M21.6 19.8l-2.1-.9a1 1 0 0 0-1 .1l-1.2.8a8.9 8.9 0 0 1-4.1-4.1l.8-1.2a1 1 0 0 0 .1-1l-.9-2.1A1 1 0 0 0 11.3 11l-1.7.7a1.5 1.5 0 0 0-.9 1.3 10.8 10.8 0 0 0 10.3 10.3 1.5 1.5 0 0 0 1.3-.9l.7-1.7a1 1 0 0 0-.4-1.9z"/>
+                                </svg>
                             </a>
                         </div>
                         <div class="reservas-note">
@@ -1066,13 +1081,19 @@
                     <div class="carousel" data-carousel="galeria">
                         <div class="carousel-inner">
                             <div class="carousel-slide active">
-                                <img src="/assets/hirose/imagen1.png" alt="Detalle de la barra de Hirose Sushi">
+                                <img src="/assets/hirose/imagen1.png"
+                                     alt="Detalle de la barra de Hirose Sushi"
+                                     loading="lazy" decoding="async">
                             </div>
                             <div class="carousel-slide">
-                                <img src="/assets/hirose/imagen2.png" alt="Servicio de sushi en Hirose Sushi">
+                                <img src="/assets/hirose/imagen2.png"
+                                     alt="Servicio de sushi en Hirose Sushi"
+                                     loading="lazy" decoding="async">
                             </div>
                             <div class="carousel-slide">
-                                <img src="/assets/hirose/imagen3.png" alt="Ambiente nocturno en Hirose Sushi">
+                                <img src="/assets/hirose/imagen3.png"
+                                     alt="Ambiente nocturno en Hirose Sushi"
+                                     loading="lazy" decoding="async">
                             </div>
                         </div>
                         <div class="carousel-controls">
@@ -1180,12 +1201,16 @@
     <div class="whatsapp-float">
         <a href="https://wa.me/5491124793833" target="_blank" rel="noopener"
            class="whatsapp-btn" aria-label="WhatsApp Hirose Sushi 1">
-            <i class="fa-brands fa-whatsapp wa-icon" aria-hidden="true"></i>
+            <svg class="wa-icon-svg-float" viewBox="0 0 32 32" aria-hidden="true">
+                <path d="M21.6 19.8l-2.1-.9a1 1 0 0 0-1 .1l-1.2.8a8.9 8.9 0 0 1-4.1-4.1l.8-1.2a1 1 0 0 0 .1-1l-.9-2.1A1 1 0 0 0 11.3 11l-1.7.7a1.5 1.5 0 0 0-.9 1.3 10.8 10.8 0 0 0 10.3 10.3 1.5 1.5 0 0 0 1.3-.9l.7-1.7a1 1 0 0 0-.4-1.9z"/>
+            </svg>
             <span class="badge">1</span>
         </a>
         <a href="https://wa.me/5491130663831" target="_blank" rel="noopener"
            class="whatsapp-btn" aria-label="WhatsApp Hirose Sushi 2">
-            <i class="fa-brands fa-whatsapp wa-icon" aria-hidden="true"></i>
+            <svg class="wa-icon-svg-float" viewBox="0 0 32 32" aria-hidden="true">
+                <path d="M21.6 19.8l-2.1-.9a1 1 0 0 0-1 .1l-1.2.8a8.9 8.9 0 0 1-4.1-4.1l.8-1.2a1 1 0 0 0 .1-1l-.9-2.1A1 1 0 0 0 11.3 11l-1.7.7a1.5 1.5 0 0 0-.9 1.3 10.8 10.8 0 0 0 10.3 10.3 1.5 1.5 0 0 0 1.3-.9l.7-1.7a1 1 0 0 0-.4-1.9z"/>
+            </svg>
             <span class="badge">2</span>
         </a>
     </div>
