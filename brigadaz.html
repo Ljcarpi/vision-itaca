@@ -5,9 +5,10 @@
   <title>BRIGADA Z TATTOO</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="BRIGADA Z TATTOO - Tatuajes y piercings profesionales desde 2004. Arte, higiene y tinta de máxima calidad en Cap. Claudio Rosales 876, B1684 El Palomar, Provincia de Buenos Aires." />
+  <meta name="theme-color" content="#000000" />
 
   <link rel="icon" href="/assets/brigadaz/logo.png" type="image/png" />
-  <!-- Solo esperamos el logo (rápido) -->
+  <!-- Preloader solo logo -->
   <link rel="preload" as="image" href="/assets/brigadaz/logo.png" fetchpriority="high" />
 
   <script>
@@ -37,6 +38,7 @@
         linear-gradient(180deg, #000000 0%, #0a0a0a 40%, #000000 100%);
       background-attachment:fixed;
       background-size:cover;
+      overflow-x:hidden;
     }
 
     a{color:inherit;text-decoration:none}
@@ -44,7 +46,7 @@
     .container{max-width:1100px;margin:0 auto;padding:0 1rem}
 
     /* =========================================================
-       PRELOADER (solo logo, NO espera mapa/instagram)
+       PRELOADER (solo logo, no espera iframes)
        ========================================================= */
     body.loading{overflow:hidden}
 
@@ -67,12 +69,12 @@
     }
     .preloader-text{margin-top:.9rem;font-size:.9rem;opacity:.9;letter-spacing:.04em}
 
-    /* Spinner: fuerza animación en PC también */
+    /* Spinner (forzado a animar en PC también) */
     .spinner{
       width:34px;height:34px;border-radius:999px;margin:.9rem auto 0;
       border:3px solid rgba(255,255,255,0.22);
       border-top-color:var(--rojo);
-      animation:spin 0.9s linear infinite;
+      animation:spin .9s linear infinite;
       transform:translateZ(0);
       will-change:transform;
     }
@@ -107,6 +109,7 @@
       padding-left:.75rem;
       line-height:1.2;
       display:flex;align-items:center;
+      white-space:nowrap;
     }
     .nav-links{
       display:flex;
@@ -136,13 +139,17 @@
       transition:transform .15s ease, border-color .15s ease, background .15s ease;
     }
     .nav-toggle:hover{border-color:rgba(229,9,20,0.6); transform:translateY(-1px)}
+    .nav-toggle:focus-visible{outline:2px solid rgba(229,9,20,0.75); outline-offset:2px}
     .nav-toggle-icon{
-      width:22px;height:16px;margin:0 auto;position:relative;
+      width:22px;height:16px;margin:0 auto;
       display:flex;flex-direction:column;justify-content:space-between;
     }
     .nav-toggle-icon span{
       display:block;height:2px;border-radius:999px;background:#fff;opacity:.95;
     }
+
+    /* Solo móvil: barra de cerrar (oculta por defecto en PC) */
+    .menu-close-bar{display:none;}
 
     /* HERO */
     .hero{padding:2.2rem 0 1.4rem}
@@ -242,6 +249,7 @@
       display:flex;justify-content:center;align-items:center;
       cursor:pointer;border:1px solid rgba(255,255,255,0.4);z-index:2;
     }
+    .carousel-btn:focus-visible{outline:2px solid rgba(229,9,20,0.75); outline-offset:2px}
     .carousel-btn.prev{left:10px}
     .carousel-btn.next{right:10px}
     .carousel-dots{
@@ -279,6 +287,7 @@
       transition:.2s;
     }
     .floating-wa-btn:hover{border-color:var(--rojo);transform:scale(1.07)}
+    .floating-wa-btn:focus-visible{outline:2px solid rgba(229,9,20,0.75); outline-offset:3px}
     .wa-icon{width:26px;height:26px;display:block}
 
     /* FOOTER */
@@ -327,7 +336,7 @@
     /* RESPONSIVE */
     @media (max-width:768px){
       .nav{height:64px}
-      .nav-left-title{font-size:.85rem;max-width:240px}
+      .nav-left-title{font-size:.85rem;max-width:240px;white-space:normal}
 
       .nav-toggle{
         display:inline-flex;
@@ -353,12 +362,13 @@
       }
       .nav-links.show{display:flex}
 
+      /* Mostrar Cerrar solo en móvil */
       .menu-close-bar{
+        display:flex;
         width:100%;
         margin-top:.7rem;
         padding:.65rem 0 .3rem;
         border-top:1px solid rgba(255,255,255,0.22);
-        display:flex;
         align-items:center;
         justify-content:center;
         gap:.55rem;
@@ -416,7 +426,7 @@
         <nav class="nav">
           <div class="nav-left-title">BRIGADA Z TATTOO</div>
 
-          <button class="nav-toggle" aria-label="Abrir menú" id="navToggle">
+          <button type="button" class="nav-toggle" aria-label="Abrir menú" aria-controls="navLinks" aria-expanded="false" id="navToggle">
             <span class="nav-toggle-icon" aria-hidden="true">
               <span></span><span></span><span></span>
             </span>
@@ -429,8 +439,9 @@
             <a href="#servicios">Servicios</a>
             <a href="#contacto">Contacto</a>
 
-            <div class="menu-close-bar" id="menuCloseBar" aria-label="Cerrar menú">
-              <span class="arrow">↑</span>
+            <!-- Solo visible en móvil por CSS -->
+            <div class="menu-close-bar" id="menuCloseBar" aria-label="Cerrar menú" role="button" tabindex="0">
+              <span class="arrow" aria-hidden="true">↑</span>
               <small>Cerrar</small>
             </div>
           </div>
@@ -510,13 +521,13 @@
             </div>
           </div>
 
-          <button class="carousel-btn prev" id="carouselPrev" aria-label="Anterior">&#10094;</button>
-          <button class="carousel-btn next" id="carouselNext" aria-label="Siguiente">&#10095;</button>
+          <button type="button" class="carousel-btn prev" id="carouselPrev" aria-label="Anterior">&#10094;</button>
+          <button type="button" class="carousel-btn next" id="carouselNext" aria-label="Siguiente">&#10095;</button>
 
-          <div class="carousel-dots" id="carouselDots">
-            <div class="carousel-dot active" data-index="0"></div>
-            <div class="carousel-dot" data-index="1"></div>
-            <div class="carousel-dot" data-index="2"></div>
+          <div class="carousel-dots" id="carouselDots" aria-label="Indicadores de galería">
+            <div class="carousel-dot active" data-index="0" role="button" tabindex="0" aria-label="Ver imagen 1"></div>
+            <div class="carousel-dot" data-index="1" role="button" tabindex="0" aria-label="Ver imagen 2"></div>
+            <div class="carousel-dot" data-index="2" role="button" tabindex="0" aria-label="Ver imagen 3"></div>
           </div>
         </div>
       </div>
@@ -545,14 +556,13 @@
       <div class="container">
         <div class="ig-embed-wrap">
           <div class="ig-embed-card hover-lift" data-animate="card" aria-label="Post de Instagram">
-            <!-- NO forma parte de la espera del preloader -->
             <iframe
               class="ig-embed-frame"
               title="Instagram Embed"
               src="https://www.instagram.com/p/DRLetZCDH2Q/embed"
               loading="lazy"
-              allowtransparency="true"
-              allowfullscreen="true"
+              allow="clipboard-write; encrypted-media; picture-in-picture; web-share"
+              allowfullscreen
             ></iframe>
           </div>
         </div>
@@ -608,7 +618,6 @@
           </div>
 
           <div class="contact-map hover-lift" data-animate="card" id="contactMap">
-            <!-- NO forma parte de la espera del preloader -->
             <iframe
               id="mapsIframe"
               loading="lazy"
@@ -651,19 +660,32 @@
 
     function closeMenu(){
       navLinks.classList.remove("show");
+      navToggle.setAttribute("aria-expanded", "false");
       navToggle.setAttribute("aria-label", "Abrir menú");
     }
-    function toggleMenu(){
-      navLinks.classList.toggle("show");
-      navToggle.setAttribute("aria-label", navLinks.classList.contains("show") ? "Cerrar menú" : "Abrir menú");
+    function openMenu(){
+      navLinks.classList.add("show");
+      navToggle.setAttribute("aria-expanded", "true");
+      navToggle.setAttribute("aria-label", "Cerrar menú");
     }
+    function toggleMenu(){
+      navLinks.classList.contains("show") ? closeMenu() : openMenu();
+    }
+
     navToggle.addEventListener("click", toggleMenu);
     menuCloseBar.addEventListener("click", closeMenu);
+    menuCloseBar.addEventListener("keydown", (e)=>{ if(e.key==="Enter" || e.key===" "){ e.preventDefault(); closeMenu(); } });
+
     navLinks.querySelectorAll("a").forEach(a=>{
       a.addEventListener("click", () => {
         if (window.matchMedia("(max-width: 768px)").matches) closeMenu();
       });
     });
+
+    // Cierra menú si se pasa a desktop
+    window.addEventListener("resize", () => {
+      if (!window.matchMedia("(max-width: 768px)").matches) closeMenu();
+    }, {passive:true});
 
     // Maps fallback para in-app browsers
     (function(){
@@ -689,10 +711,14 @@
       track.style.transform = "translateX(" + (-index * 100) + "%)";
       dots.forEach((d,i)=>d.classList.toggle("active", i===index));
     }
+
     prevBtn.addEventListener("click", ()=>{ index=(index-1+slides.length)%slides.length; updateCarousel(); });
     nextBtn.addEventListener("click", ()=>{ index=(index+1)%slides.length; updateCarousel(); });
+
     dots.forEach(dot=>{
-      dot.addEventListener("click", ()=>{ index=Number(dot.dataset.index); updateCarousel(); });
+      const go = ()=>{ index=Number(dot.dataset.index); updateCarousel(); };
+      dot.addEventListener("click", go);
+      dot.addEventListener("keydown", (e)=>{ if(e.key==="Enter" || e.key===" "){ e.preventDefault(); go(); } });
     });
 
     let auto = setInterval(()=>{ index=(index+1)%slides.length; updateCarousel(); }, 5000);
@@ -715,7 +741,7 @@
     })();
 
     // =========================================================
-    // PRELOADER: esperar SOLO el logo (rápido) + timeout corto
+    // PRELOADER: esperar SOLO el logo + timeout corto
     // =========================================================
     function unlockSite(){
       document.body.classList.remove("loading");
@@ -727,8 +753,6 @@
     function waitLogoOnly(timeoutMs=1200){
       return new Promise((resolve)=>{
         const t = setTimeout(()=>resolve(false), timeoutMs);
-
-        // Cargamos el logo con Image() para no depender del DOM
         const img = new Image();
         img.onload = () => { clearTimeout(t); resolve(true); };
         img.onerror = () => { clearTimeout(t); resolve(false); };
@@ -737,7 +761,7 @@
     }
 
     // =========================================================
-    // ON-ENTER animations (iniciar inmediatamente; se ven en PC)
+    // ON-ENTER animations
     // =========================================================
     function initOnEnterAnimations(){
       const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -764,10 +788,10 @@
           if (!entry.isIntersecting) return;
           const el = entry.target;
 
-          // fuerza transición aun si justo se revela el sitio
           el.getBoundingClientRect();
           requestAnimationFrame(()=> el.classList.add("is-inview"));
 
+          // glow: una sola vez
           if (el.classList.contains("glow-on-enter")) { obs.unobserve(el); return; }
           obs.unobserve(el);
         });
@@ -780,7 +804,7 @@
         obs.observe(el);
       });
 
-      // si ya están visibles al cargar (above the fold)
+      // si están visibles de entrada
       requestAnimationFrame(()=> {
         cards.concat(stItems).forEach(el=>{
           const r = el.getBoundingClientRect();
@@ -789,10 +813,8 @@
       });
     }
 
-    // Init rápido
     document.addEventListener("DOMContentLoaded", () => {
       initOnEnterAnimations();
-      // Desbloquear cuando esté el logo o tras timeout corto
       waitLogoOnly(1200).finally(unlockSite);
     });
   </script>
