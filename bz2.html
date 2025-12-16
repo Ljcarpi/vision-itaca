@@ -10,6 +10,7 @@
   <link rel="icon" href="/assets/brigadaz/logo.png" type="image/png" />
   <!-- Preloader solo logo -->
   <link rel="preload" as="image" href="/assets/brigadaz/logo.png" fetchpriority="high" />
+  <link rel="preload" as="image" href="/assets/brigadaz/logo2.png" fetchpriority="high" />
 
   <script>
     document.documentElement.classList.add("js");
@@ -160,7 +161,17 @@
     .hero-logo{
       max-width:260px;border-radius:12px;
       box-shadow:0 0 25px rgba(229,9,20,0.6);
+      filter: drop-shadow(0 0 25px rgba(229,9,20,0.65));
     }
+    /* Evitar menú de long-press / selección / drag en móvil (solo logo) */
+    #heroLogo{
+      -webkit-touch-callout: none;  /* iOS */
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      touch-action: manipulation;
+    }
+
     .hero-tagline{max-width:600px;margin:1rem auto .8rem}
     .hero-badges{margin-bottom:.7rem}
     .badge{
@@ -456,6 +467,7 @@
           <img
             src="/assets/brigadaz/logo.png"
             class="hero-logo glow-on-enter hover-lift"
+            id="heroLogo"
             data-animate="glow"
             alt="Logo BRIGADA Z TATTOO"
             loading="eager"
@@ -741,6 +753,46 @@
     })();
 
     // =========================================================
+    // LOGO SWAP (hover en PC / touch en móvil)
+    // =========================================================
+    function initLogoSwap(){
+      const logo = document.getElementById("heroLogo");
+      if (!logo) return;
+
+      const src1 = "/assets/brigadaz/logo.png";
+      const src2 = "/assets/brigadaz/logo2.png";
+
+      const setSrc = (src)=>{
+        if (logo.getAttribute("src") !== src) logo.setAttribute("src", src);
+      };
+
+      // Evitar menú de long-press (abrir/guardar imagen) en móvil
+      logo.addEventListener("contextmenu", (e) => e.preventDefault());
+      // iOS/Safari: bloquear touch callout del long-press sin romper el swap
+      logo.addEventListener("touchstart", (e) => e.preventDefault(), { passive: false });
+
+      // PC (hover real)
+      logo.addEventListener("mouseenter", ()=> setSrc(src2));
+      logo.addEventListener("mouseleave", ()=> setSrc(src1));
+
+      // Mobile (mantener mientras se toca)
+      logo.addEventListener("pointerdown", (e)=>{
+        if (window.matchMedia("(hover: none)").matches){
+          setSrc(src2);
+        }
+      }, {passive:true});
+
+      const back = ()=>{
+        if (window.matchMedia("(hover: none)").matches){
+          setSrc(src1);
+        }
+      };
+      logo.addEventListener("pointerup", back, {passive:true});
+      logo.addEventListener("pointercancel", back, {passive:true});
+      logo.addEventListener("pointerleave", back, {passive:true});
+    }
+
+    // =========================================================
     // PRELOADER: esperar SOLO el logo + timeout corto
     // =========================================================
     function unlockSite(){
@@ -750,13 +802,36 @@
       setTimeout(()=>{ if(pre) pre.remove(); }, 260);
     }
 
-    function waitLogoOnly(timeoutMs=1200){
+    function waitCriticalImages(timeoutMs=1500){
       return new Promise((resolve)=>{
-        const t = setTimeout(()=>resolve(false), timeoutMs);
-        const img = new Image();
-        img.onload = () => { clearTimeout(t); resolve(true); };
-        img.onerror = () => { clearTimeout(t); resolve(false); };
-        img.src = "/assets/brigadaz/logo.png";
+        let done = 0;
+        let settled = false;
+
+        const t = setTimeout(()=>{
+          if (settled) return;
+          settled = true;
+          resolve(false);
+        }, timeoutMs);
+
+        const urls = [
+          "/assets/brigadaz/logo.png",
+          "/assets/brigadaz/logo2.png"
+        ];
+
+        urls.forEach((url)=>{
+          const img = new Image();
+          const finish = ()=>{
+            done++;
+            if (done === urls.length && !settled){
+              settled = true;
+              clearTimeout(t);
+              resolve(true);
+            }
+          };
+          img.onload = finish;
+          img.onerror = finish; // si falla, igual desbloquea por timeout/cuenta
+          img.src = url;
+        });
       });
     }
 
@@ -815,7 +890,8 @@
 
     document.addEventListener("DOMContentLoaded", () => {
       initOnEnterAnimations();
-      waitLogoOnly(1200).finally(unlockSite);
+      initLogoSwap();
+      waitCriticalImages(1500).finally(unlockSite);
     });
   </script>
 </body>
