@@ -4,20 +4,16 @@
     <meta charset="UTF-8" />
     <title>TATTOO LOTUS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="TATTOO LOTUS - Tatuajes y piercings profesionales. Arte, higiene y tinta de máxima calidad en Pichincha 29, C1084 Cdad. Autónoma de Buenos Aires." />
-
-    <!-- Logo / Favicon -->
+    <meta name="description" content="TATTOO LOTUS - Tatuajes y piercings profesionales desde 2004. Arte, higiene y tinta de máxima calidad en Pichincha 29, C1084 Cdad. Autónoma de Buenos Aires." />
     <link rel="icon" href="/assets/tattoolotus/logo.png" type="image/png" />
 
-    <!-- Performance hints -->
     <link rel="preload" as="image" href="/assets/tattoolotus/logo.png" />
     <link rel="preload" as="image" href="/assets/tattoolotus/imagen1.png" />
 
     <style>
         :root {
-            /* Reemplazo del rojo por violeta neón (mantengo nombres para no romper estilos existentes) */
-            --rojo: #b026ff;
-            --rojo-oscuro: #5a0fbf;
+            --violeta: #b100ff;
+            --violeta-oscuro: #6a00ff;
             --negro: #090909;
             --blanco: #f5f5f5;
         }
@@ -32,10 +28,9 @@
             background:
                 radial-gradient(circle at 20% 30%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 45%),
                 radial-gradient(circle at 80% 60%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 42%),
-                radial-gradient(circle at 60% 20%, rgba(176, 38, 255, 0.28) 0%, rgba(176, 38, 255, 0) 55%),
-                radial-gradient(circle at 30% 70%, rgba(122, 34, 206, 0.22) 0%, rgba(122, 34, 206, 0) 50%),
-                radial-gradient(circle at 85% 15%, rgba(176, 38, 255, 0.12) 0%, rgba(176, 38, 255, 0) 45%),
-                linear-gradient(180deg, #000000 0%, #08050f 40%, #000000 100%);
+                radial-gradient(circle at 60% 20%, rgba(177, 0, 255, 0.28) 0%, rgba(177, 0, 255, 0) 55%),
+                radial-gradient(circle at 30% 70%, rgba(106, 0, 255, 0.22) 0%, rgba(106, 0, 255, 0) 50%),
+                linear-gradient(180deg, #000000 0%, #07010b 40%, #000000 100%);
             background-attachment: fixed;
             background-size: cover;
         }
@@ -55,7 +50,7 @@
             top: 0;
             background: rgba(0, 0, 0, 0.92);
             backdrop-filter: blur(6px);
-            border-bottom: 2px solid var(--rojo-oscuro);
+            border-bottom: 2px solid var(--violeta-oscuro);
             z-index: 100;
         }
 
@@ -71,7 +66,7 @@
             font-weight: bold;
             letter-spacing: 0.07em;
             text-transform: uppercase;
-            border-left: 4px solid var(--rojo);
+            border-left: 4px solid var(--violeta);
             padding-left: 0.75rem;
             line-height: 1.2;
             display: flex;
@@ -92,7 +87,7 @@
             position: absolute;
             left: 0; bottom: 0;
             width: 0; height: 2px;
-            background: linear-gradient(90deg, var(--rojo), #ffffff);
+            background: linear-gradient(90deg, var(--violeta), #ffffff);
             transition: width 0.2s ease-out;
         }
         .nav-links a:hover::after { width: 100%; }
@@ -120,11 +115,13 @@
         .hero-logo {
             max-width: 260px;
             border-radius: 12px;
-            box-shadow: 0 0 25px rgba(176, 38, 255, 0.7);
+            box-shadow:
+                0 0 26px rgba(177, 0, 255, 0.55),
+                0 0 60px rgba(106, 0, 255, 0.18);
         }
 
         .hero-tagline { max-width: 600px; margin: 1rem auto 0.8rem; }
-        .hero-highlight { color: var(--rojo); font-weight: bold; }
+        .hero-highlight { color: var(--violeta); font-weight: bold; }
 
         .hero-badges { margin-bottom: 0.7rem; }
         .badge {
@@ -135,14 +132,15 @@
             border: 1px solid rgba(255,255,255,0.25);
             font-size: 0.75rem;
             text-transform: uppercase;
+            background: rgba(0,0,0,0.35);
         }
 
-        .inline-icons {
-            margin-top: 0.4rem;
-            display: inline-flex;
-            gap: 0.6rem;
-            align-items: center;
+        .social-row {
+            margin-top: 0.45rem;
+            display: flex;
+            gap: 0.55rem;
             justify-content: center;
+            align-items: center;
         }
 
         .inline-icon-btn {
@@ -151,20 +149,20 @@
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            background: #000;
+            background: rgba(0,0,0,0.85);
             border: 1px solid rgba(255,255,255,0.4);
             border-radius: 50%;
             transition: 0.2s;
         }
         .inline-icon-btn img { width: 20px; height: 20px; }
-        .inline-icon-btn:hover { border-color: var(--rojo); transform: scale(1.07); }
+        .inline-icon-btn:hover { border-color: var(--violeta); transform: scale(1.07); }
 
         /* SECCIONES */
         section { padding: 2rem 0; }
 
         .section-header {
             margin-bottom: 1.2rem;
-            border-left: 4px solid var(--rojo);
+            border-left: 4px solid var(--violeta);
             padding-left: 0.75rem;
         }
 
@@ -193,7 +191,7 @@
         }
 
         .service-title {
-            color: var(--rojo);
+            color: var(--violeta);
             text-transform: uppercase;
             font-size: 0.9rem;
             margin-bottom: 0.3rem;
@@ -206,6 +204,7 @@
             border-radius: 18px;
             border: 1px solid rgba(255,255,255,0.25);
             background: rgba(0,0,0,0.6);
+            margin: 0 auto; /* centra */
         }
 
         .carousel-track {
@@ -218,7 +217,17 @@
         .carousel-slide img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* móvil: llena el cuadro */
+        }
+
+        /* AJUSTE SOLO EN PC: más chico y cuadrado, evita “zoom” */
+        @media (min-width: 769px) {
+            .carousel { max-width: 560px; }           /* más chico que 600 para no escalar hacia arriba */
+            .carousel-slide { height: 560px; }        /* cuadrado */
+            .carousel-slide img {
+                object-fit: contain;                 /* sin zoom/crop, muestra la imagen completa */
+                background: rgba(0,0,0,0.85);
+            }
         }
 
         .carousel-btn {
@@ -257,7 +266,7 @@
             border-radius: 50%;
             cursor: pointer;
         }
-        .carousel-dot.active { background: var(--rojo); }
+        .carousel-dot.active { background: var(--violeta); }
 
         /* CONTACTO */
         .contact-layout {
@@ -273,7 +282,6 @@
             border-radius: 14px;
         }
 
-        /* Fallback para Instagram in-app */
         .map-fallback {
             display: none;
             align-items: center;
@@ -301,7 +309,7 @@
         }
 
         .map-fallback a:hover {
-            border-color: var(--rojo);
+            border-color: var(--violeta);
             transform: translateY(-1px);
         }
 
@@ -318,7 +326,9 @@
             height: 52px;
             border-radius: 50%;
             border: 2px solid #fff;
-            background: radial-gradient(circle, #25D366, #0b2b13);
+            background:
+                radial-gradient(circle at 35% 30%, rgba(255,255,255,0.18), rgba(255,255,255,0) 55%),
+                radial-gradient(circle at 60% 65%, rgba(177, 0, 255, 0.55), rgba(0,0,0,0.95));
             display: flex;
             justify-content: center;
             align-items: center;
@@ -326,14 +336,8 @@
             transition: 0.2s;
         }
 
-        .floating-wa-btn:hover { border-color: var(--rojo); transform: scale(1.07); }
-
-        /* Icono WhatsApp (SVG) */
-        .wa-icon {
-            width: 26px;
-            height: 26px;
-            display: block;
-        }
+        .floating-wa-btn:hover { border-color: var(--violeta); transform: scale(1.07); }
+        .floating-wa-btn svg { width: 26px; height: 26px; display: block; }
 
         /* FOOTER */
         footer {
@@ -344,7 +348,7 @@
             margin-top: 2rem;
             border-top: 1px solid rgba(255,255,255,0.25);
         }
-        .footer-highlight { color: var(--rojo); }
+        .footer-highlight { color: var(--violeta); }
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
@@ -373,18 +377,10 @@
 
     <!-- BOTÓN FLOTANTE WHATSAPP -->
     <div class="floating-wa">
-        <a
-            href="https://wa.me/541165885888"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="floating-wa-btn"
-            aria-label="Enviar WhatsApp a TATTOO LOTUS"
-            title="WhatsApp"
-        >
-            <!-- WhatsApp logo (inline SVG) -->
-            <svg class="wa-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-                <path fill="#ffffff" d="M19.11 17.46c-.27-.14-1.6-.79-1.84-.88-.24-.09-.42-.14-.6.14-.18.27-.69.88-.84 1.06-.15.18-.31.2-.58.07-.27-.14-1.12-.41-2.13-1.31-.79-.7-1.32-1.56-1.47-1.83-.15-.27-.02-.42.11-.55.12-.12.27-.31.4-.46.13-.15.18-.27.27-.46.09-.18.05-.35-.02-.49-.07-.14-.6-1.45-.82-1.99-.22-.52-.44-.45-.6-.46h-.51c-.18 0-.46.07-.7.35-.24.27-.92.9-.92 2.2s.94 2.56 1.07 2.74c.13.18 1.86 2.84 4.51 3.98.63.27 1.12.43 1.51.55.64.2 1.22.17 1.68.1.51-.08 1.6-.65 1.83-1.28.23-.63.23-1.17.16-1.28-.06-.11-.23-.18-.51-.32z"/>
-                <path fill="#ffffff" d="M26.67 5.33A14.54 14.54 0 0 0 16 1.33C8 1.33 1.49 7.84 1.49 15.84c0 2.56.67 5.05 1.95 7.25L1.33 30.67l7.77-2.04a14.47 14.47 0 0 0 6.9 1.76h.01c8 0 14.51-6.51 14.51-14.51 0-3.88-1.51-7.53-4.35-10.55zM16 28.12h-.01a12.1 12.1 0 0 1-6.17-1.69l-.44-.26-4.61 1.21 1.23-4.49-.29-.46a12.09 12.09 0 0 1-1.86-6.41c0-6.67 5.43-12.1 12.11-12.1a12.02 12.02 0 0 1 8.56 3.55 12 12 0 0 1 3.54 8.55c0 6.67-5.43 12.1-12.06 12.1z"/>
+        <a href="https://wa.me/541165885888" target="_blank" rel="noopener noreferrer" class="floating-wa-btn" aria-label="Enviar mensaje por WhatsApp">
+            <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+                <path fill="#ffffff" d="M19.11 17.66c-.27-.13-1.57-.77-1.81-.86-.24-.09-.41-.13-.58.13-.17.27-.67.86-.82 1.04-.15.17-.3.2-.56.07-.27-.13-1.12-.41-2.13-1.31-.79-.7-1.32-1.56-1.47-1.82-.15-.27-.02-.41.11-.54.12-.12.27-.3.41-.45.14-.15.18-.27.27-.45.09-.17.04-.33-.02-.45-.07-.13-.58-1.39-.79-1.9-.21-.5-.42-.43-.58-.44h-.5c-.17 0-.45.07-.68.33-.24.27-.9.88-.9 2.15s.92 2.49 1.05 2.66c.13.17 1.81 2.77 4.38 3.88.61.26 1.09.42 1.46.54.61.19 1.16.16 1.6.1.49-.07 1.57-.64 1.79-1.26.22-.62.22-1.15.15-1.26-.06-.11-.24-.17-.5-.3z"/>
+                <path fill="#ffffff" d="M26.64 5.36C23.9 2.62 20.26 1.11 16.39 1.11 8.52 1.11 2.12 7.51 2.12 15.38c0 2.52.66 4.98 1.91 7.15L2 30.89l8.52-2.24c2.11 1.15 4.48 1.76 6.87 1.76h.01c7.87 0 14.27-6.4 14.27-14.27 0-3.86-1.51-7.5-4.25-10.78zm-10.25 22.7h-.01c-2.13 0-4.22-.57-6.04-1.65l-.43-.26-5.05 1.33 1.35-4.92-.28-.5a12.4 12.4 0 0 1-1.72-6.26c0-6.84 5.57-12.41 12.41-12.41 3.31 0 6.42 1.29 8.76 3.63a12.34 12.34 0 0 1 3.64 8.78c0 6.84-5.57 12.41-12.63 12.41z"/>
             </svg>
         </a>
     </div>
@@ -417,7 +413,7 @@
                 <img src="/assets/tattoolotus/logo.png" class="hero-logo" alt="Logo TATTOO LOTUS" loading="eager" decoding="async" />
 
                 <p class="hero-tagline">
-                    Somos <span class="hero-highlight">TATTOO LOTUS</span>. Combinamos arte, técnica y criterio profesional para que cada pieza sea única y duradera sobre la piel.
+                    Desde <span class="hero-highlight">2004</span>, TATTOO LOTUS combina arte, técnica y criterio profesional para que cada pieza sea única y duradera sobre la piel.
                 </p>
 
                 <div class="hero-badges">
@@ -426,14 +422,13 @@
                     <span class="badge">Tinta premium</span>
                 </div>
 
-                <!-- Iconos debajo del logo -->
-                <div class="inline-icons" aria-label="Redes sociales TATTOO LOTUS">
+                <div class="social-row" aria-label="Redes sociales">
                     <a class="inline-icon-btn" href="https://www.instagram.com/tattoolotus.ink/" target="_blank" rel="noopener noreferrer" title="Ver trabajos en Instagram" aria-label="Ver Instagram">
-                        <img src="/assets/hirose/insta.png" width="20" height="20" alt="Instagram" loading="lazy" decoding="async" />
+                        <img src="/assets/hirose/insta.png" width="20" height="20" alt="Instagram icono" loading="lazy" decoding="async" />
                     </a>
 
-                    <a class="inline-icon-btn" href="https://www.tiktok.com/@tattoo_lotus" target="_blank" rel="noopener noreferrer" title="Ver en TikTok" aria-label="Ver TikTok">
-                        <img src="/assets/hirose/tiktok.png" width="20" height="20" alt="TikTok" loading="lazy" decoding="async" />
+                    <a class="inline-icon-btn" href="https://www.tiktok.com/@tattoo_lotus" target="_blank" rel="noopener noreferrer" title="Ver trabajos en TikTok" aria-label="Ver TikTok">
+                        <img src="/assets/hirose/tiktok.png" width="20" height="20" alt="TikTok icono" loading="lazy" decoding="async" />
                     </a>
                 </div>
             </div>
@@ -449,7 +444,7 @@
 
             <div class="card">
                 <p>
-                    TATTOO LOTUS nació con una idea clara: respetar la piel tanto como el diseño.
+                    TATTOO LOTUS nace en 2004 con una idea clara: respetar la piel tanto como el diseño.
                     Cada tatuaje se planifica para que envejezca bien, mantenga contraste y se adapte a la anatomía de cada persona.
                 </p>
                 <p style="margin-top:0.6rem;">
@@ -570,7 +565,6 @@
                 </div>
 
                 <div class="contact-map" id="contactMap">
-                    <!-- Iframe para navegadores normales -->
                     <iframe
                         id="mapsIframe"
                         loading="lazy"
@@ -579,7 +573,6 @@
                         src="https://www.google.com/maps?q=Pichincha%2029%2C%20C1084%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires&output=embed">
                     </iframe>
 
-                    <!-- Fallback para Instagram in-app -->
                     <div class="map-fallback" id="mapFallback" aria-label="Mapa no disponible en este navegador">
                         <div>
                             <div style="font-weight:bold; text-transform:uppercase; letter-spacing:0.08em;">Mapa no disponible aquí</div>
@@ -597,23 +590,19 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
         © <span id="year"></span> <span class="footer-highlight">TATTOO LOTUS</span>. Todos los derechos reservados.
     </footer>
 
     <script>
-        // Año dinámico
         document.getElementById("year").textContent = new Date().getFullYear();
 
-        // Menú móvil
         const navToggle = document.getElementById("navToggle");
         const navLinks = document.getElementById("navLinks");
         navToggle.addEventListener("click", function () {
             navLinks.classList.toggle("show");
         });
 
-        // Detectar navegadores embebidos (Instagram/Facebook) y evitar iframe de Google Maps
         (function () {
             const ua = navigator.userAgent || "";
             const isInApp = /Instagram|FBAN|FBAV|FB_IAB|FBIOS|FB4A/i.test(ua);
@@ -627,7 +616,6 @@
             }
         })();
 
-        // Carrusel
         const track = document.getElementById("carouselTrack");
         const slides = Array.from(track.children);
         const dots = Array.from(document.getElementById("carouselDots").children);
@@ -657,7 +645,6 @@
             });
         });
 
-        // Auto-play suave (sin afectar móvil)
         let auto = setInterval(() => {
             index = (index + 1) % slides.length;
             updateCarousel();
