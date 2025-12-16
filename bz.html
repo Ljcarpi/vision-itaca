@@ -8,7 +8,9 @@
   <meta name="theme-color" content="#000000" />
 
   <link rel="icon" href="/assets/brigadaz/logo.png" type="image/png" />
+  <!-- Preloader solo logo -->
   <link rel="preload" as="image" href="/assets/brigadaz/logo.png" fetchpriority="high" />
+  <link rel="preload" as="image" href="/assets/brigadaz/logo2.png" fetchpriority="high" />
 
   <script>
     document.documentElement.classList.add("js");
@@ -45,7 +47,7 @@
     .container{max-width:1100px;margin:0 auto;padding:0 1rem}
 
     /* =========================================================
-       PRELOADER (solo logo)
+       PRELOADER (solo logo, no espera iframes)
        ========================================================= */
     body.loading{overflow:hidden}
 
@@ -68,6 +70,7 @@
     }
     .preloader-text{margin-top:.9rem;font-size:.9rem;opacity:.9;letter-spacing:.04em}
 
+    /* Spinner (forzado a animar en PC también) */
     .spinner{
       width:34px;height:34px;border-radius:999px;margin:.9rem auto 0;
       border:3px solid rgba(255,255,255,0.22);
@@ -154,14 +157,6 @@
     .hero-inner{
       max-width:640px;margin:0 auto;
       display:flex;flex-direction:column;align-items:center;text-align:center;
-    }
-    .hero-h1{
-      font-size:1.35rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      margin-bottom:.85rem;
-      color:var(--blanco);
-      opacity:.95;
     }
     .hero-logo{
       max-width:260px;border-radius:12px;
@@ -305,8 +300,6 @@
 
     /* =========================================================
        ON-ENTER (PC + móvil)
-       Nota: el observer se inicia DESPUÉS de revelar el sitio,
-       para que el fade se vea también en PC.
        ========================================================= */
     html.js [data-animate="card"],
     html.js [data-animate="stagger"]{
@@ -318,9 +311,7 @@
     }
     html.js [data-animate="card"].is-inview,
     html.js [data-animate="stagger"].is-inview{
-      opacity:1;
-      transform:translateY(0);
-      filter:blur(0);
+      opacity:1;transform:translateY(0);filter:blur(0);
     }
     html.js [data-animate="stagger"]{ transition-delay:var(--stagger-delay,0ms); }
 
@@ -372,6 +363,7 @@
       }
       .nav-links.show{display:flex}
 
+      /* Mostrar Cerrar solo en móvil */
       .menu-close-bar{
         display:flex;
         width:100%;
@@ -399,7 +391,6 @@
       }
 
       .hero{padding-top:1.6rem}
-      .hero-h1{font-size:1.05rem;margin-bottom:.7rem}
       .hero-logo{max-width:220px}
       .carousel-slide{height:240px}
       .floating-wa{right:12px;bottom:12px}
@@ -413,7 +404,7 @@
   <!-- PRELOADER -->
   <div id="preloader" aria-label="Cargando contenido">
     <div class="preloader-inner">
-      <img class="preloader-logo" src="/assets/brigadaz/logo.png" alt="Cargando BRIGADA Z TATTOO" decoding="async" fetchpriority="high" />
+      <img id="preloaderLogo" class="preloader-logo" src="/assets/brigadaz/logo.png" alt="Cargando BRIGADA Z TATTOO" decoding="async" fetchpriority="high" />
       <div class="preloader-text">Cargando…</div>
       <div class="spinner" aria-hidden="true"></div>
     </div>
@@ -449,6 +440,7 @@
             <a href="#servicios">Servicios</a>
             <a href="#contacto">Contacto</a>
 
+            <!-- Solo visible en móvil por CSS -->
             <div class="menu-close-bar" id="menuCloseBar" aria-label="Cerrar menú" role="button" tabindex="0">
               <span class="arrow" aria-hidden="true">↑</span>
               <small>Cerrar</small>
@@ -462,11 +454,10 @@
     <section class="hero">
       <div class="container">
         <div class="hero-inner">
-          <h1 class="hero-h1">BRIGADA Z TATTOO</h1>
-
           <img
             src="/assets/brigadaz/logo.png"
             class="hero-logo glow-on-enter hover-lift"
+            id="heroLogo"
             data-animate="glow"
             alt="Logo BRIGADA Z TATTOO"
             loading="eager"
@@ -693,6 +684,7 @@
       });
     });
 
+    // Cierra menú si se pasa a desktop
     window.addEventListener("resize", () => {
       if (!window.matchMedia("(max-width: 768px)").matches) closeMenu();
     }, {passive:true});
@@ -751,6 +743,41 @@
     })();
 
     // =========================================================
+    // LOGO SWAP (hover en PC / touch en móvil)
+    // =========================================================
+    function initLogoSwap(){
+      const logo = document.getElementById("heroLogo");
+      if (!logo) return;
+
+      const src1 = "/assets/brigadaz/logo.png";
+      const src2 = "/assets/brigadaz/logo2.png";
+
+      const setSrc = (src)=>{
+        if (logo.getAttribute("src") !== src) logo.setAttribute("src", src);
+      };
+
+      // PC (hover real)
+      logo.addEventListener("mouseenter", ()=> setSrc(src2));
+      logo.addEventListener("mouseleave", ()=> setSrc(src1));
+
+      // Mobile (mantener mientras se toca)
+      logo.addEventListener("pointerdown", (e)=>{
+        if (window.matchMedia("(hover: none)").matches){
+          setSrc(src2);
+        }
+      }, {passive:true});
+
+      const back = ()=>{
+        if (window.matchMedia("(hover: none)").matches){
+          setSrc(src1);
+        }
+      };
+      logo.addEventListener("pointerup", back, {passive:true});
+      logo.addEventListener("pointercancel", back, {passive:true});
+      logo.addEventListener("pointerleave", back, {passive:true});
+    }
+
+    // =========================================================
     // PRELOADER: esperar SOLO el logo + timeout corto
     // =========================================================
     function unlockSite(){
@@ -758,33 +785,45 @@
       document.body.classList.add("loaded");
       const pre = document.getElementById("preloader");
       setTimeout(()=>{ if(pre) pre.remove(); }, 260);
+    }
 
-      // Importante: iniciar on-enter DESPUÉS de revelar el sitio (PC)
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          initOnEnterAnimations();
+    function waitCriticalImages(timeoutMs=1500){
+      return new Promise((resolve)=>{
+        let done = 0;
+        let settled = false;
+
+        const t = setTimeout(()=>{
+          if (settled) return;
+          settled = true;
+          resolve(false);
+        }, timeoutMs);
+
+        const urls = [
+          "/assets/brigadaz/logo.png",
+          "/assets/brigadaz/logo2.png"
+        ];
+
+        urls.forEach((url)=>{
+          const img = new Image();
+          const finish = ()=>{
+            done++;
+            if (done === urls.length && !settled){
+              settled = true;
+              clearTimeout(t);
+              resolve(true);
+            }
+          };
+          img.onload = finish;
+          img.onerror = finish; // si falla, igual desbloquea por timeout/cuenta
+          img.src = url;
         });
       });
     }
 
-    function waitLogoOnly(timeoutMs=1200){
-      return new Promise((resolve)=>{
-        const t = setTimeout(()=>resolve(false), timeoutMs);
-        const img = new Image();
-        img.onload = () => { clearTimeout(t); resolve(true); };
-        img.onerror = () => { clearTimeout(t); resolve(false); };
-        img.src = "/assets/brigadaz/logo.png";
-      });
-    }
-
     // =========================================================
-    // ON-ENTER animations (se ve en PC y móvil)
+    // ON-ENTER animations
     // =========================================================
-    let animationsInited = false;
     function initOnEnterAnimations(){
-      if (animationsInited) return;
-      animationsInited = true;
-
       const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (prefersReduced) return;
 
@@ -809,11 +848,10 @@
           if (!entry.isIntersecting) return;
           const el = entry.target;
 
-          // Forzar una pintura antes de aplicar la clase (fade visible)
           el.getBoundingClientRect();
           requestAnimationFrame(()=> el.classList.add("is-inview"));
 
-          // glow una sola vez
+          // glow: una sola vez
           if (el.classList.contains("glow-on-enter")) { obs.unobserve(el); return; }
           obs.unobserve(el);
         });
@@ -826,23 +864,21 @@
         obs.observe(el);
       });
 
-      // Si algo ya está visible al abrir (above the fold), animarlo igual
+      // si están visibles de entrada
       requestAnimationFrame(()=> {
         cards.concat(stItems).forEach(el=>{
           const r = el.getBoundingClientRect();
-          if (r.top < window.innerHeight * 0.92 && r.bottom > 0) {
-            // fuerza transición
-            el.getBoundingClientRect();
-            requestAnimationFrame(()=> el.classList.add("is-inview"));
-          }
+          if (r.top < window.innerHeight * 0.92 && r.bottom > 0) el.classList.add("is-inview");
         });
       });
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      // Desbloquear cuando esté el logo o tras timeout corto
-      waitLogoOnly(1200).finally(unlockSite);
+      initOnEnterAnimations();
+      initLogoSwap();
+      waitCriticalImages(1500).finally(unlockSite);
     });
   </script>
 </body>
 </html>
+``` :contentReference[oaicite:0]{index=0}
