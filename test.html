@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Joel SB - Web Design. Landing page de servicios, portfolio y contacto." />
+  <title>Joel SB | Web Design</title>
+
+  <style>
+    :root{
+      --bg: #ffffff;
+      --text: #0b0f0c;
+      --muted: #475569;
+      --line: rgba(2, 6, 23, 0.10);
+      --card: rgba(255,255,255,0.88);
+
+      /* Blanco + Verde */
+      --green-1: #16a34a;
+      --green-2: #22c55e;
+      --green-3: #86efac;
+
+      /* Palette requested */
+      --primary: black;
+      --secondary: white;
+      --accent: gray;
+
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(2,6,23,.10);
+      --shadow-soft: 0 10px 20px rgba(2,6,23,.06);
+      --maxw: 1100px;
+    }
+
+    *{ box-sizing: border-box; }
+    html, body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(1000px 700px at 85% 5%, rgba(34,197,94,.22), transparent 55%),
+        radial-gradient(900px 650px at 10% 20%, rgba(134,239,172,.25), transparent 55%),
+        linear-gradient(180deg, #ffffff 0%, #ffffff 70%, rgba(34,197,94,.06) 100%);
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    img{ max-width: 100%; display:block; }
+
+    .container{ width: min(var(--maxw), calc(100% - 32px)); margin: 0 auto; }
+
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,.75);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 220px;
+    }
+
+    .logo{
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--line);
+      background: #fff;
+      flex: 0 0 auto;
+    }
+
+    .brand-text{
+      display:flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .brand-text strong{ font-size: 16px; letter-spacing: .2px; }
+    .brand-text span{ font-size: 12px; color: var(--muted); }
+
+    .social-inline{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      margin-left: 6px;
+    }
+    .icon-btn{
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display:grid;
+      place-items:center;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 8px 18px rgba(2,6,23,.06);
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .icon-btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(2,6,23,.10);
+      border-color: rgba(34,197,94,.35);
+    }
+    .icon-btn img{ width: 18px; height: 18px; object-fit: contain; }
+
+    .menu{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.85);
+      box-shadow: 0 8px 18px rgba(2,6,23,.05);
+      font-size: 13px;
+      color: rgba(2,6,23,.85);
+      transition: transform .15s ease, border-color .15s ease;
+    }
+    .pill:hover{ transform: translateY(-1px); border-color: rgba(34,197,94,.35); }
+    .dot{
+      width: 10px; height: 10px; border-radius: 99px;
+      background: linear-gradient(135deg, var(--green-2), var(--green-1));
+      box-shadow: 0 0 0 4px rgba(34,197,94,.12);
+    }
+
+    .hero{
+      padding: 46px 0 26px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main{
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-main::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(600px 400px at 70% 10%, rgba(34,197,94,.22), transparent 60%),
+        radial-gradient(500px 380px at 20% 80%, rgba(134,239,172,.22), transparent 60%);
+      pointer-events:none;
+    }
+    .hero-main > *{ position: relative; }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(34,197,94,.30);
+      background: rgba(34,197,94,.08);
+      color: rgba(2,6,23,.85);
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+    .badge svg{ width: 16px; height: 16px; }
+
+    h1{
+      margin: 0 0 10px;
+      font-size: clamp(28px, 3vw, 44px);
+      line-height: 1.06;
+      letter-spacing: -0.8px;
+    }
+    .subtitle{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height: 1.55;
+      max-width: 58ch;
+    }
+
+    .cta-row{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 10px 22px rgba(2,6,23,.06);
+      font-weight: 600;
+      font-size: 14px;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px rgba(2,6,23,.10);
+      border-color: rgba(34,197,94,.35);
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, var(--green-2), var(--green-1));
+      border-color: rgba(34,197,94,.45);
+      color: #fff;
+    }
+    .btn svg{ width: 18px; height: 18px; }
+
+    .hero-side{
+      padding: 18px;
+      display:flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .stat{
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.75);
+      box-shadow: 0 10px 20px rgba(2,6,23,.05);
+    }
+    .stat strong{ display:block; font-size: 14px; margin-bottom: 6px; }
+    .stat span{ color: var(--muted); font-size: 13px; line-height: 1.45; display:block; }
+
+    .section{
+      padding: 18px 0;
+    }
+    .section h2{
+      margin: 0 0 12px;
+      font-size: 22px;
+      letter-spacing: -0.3px;
+    }
+    .section p{
+      margin: 0 0 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14.5px;
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .feature{
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.85);
+      box-shadow: 0 10px 20px rgba(2,6,23,.05);
+    }
+    .feature .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(34,197,94,.10);
+      border: 1px solid rgba(34,197,94,.25);
+      font-size: 12.5px;
+      margin-bottom: 10px;
+      color: rgba(2,6,23,.85);
+    }
+    .feature h3{ margin: 0 0 8px; font-size: 16px; }
+    .feature p{ margin:0; font-size: 13.5px; color: var(--muted); }
+
+    /* Carousel */
+    .carousel-card{ padding: 18px; }
+    .carousel-wrap{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .carousel-viewport{
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.75);
+      box-shadow: 0 12px 24px rgba(2,6,23,.06);
+      overflow: hidden;
+      position: relative;
+    }
+    .carousel-stage{
+      display:flex;
+      transition: transform .35s ease;
+      will-change: transform;
+    }
+    .slide{
+      min-width: 100%;
+      aspect-ratio: 16 / 10; /* ligeramente rectangular */
+      display:grid;
+      place-items:center;
+      background:
+        radial-gradient(420px 220px at 60% 25%, rgba(34,197,94,.18), transparent 60%),
+        radial-gradient(380px 240px at 30% 80%, rgba(134,239,172,.18), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,.35));
+      user-select: none;
+    }
+    .slide img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* mobile */
+      image-rendering: auto;
+      -webkit-user-drag: none;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* PC: evitar zoom pixelado => contain + límites */
+    @media (min-width: 900px){
+      .slide{ aspect-ratio: 16 / 9; }
+      .slide img{
+        object-fit: contain; /* requested */
+        background: transparent;
+      }
+      .carousel-viewport{
+        max-width: 760px;   /* evita que se “estire” demasiado */
+        margin: 0 auto;
+      }
+    }
+
+    .carousel-controls{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .dots{
+      display:flex;
+      gap: 8px;
+      align-items:center;
+    }
+    .dotbtn{
+      width: 10px;
+      height: 10px;
+      border-radius: 99px;
+      border: 1px solid var(--line);
+      background: rgba(2,6,23,.08);
+      cursor:pointer;
+      padding:0;
+    }
+    .dotbtn.active{
+      width: 22px;
+      background: linear-gradient(135deg, var(--green-2), var(--green-1));
+      border-color: rgba(34,197,94,.45);
+    }
+
+    .minirow{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+    }
+    .smallbtn{
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 10px 20px rgba(2,6,23,.06);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      transition: transform .15s ease, border-color .15s ease;
+    }
+    .smallbtn:hover{ transform: translateY(-1px); border-color: rgba(34,197,94,.35); }
+    .smallbtn svg{ width: 18px; height: 18px; }
+
+    /* Contact + map */
+    .contact-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+    .contact-card{ padding: 18px; }
+    .kv{
+      display:grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .kv .item{
+      display:flex;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.85);
+      box-shadow: 0 10px 20px rgba(2,6,23,.05);
+      align-items:flex-start;
+    }
+    .kv .item svg{ width: 18px; height: 18px; margin-top: 2px; flex: 0 0 auto; }
+    .kv .item strong{ display:block; font-size: 13.5px; margin-bottom: 2px; }
+    .kv .item span, .kv .item a{ display:block; color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+
+    .map-card{
+      padding: 12px;
+      display:flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .map-frame{
+      border-radius: 16px;
+      overflow:hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 12px 24px rgba(2,6,23,.06);
+      background: rgba(255,255,255,.75);
+      min-height: 360px;
+    }
+    .map-frame iframe{
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display:block;
+      min-height: 360px;
+    }
+    .map-fallback{
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.85);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer{
+      padding: 22px 0 70px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .footer-row{
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      gap: 10px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+    }
+
+    /* Floating WhatsApp */
+    .fab{
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 20;
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      border: 1px solid rgba(34,197,94,.45);
+      background: linear-gradient(135deg, var(--green-2), var(--green-1));
+      box-shadow: 0 16px 36px rgba(2,6,23,.20);
+      display:grid;
+      place-items:center;
+      transition: transform .15s ease;
+    }
+    .fab:hover{ transform: translateY(-2px); }
+    .fab svg{ width: 26px; height: 26px; fill: #fff; }
+
+    /* Responsive */
+    @media (max-width: 920px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .grid-3{ grid-template-columns: 1fr; }
+      .contact-grid{ grid-template-columns: 1fr; }
+      .menu{ justify-content: flex-start; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="container">
+      <div class="nav">
+        <div class="brand">
+          <!-- LOGO: reemplazar por tu ruta real -->
+          <div class="logo">
+            <img src="/assets/joelsb/logo.png" alt="Logo Joel SB" loading="eager" />
+          </div>
+
+          <div class="brand-text">
+            <strong>Joel SB</strong>
+            <span>Web Design</span>
+          </div>
+
+          <!-- Social inline near logo -->
+          <div class="social-inline" aria-label="Redes sociales">
+            <!-- Instagram -->
+            <a class="icon-btn" href="https://www.instagram.com/lautarojoel.sb/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <img src="/assets/hirose/insta.png" alt="Instagram" loading="lazy" />
+            </a>
+
+            <!-- TikTok -->
+            <a class="icon-btn" href="https://www.tiktok.com/@tuusuario" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <img src="/assets/hirose/tiktok.png" alt="TikTok" loading="lazy" />
+            </a>
+          </div>
+        </div>
+
+        <nav class="menu" aria-label="Navegación">
+          <a class="pill" href="#servicios"><span class="dot"></span>Servicios</a>
+          <a class="pill" href="#portfolio"><span class="dot"></span>Portfolio</a>
+          <a class="pill" href="#contacto"><span class="dot"></span>Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <section class="card hero-main" aria-label="Presentación">
+          <div class="badge">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 2l2.6 6.1 6.6.5-5 4.2 1.6 6.4L12 16.8 6.2 19.2l1.6-6.4-5-4.2 6.6-.5L12 2z" stroke="currentColor" stroke-width="1.6" />
+            </svg>
+            Moderno • Blanco + Verde
+          </div>
+
+          <h1>Diseño web moderno para convertir visitas en clientes</h1>
+          <p class="subtitle">
+            Soy <strong>Joel SB</strong>. Creo landing pages y sitios claros, rápidos y orientados a resultados:
+            presencia, confianza y una vía directa de contacto para cerrar consultas.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn primary" href="#contacto">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 12h16M14 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Pedir presupuesto
+            </a>
+
+            <a class="btn" href="tel:1122223333" aria-label="Llamar por teléfono">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6.5 3.5l3 2.2c.6.4.8 1.2.4 1.8l-1.3 2.3c1.4 2.6 3.6 4.8 6.2 6.2l2.3-1.3c.6-.4 1.4-.2 1.8.4l2.2 3c.4.6.3 1.4-.3 1.8-1.2.8-2.7 1.2-4.2 1-7.1-.9-12.7-6.5-13.6-13.6-.2-1.5.2-3 1-4.2.4-.6 1.2-.7 1.8-.3z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Llamar: 11 2222 3333
+            </a>
+
+            <!-- WhatsApp CTA -->
+            <a class="btn" href="https://wa.me/5491122223333" target="_blank" rel="noopener noreferrer" aria-label="Abrir WhatsApp">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M12.04 2C6.58 2 2.15 6.33 2.15 11.67c0 1.89.56 3.65 1.52 5.13L2 22l5.39-1.6c1.42.77 3.06 1.2 4.65 1.2 5.46 0 9.89-4.33 9.89-9.67C21.93 6.33 17.5 2 12.04 2zm5.73 13.77c-.24.67-1.39 1.28-1.92 1.35-.5.07-1.13.1-1.83-.11-.42-.13-.97-.31-1.67-.61-2.94-1.24-4.86-4.25-5.01-4.44-.14-.19-1.2-1.58-1.2-3.01 0-1.43.75-2.13 1.02-2.42.27-.29.59-.36.78-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.81 2 .88 2.15.07.15.11.33.02.52-.09.19-.14.33-.28.51-.14.18-.29.4-.41.53-.14.15-.29.31-.12.61.17.3.74 1.2 1.59 1.95 1.1.97 2.03 1.27 2.33 1.41.3.14.48.12.66-.07.18-.19.76-.88.96-1.18.2-.3.4-.25.66-.15.27.1 1.69.79 1.98.94.29.15.48.22.55.34.07.12.07.69-.17 1.36z"/>
+              </svg>
+              WhatsApp
+            </a>
+          </div>
+        </section>
+
+        <aside class="card hero-side" aria-label="Detalles rápidos">
+          <div class="stat">
+            <strong>Entrega clara y rápida</strong>
+            <span>Landing enfocada a conversiones, con CTA visibles y navegación simple.</span>
+          </div>
+          <div class="stat">
+            <strong>Diseño moderno</strong>
+            <span>Estilo blanco y verde, limpio, con buena lectura y estética profesional.</span>
+          </div>
+          <div class="stat">
+            <strong>Optimizado</strong>
+            <span>Carga liviana, estructura ordenada, y secciones listas para editar.</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- Servicios -->
+  <section id="servicios" class="section">
+    <div class="container">
+      <h2>Servicios</h2>
+      <p>
+        Soluciones de diseño web para presencia digital: páginas informativas, landing pages de venta,
+        y ajustes de UX/UI para que el usuario encuentre rápido lo que necesita.
+      </p>
+
+      <div class="grid-3">
+        <div class="feature">
+          <div class="chip">Landing page</div>
+          <h3>Una página que vende</h3>
+          <p>Secciones directas, CTA estratégicos, y enfoque en contacto inmediato.</p>
+        </div>
+
+        <div class="feature">
+          <div class="chip">Identidad</div>
+          <h3>Estilo moderno</h3>
+          <p>Paleta blanco/verde con contraste, tipografía limpia y jerarquía visual.</p>
+        </div>
+
+        <div class="feature">
+          <div class="chip">Soporte</div>
+          <h3>Edición simple</h3>
+          <p>HTML organizado para modificar textos, imágenes, links y datos de contacto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio / Carousel -->
+  <section id="portfolio" class="section">
+    <div class="container">
+      <div class="card carousel-card">
+        <h2>Portfolio</h2>
+        <p>Ejemplos visuales (reemplazá las imágenes por tus proyectos). En PC se usa <strong>contain</strong> para evitar zoom y pixelado.</p>
+
+        <div class="carousel-wrap">
+          <div class="carousel-viewport" aria-label="Carrusel de imágenes">
+            <div class="carousel-stage" id="carouselStage">
+              <div class="slide">
+                <!-- CAROUSEL: reemplazar rutas -->
+                <img src="/assets/joelsb/imagen1.png" alt="Proyecto 1" loading="lazy" decoding="async" />
+              </div>
+              <div class="slide">
+                <img src="/assets/joelsb/imagen2.png" alt="Proyecto 2" loading="lazy" decoding="async" />
+              </div>
+              <div class="slide">
+                <img src="/assets/joelsb/imagen3.png" alt="Proyecto 3" loading="lazy" decoding="async" />
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-controls">
+            <div class="minirow">
+              <button class="smallbtn" type="button" id="prevBtn" aria-label="Anterior">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <button class="smallbtn" type="button" id="nextBtn" aria-label="Siguiente">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="dots" id="dots" aria-label="Indicadores">
+              <button class="dotbtn active" type="button" data-i="0" aria-label="Ir a 1"></button>
+              <button class="dotbtn" type="button" data-i="1" aria-label="Ir a 2"></button>
+              <button class="dotbtn" type="button" data-i="2" aria-label="Ir a 3"></button>
+            </div>
+
+            <span style="color: var(--muted); font-size: 13px;">
+              Tip: imágenes recomendadas 600×600 (o más) para mejor nitidez.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto + Mapa -->
+  <section id="contacto" class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="card contact-card">
+          <h2>Contacto</h2>
+          <p>Consultas y presupuestos. Respuesta rápida por WhatsApp.</p>
+
+          <div class="kv">
+            <div class="item">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6.5 3.5l3 2.2c.6.4.8 1.2.4 1.8l-1.3 2.3c1.4 2.6 3.6 4.8 6.2 6.2l2.3-1.3c.6-.4 1.4-.2 1.8.4l2.2 3c.4.6.3 1.4-.3 1.8-1.2.8-2.7 1.2-4.2 1-7.1-.9-12.7-6.5-13.6-13.6-.2-1.5.2-3 1-4.2.4-.6 1.2-.7 1.8-.3z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>
+                <strong>Teléfono</strong>
+                <a href="tel:1122223333">11 2222 3333</a>
+              </div>
+            </div>
+
+            <div class="item">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M12.04 2C6.58 2 2.15 6.33 2.15 11.67c0 1.89.56 3.65 1.52 5.13L2 22l5.39-1.6c1.42.77 3.06 1.2 4.65 1.2 5.46 0 9.89-4.33 9.89-9.67C21.93 6.33 17.5 2 12.04 2zm5.73 13.77c-.24.67-1.39 1.28-1.92 1.35-.5.07-1.13.1-1.83-.11-.42-.13-.97-.31-1.67-.61-2.94-1.24-4.86-4.25-5.01-4.44-.14-.19-1.2-1.58-1.2-3.01 0-1.43.75-2.13 1.02-2.42.27-.29.59-.36.78-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.81 2 .88 2.15.07.15.11.33.02.52-.09.19-.14.33-.28.51-.14.18-.29.4-.41.53-.14.15-.29.31-.12.61.17.3.74 1.2 1.59 1.95 1.1.97 2.03 1.27 2.33 1.41.3.14.48.12.66-.07.18-.19.76-.88.96-1.18.2-.3.4-.25.66-.15.27.1 1.69.79 1.98.94.29.15.48.22.55.34.07.12.07.69-.17 1.36z"/>
+              </svg>
+              <div>
+                <strong>WhatsApp</strong>
+                <a href="https://wa.me/5491122223333" target="_blank" rel="noopener noreferrer">Abrir chat</a>
+              </div>
+            </div>
+
+            <div class="item">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M12 10.2a2.2 2.2 0 110-4.4 2.2 2.2 0 010 4.4z" stroke="currentColor" stroke-width="1.6"/>
+              </svg>
+              <div>
+                <strong>Dirección</strong>
+                <span id="addressText">Almafuerte 6969</span>
+              </div>
+            </div>
+
+            <div class="item">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 21a9 9 0 100-18 9 9 0 000 18z" stroke="currentColor" stroke-width="1.6"/>
+              </svg>
+              <div>
+                <strong>Horarios</strong>
+                <span>Lunes a Lunes 9 a 20hs</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card map-card">
+          <div class="map-frame" aria-label="Mapa">
+            <!-- Mapa sin API key: usa q=...&output=embed -->
+            <iframe
+              id="mapFrame"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+              src="https://www.google.com/maps?q=Almafuerte%206969%2C%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires&output=embed">
+            </iframe>
+          </div>
+
+          <div class="map-fallback">
+            <span>Si el mapa no carga (navegadores in-app), abrilo en Google Maps.</span>
+            <a class="btn" style="padding:10px 12px" id="mapsLink" target="_blank" rel="noopener noreferrer"
+               href="https://www.google.com/maps/search/?api=1&query=Almafuerte%206969%2C%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires">
+              Abrir Maps
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="footer-row">
+          <span>© <span id="year"></span> Joel SB • Web Design</span>
+          <span style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+            <a class="pill" href="#servicios"><span class="dot"></span>Servicios</a>
+            <a class="pill" href="#portfolio"><span class="dot"></span>Portfolio</a>
+            <a class="pill" href="#contacto"><span class="dot"></span>Contacto</a>
+          </span>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- Floating WhatsApp (Instagram floating removed as requested) -->
+  <a class="fab" href="https://wa.me/5491122223333" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12.04 2C6.58 2 2.15 6.33 2.15 11.67c0 1.89.56 3.65 1.52 5.13L2 22l5.39-1.6c1.42.77 3.06 1.2 4.65 1.2 5.46 0 9.89-4.33 9.89-9.67C21.93 6.33 17.5 2 12.04 2zm5.73 13.77c-.24.67-1.39 1.28-1.92 1.35-.5.07-1.13.1-1.83-.11-.42-.13-.97-.31-1.67-.61-2.94-1.24-4.86-4.25-5.01-4.44-.14-.19-1.2-1.58-1.2-3.01 0-1.43.75-2.13 1.02-2.42.27-.29.59-.36.78-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.81 2 .88 2.15.07.15.11.33.02.52-.09.19-.14.33-.28.51-.14.18-.29.4-.41.53-.14.15-.29.31-.12.61.17.3.74 1.2 1.59 1.95 1.1.97 2.03 1.27 2.33 1.41.3.14.48.12.66-.07.18-.19.76-.88.96-1.18.2-.3.4-.25.66-.15.27.1 1.69.79 1.98.94.29.15.48.22.55.34.07.12.07.69-.17 1.36z"/>
+    </svg>
+  </a>
+
+  <script>
+    // Año footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Carrusel
+    (function(){
+      const stage = document.getElementById('carouselStage');
+      const dotsWrap = document.getElementById('dots');
+      const dots = Array.from(dotsWrap.querySelectorAll('.dotbtn'));
+      const prev = document.getElementById('prevBtn');
+      const next = document.getElementById('nextBtn');
+      const total = dots.length;
+
+      let i = 0;
+      let timer = null;
+
+      function setIndex(n){
+        i = (n + total) % total;
+        stage.style.transform = `translateX(${-i * 100}%)`;
+        dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+      }
+
+      function autoStart(){
+        autoStop();
+        timer = setInterval(() => setIndex(i + 1), 4500);
+      }
+      function autoStop(){
+        if(timer) clearInterval(timer);
+        timer = null;
+      }
+
+      prev.addEventListener('click', () => { setIndex(i - 1); autoStart(); });
+      next.addEventListener('click', () => { setIndex(i + 1); autoStart(); });
+
+      dots.forEach(d => d.addEventListener('click', () => {
+        setIndex(parseInt(d.getAttribute('data-i'), 10));
+        autoStart();
+      }));
+
+      // Pausa en hover (desktop)
+      const viewport = stage.parentElement;
+      viewport.addEventListener('mouseenter', autoStop);
+      viewport.addEventListener('mouseleave', autoStart);
+
+      // Swipe (mobile)
+      let startX = null;
+      viewport.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; autoStop(); }, {passive:true});
+      viewport.addEventListener('touchend', (e) => {
+        if(startX === null) return;
+        const endX = e.changedTouches[0].clientX;
+        const dx = endX - startX;
+        if(Math.abs(dx) > 40){
+          setIndex(i + (dx < 0 ? 1 : -1));
+        }
+        startX = null;
+        autoStart();
+      }, {passive:true});
+
+      setIndex(0);
+      autoStart();
+    })();
+
+    // Map match address text (match_address_text = true)
+    (function(){
+      const address = "Almafuerte 6969, Cdad. Autónoma de Buenos Aires";
+      const addressText = document.getElementById('addressText');
+      const mapFrame = document.getElementById('mapFrame');
+      const mapsLink = document.getElementById('mapsLink');
+
+      addressText.textContent = "Almafuerte 6969";
+
+      const q = encodeURIComponent(address);
+      mapFrame.src = `https://www.google.com/maps?q=${q}&output=embed`;
+      mapsLink.href = `https://www.google.com/maps/search/?api=1&query=${q}`;
+    })();
+  </script>
+</body>
+</html>
