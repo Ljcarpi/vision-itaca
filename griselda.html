@@ -2,15 +2,15 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>KLAUSS TATTOO STUDIO</title>
+  <title>Griselda Tatuadora</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="KLAUSS TATTOO STUDIO - Tatuajes y piercings profesionales. Arte, higiene y tinta de máxima calidad en Av. Acoyte 110 Local 36, C1405 Cdad. Autónoma de Buenos Aires. Tel: +54 11 6001-3880." />
+  <meta name="description" content="Griselda Tatuadora - Tatuajes y piercings profesionales desde 2004. Arte, higiene y tinta de máxima calidad en Galería Centenera, Del Barco Centenera 150 loc.4, C1424 Cdad. Autónoma de Buenos Aires." />
   <meta name="theme-color" content="#000000" />
 
-  <link rel="icon" href="/assets/klauss/logo.png" type="image/png" />
+  <link rel="icon" href="/assets/gisela/logo.png" type="image/png" />
   <!-- Preloader solo logo -->
-  <link rel="preload" as="image" href="/assets/klauss/logo.png" fetchpriority="high" />
-  <link rel="preload" as="image" href="/assets/klauss/logo2.png" fetchpriority="high" />
+  <link rel="preload" as="image" href="/assets/gisela/logo.png" fetchpriority="high" />
+  <link rel="preload" as="image" href="/assets/gisela/logo2.png" fetchpriority="high" />
 
   <script>
     document.documentElement.classList.add("js");
@@ -22,11 +22,6 @@
       --rojo-oscuro:#a30710;
       --negro:#090909;
       --blanco:#f5f5f5;
-
-      /* NUEVO: grises para armonizar (fondo/elementos) */
-      --gris-1: rgba(255,255,255,0.22);
-      --gris-2: rgba(255,255,255,0.12);
-      --gris-3: rgba(255,255,255,0.06);
     }
 
     *{margin:0;padding:0;box-sizing:border-box}
@@ -36,15 +31,12 @@
       font-family:Arial,Helvetica,sans-serif;
       color:var(--blanco);
       line-height:1.6;
-
-      /* NUEVO: fondo negro/blanco difuminado + acento neon rojo muy sutil */
       background:
-        radial-gradient(circle at 18% 22%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 46%),
-        radial-gradient(circle at 82% 58%, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0) 44%),
-        radial-gradient(circle at 55% 18%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 52%),
-        radial-gradient(circle at 35% 72%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 52%),
-        radial-gradient(circle at 60% 28%, rgba(229, 9, 20, 0.14) 0%, rgba(229, 9, 20, 0) 58%),
-        linear-gradient(180deg, #000000 0%, #0a0a0a 42%, #000000 100%);
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 45%),
+        radial-gradient(circle at 80% 60%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 42%),
+        radial-gradient(circle at 60% 20%, rgba(229, 9, 20, 0.25) 0%, rgba(229, 9, 20, 0) 55%),
+        radial-gradient(circle at 30% 70%, rgba(229, 9, 20, 0.18) 0%, rgba(229, 9, 20, 0) 50%),
+        linear-gradient(180deg, #000000 0%, #0a0a0a 40%, #000000 100%);
       background-attachment:fixed;
       background-size:cover;
       overflow-x:hidden;
@@ -62,13 +54,11 @@
     #preloader{
       position:fixed; inset:0; z-index:9999;
       display:flex; align-items:center; justify-content:center;
-
-      /* NUEVO: preloader armonizado B/N + neon rojo suave */
       background:
-        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 46%),
-        radial-gradient(circle at 80% 60%, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 44%),
-        radial-gradient(circle at 60% 20%, rgba(229, 9, 20, 0.14) 0%, rgba(229, 9, 20, 0) 58%),
-        linear-gradient(180deg, #000000 0%, #0a0a0a 42%, #000000 100%);
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 45%),
+        radial-gradient(circle at 80% 60%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 42%),
+        radial-gradient(circle at 60% 20%, rgba(229, 9, 20, 0.22) 0%, rgba(229, 9, 20, 0) 55%),
+        linear-gradient(180deg, #000000 0%, #0a0a0a 40%, #000000 100%);
       transition:opacity 200ms ease-out;
     }
     .preloader-inner{width:min(420px,92vw);text-align:center;padding:1.2rem 1rem}
@@ -77,7 +67,6 @@
       margin:0 auto;
       border-radius:12px;
       box-shadow:0 0 25px rgba(229,9,20,0.55);
-      filter: drop-shadow(0 0 25px rgba(229,9,20,0.65));
     }
     .preloader-text{margin-top:.9rem;font-size:.9rem;opacity:.9;letter-spacing:.04em}
 
@@ -105,7 +94,7 @@
       position:sticky; top:0;
       background:rgba(0,0,0,0.92);
       backdrop-filter:blur(6px);
-      border-bottom:2px solid rgba(255,255,255,0.14); /* NUEVO: más B/N */
+      border-bottom:2px solid var(--rojo-oscuro);
       z-index:100;
     }
     .nav{
@@ -189,22 +178,15 @@
       display:inline-block;margin:.25rem;padding:.3rem .8rem;border-radius:999px;
       border:1px solid rgba(255,255,255,0.25);
       font-size:.75rem;text-transform:uppercase;
-      background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(0,0,0,0.18)); /* NUEVO: B/N suave */
-      backdrop-filter: blur(6px);
     }
-    .inline-icons{margin-top:.4rem;display:inline-flex;gap:.6rem;align-items:center;justify-content:center;flex-wrap:wrap}
+    .inline-icons{margin-top:.4rem;display:inline-flex;gap:.6rem;align-items:center;justify-content:center}
     .inline-icon-btn{
       width:32px;height:32px;display:inline-flex;justify-content:center;align-items:center;
-      background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(0,0,0,0.70)); /* NUEVO */
-      border:1px solid rgba(255,255,255,0.4);border-radius:50%;
+      background:#000;border:1px solid rgba(255,255,255,0.4);border-radius:50%;
       transition:.2s;
     }
     .inline-icon-btn img{width:20px;height:20px}
     .inline-icon-btn:hover{border-color:var(--rojo);transform:scale(1.07)}
-
-    /* Twitter/X icon (svg) */
-    .x-icon{width:18px;height:18px;display:block}
-    .x-icon path{fill:#ffffff;opacity:.92}
 
     /* SECCIONES */
     section{padding:2rem 0}
@@ -212,7 +194,7 @@
     .section-title{text-transform:uppercase;font-size:1.2rem}
 
     .card{
-      background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(0,0,0,0.62)); /* NUEVO: B/N armonizado */
+      background:rgba(0,0,0,0.6);
       border:1px solid rgba(255,255,255,0.22);
       border-radius:14px;
       padding:1.2rem 1.4rem;
@@ -243,10 +225,9 @@
     /* SERVICIOS */
     .services-grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
     .service-item{
-      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(0,0,0,0.58)); /* NUEVO */
+      background:rgba(0,0,0,0.55);
       padding:1rem;border-radius:10px;
       border:1px solid rgba(255,255,255,0.2);
-      backdrop-filter: blur(6px);
     }
     .service-title{color:var(--rojo);text-transform:uppercase;font-size:.9rem;margin-bottom:.3rem}
 
@@ -255,7 +236,7 @@
     .ig-embed-card{
       max-width:520px;margin:0 auto;padding:.9rem;border-radius:14px;
       border:1px solid rgba(255,255,255,0.22);
-      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(0,0,0,0.62)); /* NUEVO */
+      background:rgba(0,0,0,0.55);
       backdrop-filter:blur(6px);
     }
     .ig-embed-frame{
@@ -267,8 +248,7 @@
     .carousel{
       position:relative;overflow:hidden;border-radius:18px;
       border:1px solid rgba(255,255,255,0.25);
-      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(0,0,0,0.64)); /* NUEVO */
-      backdrop-filter: blur(6px);
+      background:rgba(0,0,0,0.6);
     }
     .carousel-track{display:flex;transition:transform .4s ease-in-out;will-change:transform}
     .carousel-slide{min-width:100%;height:340px}
@@ -297,8 +277,7 @@
     .map-fallback{
       display:none;align-items:center;justify-content:center;text-align:center;
       min-height:300px;border-radius:14px;border:1px solid rgba(255,255,255,0.22);
-      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(0,0,0,0.62)); /* NUEVO */
-      padding:1.2rem;
+      background:rgba(0,0,0,0.55);padding:1.2rem;
     }
     .map-fallback a{
       display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
@@ -389,7 +368,7 @@
         gap:.7rem;
         padding:.9rem 1rem .6rem;
         background:rgba(0,0,0,0.95);
-        border-bottom:2px solid rgba(255,255,255,0.14); /* NUEVO */
+        border-bottom:2px solid var(--rojo-oscuro);
         align-items:flex-start;
       }
       .nav-links.show{display:flex}
@@ -435,7 +414,7 @@
   <!-- PRELOADER -->
   <div id="preloader" aria-label="Cargando contenido">
     <div class="preloader-inner">
-      <img id="preloaderLogo" class="preloader-logo" src="/assets/klauss/logo.png" alt="Cargando KLAUSS TATTOO STUDIO" decoding="async" fetchpriority="high" />
+      <img id="preloaderLogo" class="preloader-logo" src="/assets/gisela/logo.png" alt="Cargando Griselda Tatuadora" decoding="async" fetchpriority="high" />
       <div class="preloader-text">Cargando…</div>
       <div class="spinner" aria-hidden="true"></div>
     </div>
@@ -444,7 +423,7 @@
   <div id="siteRoot">
     <!-- BOTÓN FLOTANTE WHATSAPP -->
     <div class="floating-wa">
-      <a href="https://wa.me/541160013880" target="_blank" rel="noopener noreferrer" class="floating-wa-btn" aria-label="Enviar WhatsApp a KLAUSS TATTOO STUDIO" title="WhatsApp">
+      <a href="https://wa.me/541144040585" target="_blank" rel="noopener noreferrer" class="floating-wa-btn" aria-label="Enviar WhatsApp a Griselda Tatuadora" title="WhatsApp">
         <svg class="wa-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
           <path fill="#ffffff" d="M19.11 17.46c-.27-.14-1.6-.79-1.84-.88-.24-.09-.42-.14-.6.14-.18.27-.69.88-.84 1.06-.15.18-.31.2-.58.07-.27-.14-1.12-.41-2.13-1.31-.79-.7-1.32-1.56-1.47-1.83-.15-.27-.02-.42.11-.55.12-.12.27-.31.4-.46.13-.15.18-.27.27-.46.09-.18.05-.35-.02-.49-.07-.14-.6-1.45-.82-1.99-.22-.52-.44-.45-.6-.46h-.51c-.18 0-.46.07-.7.35-.24.27-.92.9-.92 2.2s.94 2.56 1.07 2.74c.13.18 1.86 2.84 4.51 3.98.63.27 1.12.43 1.51.55.64.2 1.22.17 1.68.1.51-.08 1.6-.65 1.83-1.28.23-.63.23-1.17.16-1.28-.06-.11-.23-.18-.51-.32z"/>
           <path fill="#ffffff" d="M26.67 5.33A14.54 14.54 0 0 0 16 1.33C8 1.33 1.49 7.84 1.49 15.84c0 2.56.67 5.05 1.95 7.25L1.33 30.67l7.77-2.04a14.47 14.47 0 0 0 6.9 1.76h.01c8 0 14.51-6.51 14.51-14.51 0-3.88-1.51-7.53-4.35-10.55zM16 28.12h-.01a12.1 12.1 0 0 1-6.17-1.69l-.44-.26-4.61 1.21 1.23-4.49-.29-.46a12.09 12.09 0 0 1-1.86-6.41c0-6.67 5.43-12.1 12.11-12.1a12.02 12.02 0 0 1 8.56 3.55 12 12 0 0 1 3.54 8.55c0 6.67-5.43 12.1-12.06 12.1z"/>
@@ -456,7 +435,7 @@
     <header>
       <div class="container">
         <nav class="nav">
-          <div class="nav-left-title">KLAUSS TATTOO STUDIO</div>
+          <div class="nav-left-title">Griselda Tatuadora</div>
 
           <button type="button" class="nav-toggle" aria-label="Abrir menú" aria-controls="navLinks" aria-expanded="false" id="navToggle">
             <span class="nav-toggle-icon" aria-hidden="true">
@@ -486,18 +465,18 @@
       <div class="container">
         <div class="hero-inner">
           <img
-            src="/assets/klauss/logo.png"
+            src="/assets/gisela/logo.png"
             class="hero-logo glow-on-enter hover-lift"
             id="heroLogo"
             data-animate="glow"
-            alt="Logo KLAUSS TATTOO STUDIO"
+            alt="Logo Griselda Tatuadora"
             loading="eager"
             decoding="async"
             fetchpriority="high"
           />
 
           <p class="hero-tagline">
-            Somos KLAUSS TATTOO STUDIO. Combinamos arte, técnica y criterio profesional para que cada pieza sea única y duradera sobre la piel.
+            Somos Griselda Tatuadora. Combinamos arte, técnica y criterio profesional para que cada pieza sea única y duradera sobre la piel.
           </p>
 
           <div class="hero-badges">
@@ -506,37 +485,24 @@
             <span class="badge">Tinta premium</span>
           </div>
 
-          <div class="inline-icons" aria-label="Redes sociales KLAUSS TATTOO STUDIO">
-            <!-- Instagram -->
-            <a class="inline-icon-btn" href="https://www.instagram.com/klausstattoostudio/" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Ver Instagram">
+          <div class="inline-icons" aria-label="Redes sociales Griselda Tatuadora">
+            <a class="inline-icon-btn" href="https://www.instagram.com/griseldatatuadora/" target="_blank" rel="noopener noreferrer" title="Ver trabajos en Instagram" aria-label="Ver Instagram">
               <img src="/assets/hirose/insta.png" width="20" height="20" alt="Instagram" loading="lazy" decoding="async" />
             </a>
-
-            <!-- TikTok -->
-            <a class="inline-icon-btn" href="https://www.tiktok.com/@klausstattoo" target="_blank" rel="noopener noreferrer" title="TikTok" aria-label="Ver TikTok">
+            <a class="inline-icon-btn" href="https://www.tiktok.com/@griseldatatuadora" target="_blank" rel="noopener noreferrer" title="Ver en TikTok" aria-label="Ver TikTok">
               <img src="/assets/hirose/tiktok.png" width="20" height="20" alt="TikTok" loading="lazy" decoding="async" />
             </a>
-
-            <!-- Facebook -->
-            <a class="inline-icon-btn" href="https://www.facebook.com/ktsKlaussTattooStudio" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Ver Facebook">
+            <a class="inline-icon-btn" href="https://www.youtube.com/@griseldatatuadora3089" target="_blank" rel="noopener noreferrer" title="Ver en YouTube" aria-label="Ver YouTube">
+              <img src="/assets/hirose/yt.png" width="20" height="20" alt="YouTube" loading="lazy" decoding="async" />
+            </a>
+            <a class="inline-icon-btn" href="https://www.facebook.com/griseldatatuadora21/" target="_blank" rel="noopener noreferrer" title="Ver en Facebook" aria-label="Ver Facebook">
               <img src="/assets/hirose/face.png" width="20" height="20" alt="Facebook" loading="lazy" decoding="async" />
             </a>
-
-            <!-- Telegram -->
-            <a class="inline-icon-btn" href="https://t.me/klausstattoo" target="_blank" rel="noopener noreferrer" title="Telegram" aria-label="Abrir Telegram">
-              <img src="/assets/hirose/telegram.png" width="20" height="20" alt="Telegram" loading="lazy" decoding="async" />
+            <a class="inline-icon-btn" href="https://x.com/gritatuadora21" target="_blank" rel="noopener noreferrer" title="Ver en X (Twitter)" aria-label="Ver X (Twitter)">
+              <img src="/assets/hirose/twitter.png" width="20" height="20" alt="X (Twitter)" loading="lazy" decoding="async" />
             </a>
-
-            <!-- Twitter/X (icono SVG, mismo tamaño) -->
-            <a class="inline-icon-btn" href="https://x.com/klausstattoo" target="_blank" rel="noopener noreferrer" title="X (Twitter)" aria-label="Ver X (Twitter)">
-              <svg class="x-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M18.9 2H22l-6.8 7.8L23 22h-6.9l-5.4-6.6L5 22H2l7.3-8.4L1 2h7.1l4.9 6L18.9 2zm-1.2 18h1.7L7.2 3.9H5.4L17.7 20z"/>
-              </svg>
-            </a>
-
-            <!-- YouTube -->
-            <a class="inline-icon-btn" href="https://www.youtube.com/@klausstattoostudiokts8472" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="Ver YouTube">
-              <img src="/assets/hirose/yt.png" width="20" height="20" alt="YouTube" loading="lazy" decoding="async" />
+            <a class="inline-icon-btn" href="https://ar.pinterest.com/griseldatatuadora/" target="_blank" rel="noopener noreferrer" title="Ver en Pinterest" aria-label="Ver Pinterest">
+              <img src="/assets/hirose/pinterest.png" width="20" height="20" alt="Pinterest" loading="lazy" decoding="async" />
             </a>
           </div>
         </div>
@@ -550,7 +516,7 @@
 
         <div class="card hover-lift" data-animate="card">
           <p>
-            KLAUSS TATTOO STUDIO nació con una idea clara: respetar la piel tanto como el diseño.
+            Griselda Tatuadora nacio con una idea clara: respetar la piel tanto como el diseño.
             Cada tatuaje se planifica para que envejezca bien, mantenga contraste y se adapte a la anatomía de cada persona.
           </p>
           <p style="margin-top:0.6rem;">
@@ -566,16 +532,16 @@
       <div class="container">
         <div class="section-header"><h2 class="section-title">Galería</h2></div>
 
-        <div class="carousel hover-lift glow-on-enter" data-animate="card" data-animate-glow="true" aria-label="Galería de tatuajes KLAUSS TATTOO STUDIO">
+        <div class="carousel hover-lift glow-on-enter" data-animate="card" data-animate-glow="true" aria-label="Galería de tatuajes Griselda Tatuadora">
           <div class="carousel-track" id="carouselTrack">
             <div class="carousel-slide">
-              <img src="/assets/klauss/imagen1.png" alt="Tatuaje KLAUSS 1" loading="eager" decoding="async" />
+              <img src="/assets/gisela/imagen1.png" alt="Tatuaje Griselda Tatuadora 1" loading="eager" decoding="async" />
             </div>
             <div class="carousel-slide">
-              <img src="/assets/klauss/imagen2.png" alt="Tatuaje KLAUSS 2" loading="lazy" decoding="async" />
+              <img src="/assets/gisela/imagen2.png" alt="Tatuaje Griselda Tatuadora 2" loading="lazy" decoding="async" />
             </div>
             <div class="carousel-slide">
-              <img src="/assets/klauss/imagen3.png" alt="Tatuaje KLAUSS 3" loading="lazy" decoding="async" />
+              <img src="/assets/gisela/imagen3.png" alt="Tatuaje Griselda Tatuadora 3" loading="lazy" decoding="async" />
             </div>
           </div>
 
@@ -617,7 +583,7 @@
             <iframe
               class="ig-embed-frame"
               title="Instagram Embed"
-              src="https://www.instagram.com/p/DJNxYtzuug4/embed"
+              src="https://www.instagram.com/p/DRLetZCDH2Q/embed"
               loading="lazy"
               allow="clipboard-write; encrypted-media; picture-in-picture; web-share"
               allowfullscreen
@@ -653,31 +619,30 @@
 
         <div class="contact-layout">
           <div class="card hover-lift" data-animate="card">
-            <p><strong>Dirección:</strong><br>Av. Acoyte 110 Local 36, C1405 Cdad. Autónoma de Buenos Aires</p>
+            <p><strong>Dirección:</strong><br>Galería Centenera, Del Barco Centenera 150 loc.4, C1424 Cdad. Autónoma de Buenos Aires</p>
 
             <p style="margin-top:0.6rem;"><strong>Teléfono:</strong><br>
-              <a href="tel:+541160013880" style="text-decoration:underline;">+54 11 6001-3880</a>
+              <a href="tel:+541144040585" style="text-decoration:underline;">+54 11 4404-0585</a>
             </p>
 
             <p style="margin-top:0.6rem;"><strong>Horarios:</strong><br>
               martes: 2–8:30 p. m.<br>
               miércoles: 2–8:30 p. m.<br>
-              jueves: 2–8:30 p. m.<br>
-              viernes: 2–8:30 p. m.<br>
-              sábado: 2–9 p. m.<br>
+              jueves: 1–8:30 p. m.<br>
+              viernes: 2–8 p. m.<br>
+              sábado: 2–8:30 p. m.<br>
               domingo: Cerrado<br>
-              lunes: 2–8:30 p. m.
-            </p>
+              lunes: 2–8:30 p. m.</p>
 
             <p style="margin-top:0.6rem;"><strong>Instagram:</strong><br>
-              <a href="https://www.instagram.com/klausstattoostudio/" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;">
-                @klausstattoostudio
+              <a href="https://www.instagram.com/griseldatatuadora/" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;">
+                @griseldatatuadora
               </a>
             </p>
 
             <p style="margin-top:0.6rem;">
               <strong>Mapa:</strong><br>
-              <a href="https://www.google.com/maps/search/?api=1&query=Av.%20Acoyte%20110%20Local%2036%2C%20C1405%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;">
+              <a href="https://www.google.com/maps/search/?api=1&query=Galer%C3%ADa%20Centenera%2C%20Del%20Barco%20Centenera%20150%20loc.4%2C%20C1424%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;">
                 Abrir ubicación en Google Maps
               </a>
             </p>
@@ -689,7 +654,7 @@
               loading="lazy"
               allowfullscreen
               referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps?q=Av.%20Acoyte%20110%20Local%2036%2C%20C1405%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires&output=embed">
+              src="https://www.google.com/maps?q=Galer%C3%ADa%20Centenera%2C%20Del%20Barco%20Centenera%20150%20loc.4%2C%20C1424%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires&output=embed">
             </iframe>
 
             <div class="map-fallback" id="mapFallback" aria-label="Mapa no disponible en este navegador">
@@ -699,7 +664,7 @@
                   El navegador interno de Instagram puede bloquear Google Maps.<br />
                   Abrí la ubicación en tu navegador o en la app de Maps.
                 </div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Av.%20Acoyte%20110%20Local%2036%2C%20C1405%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires" target="_blank" rel="noopener noreferrer" aria-label="Abrir en Google Maps">
+                <a href="https://www.google.com/maps/search/?api=1&query=Galer%C3%ADa%20Centenera%2C%20Del%20Barco%20Centenera%20150%20loc.4%2C%20C1424%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires" target="_blank" rel="noopener noreferrer" aria-label="Abrir en Google Maps">
                   📍 Abrir en Google Maps
                 </a>
               </div>
@@ -711,7 +676,7 @@
     </section>
 
     <footer>
-      © <span id="year"></span> <span class="footer-highlight">KLAUSS TATTOO STUDIO</span>. Todos los derechos reservados.
+      © <span id="year"></span> <span class="footer-highlight">Griselda Tatuadora</span>. Todos los derechos reservados.
     </footer>
   </div>
 
@@ -813,8 +778,8 @@
       const logo = document.getElementById("heroLogo");
       if (!logo) return;
 
-      const src1 = "/assets/klauss/logo.png";
-      const src2 = "/assets/klauss/logo2.png";
+      const src1 = "/assets/gisela/logo.png";
+      const src2 = "/assets/gisela/logo2.png";
 
       const setSrc = (src)=>{
         if (logo.getAttribute("src") !== src) logo.setAttribute("src", src);
@@ -868,8 +833,8 @@
         }, timeoutMs);
 
         const urls = [
-          "/assets/klauss/logo.png",
-          "/assets/klauss/logo2.png"
+          "/assets/gisela/logo.png",
+          "/assets/gisela/logo2.png"
         ];
 
         urls.forEach((url)=>{
@@ -883,7 +848,7 @@
             }
           };
           img.onload = finish;
-          img.onerror = finish;
+          img.onerror = finish; // si falla, igual desbloquea por timeout/cuenta
           img.src = url;
         });
       });
@@ -920,6 +885,7 @@
           el.getBoundingClientRect();
           requestAnimationFrame(()=> el.classList.add("is-inview"));
 
+          // glow: una sola vez
           if (el.classList.contains("glow-on-enter")) { obs.unobserve(el); return; }
           obs.unobserve(el);
         });
@@ -932,6 +898,7 @@
         obs.observe(el);
       });
 
+      // si están visibles de entrada
       requestAnimationFrame(()=> {
         cards.concat(stItems).forEach(el=>{
           const r = el.getBoundingClientRect();
