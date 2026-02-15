@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <!-- ====== SEO BÁSICO ====== -->
-  <title>Vision Itaca — Sitios web profesionales | Diseño rápido, limpio y optimizado</title>
-  <meta name="description" content="Vision Itaca crea sitios web profesionales: rápidos, limpios y optimizados para SEO. Diseño responsive, formularios, WhatsApp flotante, SSL, integración con redes y más. ¡Desde 40 USD!">
+  <title>Vision Itaca — Diseño Web + Chatbots WhatsApp para comercios</title>
+  <meta name="description" content="Vision Itaca crea sitios web profesionales y chatbots por WhatsApp para comercios. Respuestas automáticas basadas en stock, SEO, diseño responsive, formularios y más.">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 
   <!-- Canonical -->
@@ -24,15 +24,15 @@
   <!-- ====== OPEN GRAPH / TWITTER ====== -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Vision Itaca">
-  <meta property="og:title" content="Sitios web profesionales que venden">
-  <meta property="og:description" content="Landing pages rápidas, limpias y con estilo. Diseño claro, CTAs efectivos y SEO listo para Google.">
+  <meta property="og:title" content="Diseño Web + Chatbots WhatsApp para comercios">
+  <meta property="og:description" content="Sitios web rápidos y limpios + chatbots por WhatsApp que responden consultas y revisan stock.">
   <meta property="og:url" content="https://vision-itaca.store/">
   <meta property="og:image" content="https://vision-itaca.store/assets/producto-digital.png">
-  <meta property="og:image:alt" content="Ejemplo de sitio profesional Vision Itaca">
+  <meta property="og:image:alt" content="Vision Itaca: web y automatización por WhatsApp">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Sitios web profesionales que venden">
-  <meta name="twitter:description" content="Diseño web claro, rápido y optimizado para SEO. Desde 40 USD.">
+  <meta name="twitter:title" content="Diseño Web + Chatbots WhatsApp para comercios">
+  <meta name="twitter:description" content="Web clara, rápida y optimizada + chatbots por WhatsApp basados en stock.">
   <meta name="twitter:image" content="https://vision-itaca.store/assets/producto-digital.png">
 
   <!-- ====== PERFORMANCE HINTS ====== -->
@@ -67,7 +67,6 @@
       transition:opacity .25s ease-in;
     }
 
-    /* Capa de fondo difuminado */
     .blurred-gradient-bg{
       position:fixed; inset:0; z-index:-1; pointer-events:none;
       filter: blur(50px) saturate(120%);
@@ -75,7 +74,6 @@
       mix-blend-mode: screen;
     }
 
-    /* Fondo MUCHO más oscuro */
     .dark .blurred-gradient-bg{
       background:
         radial-gradient(50% 50% at 15% 0%, rgba(99,102,241,0.35) 0%, transparent 55%),
@@ -87,7 +85,6 @@
       background-blend-mode:screen,screen,screen,screen,normal;
     }
 
-    /* Fondo claro */
     .blurred-gradient-bg:not(.dark-bg){
       background:
         radial-gradient(60% 60% at 20% 0%, var(--teal-2) 0%, transparent 60%),
@@ -97,12 +94,10 @@
         radial-gradient(120% 120% at 50% 30%, rgba(255,255,255,.25) 0%, rgba(255,255,255,0) 60%);
     }
 
-    /* Bases de contraste */
     html:not(.dark) body{ color:#0f172a; background:#f9fafb; }
     html.dark body{ color:#e5e7eb; background:#000000; }
     html.dark{ color-scheme: dark; }
 
-    /* Fallbacks EXTRA en oscuro si fallan utilidades dark: */
     html.dark .text-gray-900,
     html.dark .text-gray-800,
     html.dark .text-gray-700,
@@ -110,7 +105,6 @@
     html.dark .text-gray-600,
     html.dark .text-gray-500{ color:#d1d5db !important; }
 
-    /* Fallbacks tema CLARO */
     html:not(.dark) .text-white,
     html:not(.dark) .text-gray-100,
     html:not(.dark) .text-gray-200,
@@ -166,18 +160,14 @@
       border:1px solid rgba(148,163,184,.6);
       box-shadow:0 8px 20px rgba(148,163,184,0.35);
     }
-    .btn-ghost:hover{
-      background:rgba(248,250,252,1);
-    }
+    .btn-ghost:hover{ background:rgba(248,250,252,1); }
     .dark .btn-ghost{
       background: rgba(15,23,42,0.96);
       color:#e5e7eb;
       border:1px solid rgba(148,163,184,.5);
       box-shadow:0 10px 28px rgba(0,0,0,0.9);
     }
-    .dark .btn-ghost:hover{
-      background:rgba(15,23,42,1);
-    }
+    .dark .btn-ghost:hover{ background:rgba(15,23,42,1); }
 
     .whatsapp-fab{
       position:fixed; right:18px;
@@ -215,6 +205,25 @@
     html:not(.dark) textarea::placeholder{
       color:#000 !important; font-weight:700; opacity:1;
     }
+
+    /* Badge */
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      padding:.35rem .75rem;
+      border-radius:9999px;
+      border:1px solid rgba(148,163,184,.5);
+      background: rgba(255,255,255,.75);
+      backdrop-filter: blur(10px);
+      font-size:.85rem;
+      color:#0f172a;
+    }
+    .dark .pill{
+      background: rgba(15,23,42,.85);
+      border-color: rgba(148,163,184,.35);
+      color:#e5e7eb;
+    }
   </style>
 
   <!-- ====== JSON-LD: ORGANIZATION + WEBSITE ====== -->
@@ -246,19 +255,18 @@
   }
   </script>
 
-  <!-- ====== JSON-LD: FAQPAGE ====== -->
+  <!-- ====== JSON-LD: FAQPAGE (actualizado a 2 servicios) ====== -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@type":"FAQPage",
     "mainEntity":[
-      {"@type":"Question","name":"¿Cuánto me sale un sitio web?","acceptedAnswer":{"@type":"Answer","text":"El costo final depende de las funcionalidades que necesites (secciones, formularios, integraciones, etc.). Contame tu idea y te paso un presupuesto sin cargo."}},
-      {"@type":"Question","name":"¿Cuánto demora la creación y lanzamiento de un sitio web?","acceptedAnswer":{"@type":"Answer","text":"Por lo general entre 2 y 3 días desde que definimos el contenido y el estilo. Sitios más complejos pueden requerir un poco más."}},
-      {"@type":"Question","name":"¿Tengo soporte luego de la compra?","acceptedAnswer":{"@type":"Answer","text":"Sí, 3 meses de soporte gratuito + 1 cambio de diseño/contenido dentro de ese período. Pasado ese tiempo, los cambios se cotizan."}},
-      {"@type":"Question","name":"¿Qué necesito para empezar?","acceptedAnswer":{"@type":"Answer","text":"Un breve resumen de tu negocio/idea, logotipo (si tenés), paleta de colores deseada y ejemplos de sitios que te gusten. Si no tenés nada de eso, te ayudo a definirlo."}},
-      {"@type":"Question","name":"¿Incluye dominio y dónde aloja el sitio?","acceptedAnswer":{"@type":"Answer","text":"El dominio no está incluido dentro del presupuesto final."}},
-      {"@type":"Question","name":"¿Puedo pagar en cuotas o con diferentes medios de pago?","acceptedAnswer":{"@type":"Answer","text":"Sí, coordino múltiples medios de pago y planes en cuotas según el alcance del proyecto."}},
-      {"@type":"Question","name":"¿Podés mejorar o migrar mi sitio actual?","acceptedAnswer":{"@type":"Answer","text":"Claro. Puedo modernizar diseño, optimizar performance/SEO y migrar tu contenido a una nueva plataforma manteniendo SEO y enlaces."}}
+      {"@type":"Question","name":"¿Qué servicios ofrece Vision Itaca?","acceptedAnswer":{"@type":"Answer","text":"Ofrezco dos servicios: diseño web profesional (landings/sitios) y chatbots por WhatsApp para comercios que responden consultas basadas en stock y reglas del negocio."}},
+      {"@type":"Question","name":"¿Cuánto demora un sitio web?","acceptedAnswer":{"@type":"Answer","text":"Por lo general entre 2 y 3 días desde que definimos contenido y estilo. Sitios más complejos pueden requerir un poco más."}},
+      {"@type":"Question","name":"¿El chatbot puede responder según mi stock real?","acceptedAnswer":{"@type":"Answer","text":"Sí. El bot consulta tu stock (por ejemplo desde una planilla, CSV o base de datos). Si no hay disponibilidad, responde con un mensaje claro y puede sugerir alternativas."}},
+      {"@type":"Question","name":"¿Qué necesito para crear el chatbot?","acceptedAnswer":{"@type":"Answer","text":"Una lista de productos/stock, horarios, políticas de envío/pago y ejemplos de preguntas frecuentes. Con eso armo el flujo, lo pruebo y lo ajusto al tono del negocio."}},
+      {"@type":"Question","name":"¿Incluye dominio?","acceptedAnswer":{"@type":"Answer","text":"El dominio no está incluido dentro del presupuesto final. Si querés, te asesoro para registrarlo y configurarlo."}},
+      {"@type":"Question","name":"¿Tengo soporte luego de la compra?","acceptedAnswer":{"@type":"Answer","text":"Sí. Incluye soporte y ajustes acordados según el alcance del proyecto. Para web: 3 meses de soporte + 1 cambio menor dentro del período."}}
     ]
   }
   </script>
@@ -279,6 +287,8 @@
 
           <div class="hidden md:flex md:items-center md:space-x-6">
             <a href="#servicios" class="text-sm md:text-base text-gray-800 dark:text-gray-200 hover:underline" data-i18n="nav_services">Servicios</a>
+            <a href="#chatbots" class="text-sm md:text-base text-gray-800 dark:text-gray-200 hover:underline" data-i18n="nav_chatbots">Chatbots</a>
+            <a href="#planes" class="text-sm md:text-base text-gray-800 dark:text-gray-200 hover:underline" data-i18n="nav_plans">Planes</a>
             <a href="#ejemplos" class="text-sm md:text-base text-gray-800 dark:text-gray-200 hover:underline" data-i18n="nav_examples">Ejemplos</a>
             <a href="#contacto" class="text-sm md:text-base text-gray-800 dark:text-gray-200 hover:underline" data-i18n="nav_contact">Contacto</a>
 
@@ -305,6 +315,8 @@
       <div id="mobile-menu" class="hidden md:hidden">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           <a href="#servicios" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-gray-200" data-i18n="nav_services">Servicios</a>
+          <a href="#chatbots" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-gray-200" data-i18n="nav_chatbots">Chatbots</a>
+          <a href="#planes" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-gray-200" data-i18n="nav_plans">Planes</a>
           <a href="#ejemplos" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-gray-200" data-i18n="nav_examples">Ejemplos</a>
           <a href="#contacto" class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-gray-200" data-i18n="nav_contact">Contacto</a>
         </div>
@@ -325,118 +337,284 @@
     </nav>
 
     <!-- HERO -->
-    <section class="relative min-h-[66vh] flex items-center">
+    <section class="relative min-h-[70vh] flex items-center">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
+          <div class="flex flex-wrap justify-center gap-2 mb-5">
+            <span class="pill"><i data-feather="layout" class="w-4 h-4" aria-hidden="true"></i><span data-i18n="pill_web">Diseño Web</span></span>
+            <span class="pill"><i data-feather="message-square" class="w-4 h-4" aria-hidden="true"></i><span data-i18n="pill_bot">Chatbot WhatsApp + Stock</span></span>
+          </div>
+
           <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 dark:text-white mb-6" data-i18n="hero_title">
-            Sitios web que <span class="gradient-text">venden</span>
+            Web + WhatsApp que <span class="gradient-text">convierten</span>
           </h1>
+
           <p class="text-lg md:text-2xl text-gray-700 dark:text-gray-300 mb-8" data-i18n="hero_sub">
-            Rápidos, limpios y con estilo. Diseño sitios web claros con mensajes directos y llamados a la acción efectivos.
+            Dos soluciones, un objetivo: más consultas y más ventas. Sitios web claros y chatbots por WhatsApp que responden preguntas y revisan stock.
           </p>
+
           <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="#contacto" class="btn-primary inline-flex items-center px-7 py-3 rounded-full font-semibold">
-              <i data-feather="message-circle" class="w-5 h-5 mr-2" aria-hidden="true"></i>
-              <span data-i18n="cta_start">Empezar Proyecto</span>
+            <a href="#planes" class="btn-primary inline-flex items-center px-7 py-3 rounded-full font-semibold">
+              <i data-feather="shopping-bag" class="w-5 h-5 mr-2" aria-hidden="true"></i>
+              <span data-i18n="cta_plans">Ver Servicios</span>
             </a>
-            <a href="#ejemplos" class="btn-ghost inline-flex items-center px-7 py-3 rounded-full font-semibold">
-              <i data-feather="eye" class="w-5 h-5 mr-2" aria-hidden="true"></i>
-              <span data-i18n="cta_examples">Ver Ejemplos</span>
+            <a href="#contacto" class="btn-ghost inline-flex items-center px-7 py-3 rounded-full font-semibold">
+              <i data-feather="message-circle" class="w-5 h-5 mr-2" aria-hidden="true"></i>
+              <span data-i18n="cta_contact">Hablar por WhatsApp</span>
             </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SERVICIOS -->
+    <!-- SERVICIOS (rearmado para 2 servicios) -->
     <section id="servicios" class="py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-i18n="svc_title">¿Por qué elegir Vision Itaca?</h2>
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-i18n="svc_title">
+            Dos servicios principales
+          </h2>
           <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto" data-i18n="svc_sub">
-            Me enfoco en mensajes simples, diseño limpio y acciones directas. Vos me contás la idea, yo me encargo del resto.
+            Podés contratar solo uno o combinarlos: sitio web para captar + chatbot para atender y cerrar.
           </p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid lg:grid-cols-2 gap-6">
+          <!-- Servicio 1: Web -->
+          <div class="soft-card p-8 rounded-2xl hover-lift">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-slate-900/90 dark:bg-black/80">
+                  <i data-feather="layout" class="text-violet-400 w-6 h-6" aria-hidden="true"></i>
+                </div>
+                <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-2" data-i18n="web_title">Diseño Web Profesional</h3>
+                <p class="text-gray-700 dark:text-gray-300" data-i18n="web_desc">
+                  Landing pages rápidas, limpias y optimizadas para SEO. Claras, con CTA fuerte y listas para Google.
+                </p>
+              </div>
+              <span class="pill" data-i18n="web_badge">Ideal para captar</span>
+            </div>
+
+            <div class="mt-6 grid md:grid-cols-2 gap-4 text-gray-800 dark:text-gray-200">
+              <div class="flex items-center"><i data-feather="zap" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="web_p1">Entrega rápida</span></div>
+              <div class="flex items-center"><i data-feather="smartphone" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="web_p2">100% responsive</span></div>
+              <div class="flex items-center"><i data-feather="search" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="web_p3">SEO base listo</span></div>
+              <div class="flex items-center"><i data-feather="shield" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="web_p4">SSL + buenas prácticas</span></div>
+            </div>
+
+            <div class="mt-6">
+              <a href="#ejemplos" class="btn-ghost inline-flex items-center px-6 py-3 rounded-full font-semibold">
+                <i data-feather="eye" class="w-5 h-5 mr-2" aria-hidden="true"></i>
+                <span data-i18n="web_cta">Ver ejemplos web</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Servicio 2: Chatbot -->
+          <div class="soft-card p-8 rounded-2xl hover-lift">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-slate-900/90 dark:bg-black/80">
+                  <i data-feather="message-square" class="text-emerald-400 w-6 h-6" aria-hidden="true"></i>
+                </div>
+                <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-2" data-i18n="bot_title">
+                  Chatbot WhatsApp para comercios
+                </h3>
+                <p class="text-gray-700 dark:text-gray-300" data-i18n="bot_desc">
+                  Atiende consultas 24/7 y responde según tu stock. Si no hay, ofrece alternativas o deriva a una persona.
+                </p>
+              </div>
+              <span class="pill" data-i18n="bot_badge">Ideal para atender</span>
+            </div>
+
+            <div class="mt-6 grid md:grid-cols-2 gap-4 text-gray-800 dark:text-gray-200">
+              <div class="flex items-center"><i data-feather="clock" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="bot_p1">Respuestas 24/7</span></div>
+              <div class="flex items-center"><i data-feather="database" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="bot_p2">Consulta stock</span></div>
+              <div class="flex items-center"><i data-feather="repeat" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="bot_p3">Alternativas si no hay</span></div>
+              <div class="flex items-center"><i data-feather="user-check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="bot_p4">Derivación a humano</span></div>
+            </div>
+
+            <div class="mt-6">
+              <a href="#chatbots" class="btn-ghost inline-flex items-center px-6 py-3 rounded-full font-semibold">
+                <i data-feather="arrow-right" class="w-5 h-5 mr-2" aria-hidden="true"></i>
+                <span data-i18n="bot_cta">Cómo funciona</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mini “stack” (web + bot) -->
+        <div class="mt-10 text-center">
+          <p class="text-gray-700 dark:text-gray-300 max-w-3xl mx-auto" data-i18n="svc_combo">
+            Combinación recomendada: <strong>Web para captar</strong> + <strong>Chatbot para atender</strong>. Es como tener un local con vidriera y un vendedor que nunca se cansa.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DEDICADA: CHATBOTS -->
+    <section id="chatbots" class="py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-i18n="bot2_title">
+            Chatbots para comercios basados en stock
+          </h2>
+          <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto" data-i18n="bot2_sub">
+            Responde lo típico (precio, talle, disponibilidad, horarios, envíos) y evita el “te respondo mañana”.
+          </p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-6">
           <div class="soft-card p-7 rounded-xl hover-lift">
             <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-slate-900/90 dark:bg-black/80">
-              <i data-feather="zap" class="text-emerald-400 w-6 h-6" aria-hidden="true"></i>
+              <i data-feather="help-circle" class="text-sky-400 w-6 h-6" aria-hidden="true"></i>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2" data-i18n="svc_1_t">Entrega Rápida</h3>
-            <p class="text-gray-700 dark:text-gray-300" data-i18n="svc_1_d">Tu sitio web listo en tiempo récord sin comprometer la calidad del diseño.</p>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2" data-i18n="bot2_c1_t">Preguntas frecuentes</h3>
+            <p class="text-gray-700 dark:text-gray-300" data-i18n="bot2_c1_d">El bot responde consultas repetidas y libera tiempo: precios, horarios, ubicación, medios de pago, envíos.</p>
           </div>
 
           <div class="soft-card p-7 rounded-xl hover-lift">
             <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-slate-900/90 dark:bg-black/80">
-              <i data-feather="smartphone" class="text-sky-400 w-6 h-6" aria-hidden="true"></i>
+              <i data-feather="package" class="text-emerald-400 w-6 h-6" aria-hidden="true"></i>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2" data-i18n="svc_2_t">Responsive Design</h3>
-            <p class="text-gray-700 dark:text-gray-300" data-i18n="svc_2_d">Perfecto en móviles, tablets y desktop. Tu sitio se ve impecable en cualquier dispositivo.</p>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2" data-i18n="bot2_c2_t">Stock y alternativas</h3>
+            <p class="text-gray-700 dark:text-gray-300" data-i18n="bot2_c2_d">Consulta tu inventario. Si no hay el producto, ofrece opciones similares (talle/color/modelo) o sugiere otro.</p>
           </div>
 
           <div class="soft-card p-7 rounded-xl hover-lift">
             <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-slate-900/90 dark:bg-black/80">
-              <i data-feather="search" class="text-violet-400 w-6 h-6" aria-hidden="true"></i>
+              <i data-feather="user" class="text-violet-400 w-6 h-6" aria-hidden="true"></i>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2" data-i18n="svc_3_t">SEO Optimizado</h3>
-            <p class="text-gray-700 dark:text-gray-300" data-i18n="svc_3_d">Aparece más rápido en Google y atrae más clientes a tu negocio.</p>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2" data-i18n="bot2_c3_t">Derivación a humano</h3>
+            <p class="text-gray-700 dark:text-gray-300" data-i18n="bot2_c3_d">Cuando hace falta, el bot deriva a una persona (ventas/soporte) con el contexto de la conversación.</p>
+          </div>
+        </div>
+
+        <div class="mt-10 soft-card p-8 rounded-2xl">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3" data-i18n="bot2_how_t">¿Qué necesito para armarlo?</h3>
+              <ul class="space-y-3 text-gray-800 dark:text-gray-200">
+                <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="bot2_need_1">Lista de productos/stock (Sheet/CSV/DB)</span></li>
+                <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="bot2_need_2">Horarios, envíos, pagos y políticas</span></li>
+                <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="bot2_need_3">Ejemplos de preguntas reales de tus clientes</span></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3" data-i18n="bot2_flow_t">Flujo típico</h3>
+              <ol class="space-y-3 text-gray-800 dark:text-gray-200 list-decimal pl-5">
+                <li data-i18n="bot2_flow_1">Cliente pregunta por un producto (“¿tenés talle M?”)</li>
+                <li data-i18n="bot2_flow_2">Bot consulta stock y responde disponibilidad + precio</li>
+                <li data-i18n="bot2_flow_3">Si no hay: ofrece alternativas y pregunta preferencia</li>
+                <li data-i18n="bot2_flow_4">Si el caso es especial: deriva a humano con resumen</li>
+              </ol>
+
+              <div class="mt-6">
+                <a href="#contacto" class="btn-primary inline-flex items-center px-7 py-3 rounded-full font-semibold">
+                  <i data-feather="message-circle" class="w-5 h-5 mr-2" aria-hidden="true"></i>
+                  <span data-i18n="bot2_cta">Quiero mi chatbot</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 p-4 rounded-lg border border-yellow-300/50 bg-yellow-100/70 dark:bg-yellow-900/30 dark:border-yellow-800" role="note">
+            <p class="text-yellow-900 dark:text-yellow-200 text-sm flex items-center">
+              <i data-feather="info" class="w-4 h-4 mr-2" aria-hidden="true"></i>
+              <em data-i18n="bot2_note">Importante: WhatsApp Business puede requerir proveedor/planes según tu caso. Yo te guío para elegir la opción correcta.</em>
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PRECIO -->
-    <section class="py-16">
+    <!-- PLANES (2 cards: Web y Chatbot) -->
+    <section id="planes" class="py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2" data-i18n="price_title">Obten tu sitio web</h2>
-          <p class="text-2xl font-extrabold gradient-text mb-1" data-i18n="price_from">¡Desde 40 USD!</p>
-          <p class="text-gray-700 dark:text-gray-300" data-i18n="price_sub">Todo incluido en un precio transparente</p>
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-i18n="plans_title">
+            Servicios y alcance
+          </h2>
+          <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto" data-i18n="plans_sub">
+            Podés contratar el servicio que necesitás. Si querés, te armo un combo web + chatbot.
+          </p>
         </div>
 
-        <div class="soft-card max-w-4xl mx-auto rounded-2xl shadow-xl overflow-hidden">
-          <div class="p-8">
-            <div class="grid md:grid-cols-2 gap-8">
+        <div class="grid lg:grid-cols-2 gap-6">
+          <!-- Plan Web -->
+          <div class="soft-card rounded-2xl p-8 hover-lift">
+            <div class="flex items-start justify-between gap-4">
               <div>
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4" data-i18n="inc_title">Incluye:</h3>
-                <ul class="space-y-3 text-gray-800 dark:text-gray-200">
-                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="inc_1">Cientos de estilos diferentes</span></li>
-                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="inc_2">Sitio personalizado a tu elección</span></li>
-                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="inc_3">Botón flotante de WhatsApp</span></li>
-                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="inc_4">Formulario de consulta</span></li>
-                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="inc_5">5 casillas de correo con tu dominio</span></li>
-                </ul>
+                <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-2" data-i18n="plan_web_t">Diseño Web</h3>
+                <p class="text-gray-700 dark:text-gray-300" data-i18n="plan_web_d">Landing/sitio listo para captar clientes con CTA claro y SEO base.</p>
               </div>
-              <div>
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4" data-i18n="and_title">Y también:</h3>
-                <ul class="space-y-3 text-gray-800 dark:text-gray-200">
-                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="and_1">Soporte para tu sitio</span></li>
-                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="and_2">Diseño responsive completo</span></li>
-                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="and_3">Optimizado para SEO</span></li>
-                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="and_4">Certificado SSL gratis</span></li>
-                  <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="and_5">Integración con redes sociales</span></li>
-                </ul>
-              </div>
+              <span class="pill" data-i18n="plan_web_price">Desde 40 USD</span>
             </div>
-            <div class="mt-8 p-4 rounded-lg border border-yellow-300/50 bg-yellow-100/70 dark:bg-yellow-900/30 dark:border-yellow-800" role="note">
+
+            <ul class="mt-6 space-y-3 text-gray-800 dark:text-gray-200">
+              <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="plan_web_i1">Responsive + velocidad</span></li>
+              <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="plan_web_i2">WhatsApp flotante + formulario</span></li>
+              <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="plan_web_i3">SEO base + meta tags</span></li>
+              <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="plan_web_i4">Soporte y ajustes acordados</span></li>
+            </ul>
+
+            <div class="mt-6 p-4 rounded-lg border border-yellow-300/50 bg-yellow-100/70 dark:bg-yellow-900/30 dark:border-yellow-800" role="note">
               <p class="text-yellow-900 dark:text-yellow-200 text-sm flex items-center">
                 <i data-feather="info" class="w-4 h-4 mr-2" aria-hidden="true"></i>
                 <em data-i18n="note_domain">El dominio no está incluido en el costo final.</em>
               </p>
             </div>
+
+            <div class="mt-6">
+              <a href="#contacto" class="btn-primary inline-flex items-center px-7 py-3 rounded-full font-semibold">
+                <i data-feather="send" class="w-5 h-5 mr-2" aria-hidden="true"></i>
+                <span data-i18n="plan_web_cta">Pedir web</span>
+              </a>
+            </div>
           </div>
+
+          <!-- Plan Chatbot -->
+          <div class="soft-card rounded-2xl p-8 hover-lift">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-2" data-i18n="plan_bot_t">Chatbot WhatsApp (Comercios)</h3>
+                <p class="text-gray-700 dark:text-gray-300" data-i18n="plan_bot_d">Automatiza consultas y responde según stock. Ideal para ventas y soporte.</p>
+              </div>
+              <span class="pill" data-i18n="plan_bot_price">A medida</span>
+            </div>
+
+            <ul class="mt-6 space-y-3 text-gray-800 dark:text-gray-200">
+              <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="plan_bot_i1">Respuestas 24/7 + tono de marca</span></li>
+              <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="plan_bot_i2">Consulta stock (Sheet/CSV/DB)</span></li>
+              <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="plan_bot_i3">Sin stock: alternativas + sugerencias</span></li>
+              <li class="flex items-center"><i data-feather="check" class="text-green-500 w-5 h-5 mr-3" aria-hidden="true"></i><span data-i18n="plan_bot_i4">Derivación a humano + resumen</span></li>
+            </ul>
+
+            <div class="mt-6">
+              <a href="#contacto" class="btn-primary inline-flex items-center px-7 py-3 rounded-full font-semibold">
+                <i data-feather="message-circle" class="w-5 h-5 mr-2" aria-hidden="true"></i>
+                <span data-i18n="plan_bot_cta">Pedir chatbot</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 text-center">
+          <p class="text-gray-700 dark:text-gray-300 max-w-3xl mx-auto" data-i18n="plans_hint">
+            Si ya tenés web, puedo hacer solo el chatbot. Si ya tenés WhatsApp, lo conecto. Si no tenés nada, armamos todo desde cero.
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- EJEMPLOS -->
+    <!-- EJEMPLOS (mismo bloque, solo cambia texto i18n) -->
     <section id="ejemplos" class="py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
           <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-i18n="ex_title">Ejemplos</h2>
           <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto" data-i18n="ex_sub">
-            Subsitios simples que muestran diferentes usos. Cada ejemplo abre en una página dedicada.
+            Sitios de ejemplo. Si querés, también te muestro demos de chatbot según tu rubro.
           </p>
         </div>
 
@@ -447,7 +625,7 @@
               <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2" data-i18n="ex_1_t">Sitio de freelancer - CV personal</h3>
               <p class="text-gray-700 dark:text-gray-300 text-sm mb-4" data-i18n="ex_1_d">Ideal para mostrar tu trabajo, habilidades y contacto de manera profesional.</p>
               <button class="btn-ghost inline-flex items-center px-4 py-2 rounded-full font-semibold text-sm" type="button" aria-hidden="true">
-                <i data-feather="eye" class="w-4 h-4 mr-2"></i>Ver ejemplo
+                <i data-feather="eye" class="w-4 h-4 mr-2"></i><span data-i18n="ex_btn">Ver ejemplo</span>
               </button>
             </div>
           </a>
@@ -458,7 +636,7 @@
               <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2" data-i18n="ex_2_t">Negocio o Local</h3>
               <p class="text-gray-700 dark:text-gray-300 text-sm mb-4" data-i18n="ex_2_d">Página de aterrizaje optimizada para reservas, menús o información de tu tienda física.</p>
               <button class="btn-ghost inline-flex items-center px-4 py-2 rounded-full font-semibold text-sm" type="button" aria-hidden="true">
-                <i data-feather="eye" class="w-4 h-4 mr-2"></i>Ver ejemplo
+                <i data-feather="eye" class="w-4 h-4 mr-2"></i><span data-i18n="ex_btn">Ver ejemplo</span>
               </button>
             </div>
           </a>
@@ -469,7 +647,7 @@
               <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2" data-i18n="ex_3_t">Producto Digital</h3>
               <p class="text-gray-700 dark:text-gray-300 text-sm mb-4" data-i18n="ex_3_d">Web con llamadas a la acción claras para vender tu software, curso o ebook.</p>
               <button class="btn-ghost inline-flex items-center px-4 py-2 rounded-full font-semibold text-sm" type="button" aria-hidden="true">
-                <i data-feather="eye" class="w-4 h-4 mr-2"></i>Ver ejemplo
+                <i data-feather="eye" class="w-4 h-4 mr-2"></i><span data-i18n="ex_btn">Ver ejemplo</span>
               </button>
             </div>
           </a>
@@ -477,13 +655,13 @@
       </div>
     </section>
 
-    <!-- CONTACTO -->
+    <!-- CONTACTO (adaptado: elegir servicio) -->
     <section id="contacto" class="py-16">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-10">
           <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-i18n="ct_title">Contacto</h2>
           <p class="text-lg md:text-1xl text-gray-700 dark:text-gray-300" data-i18n="ct_sub">
-            Contame brevemente tu idea y el objetivo de tu página. Te respondo con una propuesta simple y un tiempo estimado de entrega.
+            Contame qué necesitás: diseño web, chatbot o ambos. Te respondo con una propuesta simple y pasos claros.
           </p>
         </div>
 
@@ -499,14 +677,27 @@
                 <input id="email" type="email" name="Email" required class="w-full px-4 py-3 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/60 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[color:var(--violet)]" placeholder="tu@email.com" autocomplete="email"/>
               </div>
             </div>
-            <div>
-              <label for="phone" class="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-2" data-i18n="ct_phone_l">Teléfono (Opcional)</label>
-              <input id="phone" type="tel" name="Teléfono" class="w-full px-4 py-3 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/60 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[color:var(--violet)]" placeholder="(Opcional)" autocomplete="tel"/>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <label for="service" class="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-2" data-i18n="ct_service_l">¿Qué servicio te interesa?</label>
+                <select id="service" name="Servicio" class="w-full px-4 py-3 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/60 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[color:var(--violet)]">
+                  <option value="Diseño Web" data-i18n="ct_service_1">Diseño Web</option>
+                  <option value="Chatbot WhatsApp" data-i18n="ct_service_2">Chatbot WhatsApp</option>
+                  <option value="Web + Chatbot" data-i18n="ct_service_3">Web + Chatbot</option>
+                </select>
+              </div>
+              <div>
+                <label for="phone" class="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-2" data-i18n="ct_phone_l">Teléfono (Opcional)</label>
+                <input id="phone" type="tel" name="Teléfono" class="w-full px-4 py-3 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/60 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[color:var(--violet)]" placeholder="(Opcional)" autocomplete="tel"/>
+              </div>
             </div>
+
             <div>
               <label for="message" class="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-2" data-i18n="ct_msg_l">Tu idea y objetivos</label>
               <textarea id="message" name="Mensaje" rows="6" required class="w-full px-4 py-3 rounded-lg border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/60 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[color:var(--violet)]" placeholder="Contame sobre tu proyecto..." autocomplete="off"></textarea>
             </div>
+
             <button type="submit" class="btn-primary w-full font-semibold py-4 px-6 rounded-full hover-lift transition-all">
               <i data-feather="send" class="w-5 h-5 mr-2 inline" aria-hidden="true"></i>
               <span data-i18n="ct_send">Enviar Mensaje</span>
@@ -528,7 +719,7 @@
       </div>
     </section>
 
-    <!-- FAQ -->
+    <!-- FAQ (actualizado a 2 servicios) -->
     <section id="faq" class="py-16">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-10">
@@ -539,78 +730,68 @@
         <div class="soft-card rounded-2xl p-2 divide-y divide-black/10 dark:divide-white/10">
           <div class="faq-item">
             <button class="w-full flex items-center justify-between px-5 py-4 text-left" aria-expanded="false" aria-controls="faq-1">
-              <span class="font-semibold text-gray-900 dark:text-white" data-i18n="faq_1_q">¿Cuánto me sale un sitio web?</span>
+              <span class="font-semibold text-gray-900 dark:text-white" data-i18n="faq_1_q">¿Qué servicios ofrecés?</span>
               <i data-feather="chevron-down" class="w-5 h-5 faq-icon transition-transform" aria-hidden="true"></i>
             </button>
             <div id="faq-1" class="faq-panel hidden px-5 pb-5 text-gray-700 dark:text-gray-300" data-i18n="faq_1_a">
-              El costo final depende de las funcionalidades que necesites (secciones, formularios, integraciones, etc.). Contame tu idea y te paso un presupuesto sin cargo.
+              Ofrezco dos servicios: diseño web profesional y chatbots por WhatsApp para comercios basados en stock.
             </div>
           </div>
 
           <div class="faq-item">
             <button class="w-full flex items-center justify-between px-5 py-4 text-left" aria-expanded="false" aria-controls="faq-2">
-              <span class="font-semibold text-gray-900 dark:text-white" data-i18n="faq_2_q">¿Cuánto demora la creación y lanzamiento de un sitio web?</span>
+              <span class="font-semibold text-gray-900 dark:text-white" data-i18n="faq_2_q">¿Cuánto demora un sitio web?</span>
               <i data-feather="chevron-down" class="w-5 h-5 faq-icon transition-transform" aria-hidden="true"></i>
             </button>
             <div id="faq-2" class="faq-panel hidden px-5 pb-5 text-gray-700 dark:text-gray-300" data-i18n="faq_2_a">
-              Por lo general entre <strong>2 y 3 días</strong> desde que definimos el contenido y el estilo. Sitios más complejos pueden requerir un poco más.
+              Por lo general entre <strong>2 y 3 días</strong> desde que definimos contenido y estilo.
             </div>
           </div>
 
           <div class="faq-item">
             <button class="w-full flex items-center justify-between px-5 py-4 text-left" aria-expanded="false" aria-controls="faq-3">
-              <span class="font-semibold text-gray-900 dark:text-white" data-i18n="faq_3_q">¿Tengo soporte luego de la compra?</span>
+              <span class="font-semibold text-gray-900 dark:text-white" data-i18n="faq_3_q">¿El chatbot responde según mi stock real?</span>
               <i data-feather="chevron-down" class="w-5 h-5 faq-icon transition-transform" aria-hidden="true"></i>
             </button>
             <div id="faq-3" class="faq-panel hidden px-5 pb-5 text-gray-700 dark:text-gray-300" data-i18n="faq_3_a">
-              Sí, <strong>3 meses de soporte gratuito</strong> + <strong>1 cambio</strong> de diseño/contenido dentro de ese período. Pasado ese tiempo, los cambios se cotizan (un cambio menor suele ser &lt;= 40 USD).
+              Sí. Consulta stock (planilla/CSV/base de datos). Si no hay, responde claro y sugiere alternativas.
             </div>
           </div>
 
           <div class="faq-item">
             <button class="w-full flex items-center justify-between px-5 py-4 text-left" aria-expanded="false" aria-controls="faq-4">
-              <span class="font-semibold text-gray-900 dark:text-white" data-i18n="faq_4_q">¿Qué necesito para empezar?</span>
+              <span class="font-semibold text-gray-900 dark:text-white" data-i18n="faq_4_q">¿Qué necesitás para armar el chatbot?</span>
               <i data-feather="chevron-down" class="w-5 h-5 faq-icon transition-transform" aria-hidden="true"></i>
             </button>
             <div id="faq-4" class="faq-panel hidden px-5 pb-5 text-gray-700 dark:text-gray-300" data-i18n="faq_4_a">
-              Un breve resumen de tu negocio/idea, logotipo (si tenés), paleta de colores deseada y ejemplos de sitios que te gusten. Si no tenés nada de eso, te ayudo a definirlo.
+              Stock + reglas del negocio (envíos/pagos/horarios) + preguntas frecuentes reales. Con eso lo pruebo y lo ajusto al tono de tu marca.
             </div>
           </div>
 
           <div class="faq-item">
             <button class="w-full flex items-center justify-between px-5 py-4 text-left" aria-expanded="false" aria-controls="faq-5">
-              <span class="font-semibold text-gray-900 dark:text-white" data-i18n="faq_5_q">¿Incluye dominio y dónde aloja el sitio?</span>
+              <span class="font-semibold text-gray-900 dark:text-white" data-i18n="faq_5_q">¿Incluye dominio?</span>
               <i data-feather="chevron-down" class="w-5 h-5 faq-icon transition-transform" aria-hidden="true"></i>
             </button>
             <div id="faq-5" class="faq-panel hidden px-5 pb-5 text-gray-700 dark:text-gray-300" data-i18n="faq_5_a">
-              El <strong>dominio no está incluido</strong> dentro del presupuesto final. Te asesoro para registrarlo y configurarlo.
+              El <strong>dominio no está incluido</strong>. Si querés, te asesoro para registrarlo y configurarlo.
             </div>
           </div>
 
           <div class="faq-item">
             <button class="w-full flex items-center justify-between px-5 py-4 text-left" aria-expanded="false" aria-controls="faq-6">
-              <span class="font-semibold text-gray-900 dark:text-white" data-i18n="faq_6_q">¿Puedo pagar en cuotas o con diferentes medios de pago?</span>
+              <span class="font-semibold text-gray-900 dark:text-white" data-i18n="faq_6_q">¿Tengo soporte luego de la entrega?</span>
               <i data-feather="chevron-down" class="w-5 h-5 faq-icon transition-transform" aria-hidden="true"></i>
             </button>
             <div id="faq-6" class="faq-panel hidden px-5 pb-5 text-gray-700 dark:text-gray-300" data-i18n="faq_6_a">
-              Sí, coordino <strong>múltiples medios de pago</strong> y planes en cuotas según el alcance del proyecto.
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button class="w-full flex items-center justify-between px-5 py-4 text-left" aria-expanded="false" aria-controls="faq-7">
-              <span class="font-semibold text-gray-900 dark:text-white" data-i18n="faq_7_q">¿Podés mejorar o migrar mi sitio actual?</span>
-              <i data-feather="chevron-down" class="w-5 h-5 faq-icon transition-transform" aria-hidden="true"></i>
-            </button>
-            <div id="faq-7" class="faq-panel hidden px-5 pb-5 text-gray-700 dark:text-gray-300" data-i18n="faq_7_a">
-              Claro. Puedo <strong>modernizar diseño</strong>, <strong>optimizar performance/SEO</strong> y migrar tu contenido a una nueva plataforma manteniendo SEO y enlaces.
+              Sí. Incluye soporte y ajustes acordados según el alcance del proyecto.
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- FOOTER (completo) -->
+    <!-- FOOTER -->
     <footer class="py-10 border-t border-black/10 dark:border-white/10">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
@@ -618,12 +799,14 @@
             <img src="/andro.png" alt="Logo Vision Itaca" class="w-9 h-9" width="36" height="36"/>
             <div>
               <p class="font-semibold text-gray-900 dark:text-white">Vision Itaca</p>
-              <p class="text-sm text-gray-700 dark:text-gray-300" data-i18n="foot_tagline">Sitios rápidos, limpios y optimizados.</p>
+              <p class="text-sm text-gray-700 dark:text-gray-300" data-i18n="foot_tagline">Web + WhatsApp para vender más.</p>
             </div>
           </div>
 
           <div class="flex flex-wrap items-center gap-4 text-sm">
             <a href="#servicios" class="underline hover:opacity-90" data-i18n="nav_services">Servicios</a>
+            <a href="#chatbots" class="underline hover:opacity-90" data-i18n="nav_chatbots">Chatbots</a>
+            <a href="#planes" class="underline hover:opacity-90" data-i18n="nav_plans">Planes</a>
             <a href="#ejemplos" class="underline hover:opacity-90" data-i18n="nav_examples">Ejemplos</a>
             <a href="#contacto" class="underline hover:opacity-90" data-i18n="nav_contact">Contacto</a>
             <a href="legal.html#terminos" class="underline hover:opacity-90" data-i18n="foot_terms">Términos y condiciones</a>
@@ -654,7 +837,6 @@
         </p>
       </div>
     </footer>
-
   </div>
 
   <!-- FAB WhatsApp -->
@@ -697,69 +879,250 @@
     // I18N
     const t = {
       es:{
-        nav_services:'Servicios', nav_examples:'Ejemplos', nav_contact:'Contacto', toggle_theme:'Tema',
-        hero_title:'Sitios web que <span class="gradient-text">venden</span>',
-        hero_sub:'Rápidos, limpios y con estilo. Diseño sitios web claros con mensajes directos y llamados a la acción efectivos.',
-        cta_start:'Empezar Proyecto', cta_examples:'Ver Ejemplos',
-        svc_title:'¿Por qué elegir Vision Itaca?',
-        svc_sub:'Me enfoco en mensajes simples, diseño limpio y acciones directas. Vos me contás la idea, yo me encargo del resto.',
-        svc_1_t:'Entrega Rápida', svc_1_d:'Tu sitio web listo en tiempo récord sin comprometer la calidad del diseño.',
-        svc_2_t:'Responsive Design', svc_2_d:'Perfecto en móviles, tablets y desktop. Tu sitio se ve impecable en cualquier dispositivo.',
-        svc_3_t:'SEO Optimizado', svc_3_d:'Aparece más rápido en Google y atrae más clientes a tu negocio.',
-        price_title:'Obten tu sitio web', price_from:'¡Desde 40 USD!', price_sub:'Todo incluido en un precio transparente',
-        inc_title:'Incluye:', inc_1:'Cientos de estilos diferentes', inc_2:'Sitio personalizado a tu elección', inc_3:'Botón flotante de WhatsApp', inc_4:'Formulario de consulta', inc_5:'5 casillas de correo con tu dominio',
-        and_title:'Y también:', and_1:'Soporte para tu sitio', and_2:'Diseño responsive completo', and_3:'Optimizado para SEO', and_4:'Certificado SSL gratis', and_5:'Integración con redes sociales',
+        nav_services:'Servicios',
+        nav_chatbots:'Chatbots',
+        nav_plans:'Planes',
+        nav_examples:'Ejemplos',
+        nav_contact:'Contacto',
+        toggle_theme:'Tema',
+
+        pill_web:'Diseño Web',
+        pill_bot:'Chatbot WhatsApp + Stock',
+
+        hero_title:'Web + WhatsApp que <span class="gradient-text">convierten</span>',
+        hero_sub:'Dos soluciones, un objetivo: más consultas y más ventas. Sitios web claros y chatbots por WhatsApp que responden preguntas y revisan stock.',
+        cta_plans:'Ver Servicios',
+        cta_contact:'Hablar por WhatsApp',
+
+        svc_title:'Dos servicios principales',
+        svc_sub:'Podés contratar solo uno o combinarlos: sitio web para captar + chatbot para atender y cerrar.',
+        web_title:'Diseño Web Profesional',
+        web_desc:'Landing pages rápidas, limpias y optimizadas para SEO. Claras, con CTA fuerte y listas para Google.',
+        web_badge:'Ideal para captar',
+        web_p1:'Entrega rápida',
+        web_p2:'100% responsive',
+        web_p3:'SEO base listo',
+        web_p4:'SSL + buenas prácticas',
+        web_cta:'Ver ejemplos web',
+
+        bot_title:'Chatbot WhatsApp para comercios',
+        bot_desc:'Atiende consultas 24/7 y responde según tu stock. Si no hay, ofrece alternativas o deriva a una persona.',
+        bot_badge:'Ideal para atender',
+        bot_p1:'Respuestas 24/7',
+        bot_p2:'Consulta stock',
+        bot_p3:'Alternativas si no hay',
+        bot_p4:'Derivación a humano',
+        bot_cta:'Cómo funciona',
+
+        svc_combo:'Combinación recomendada: <strong>Web para captar</strong> + <strong>Chatbot para atender</strong>. Es como tener un local con vidriera y un vendedor que nunca se cansa.',
+
+        bot2_title:'Chatbots para comercios basados en stock',
+        bot2_sub:'Responde lo típico (precio, talle, disponibilidad, horarios, envíos) y evita el “te respondo mañana”.',
+        bot2_c1_t:'Preguntas frecuentes',
+        bot2_c1_d:'El bot responde consultas repetidas y libera tiempo: precios, horarios, ubicación, medios de pago, envíos.',
+        bot2_c2_t:'Stock y alternativas',
+        bot2_c2_d:'Consulta tu inventario. Si no hay el producto, ofrece opciones similares (talle/color/modelo) o sugiere otro.',
+        bot2_c3_t:'Derivación a humano',
+        bot2_c3_d:'Cuando hace falta, el bot deriva a una persona (ventas/soporte) con el contexto de la conversación.',
+        bot2_how_t:'¿Qué necesito para armarlo?',
+        bot2_need_1:'Lista de productos/stock (Sheet/CSV/DB)',
+        bot2_need_2:'Horarios, envíos, pagos y políticas',
+        bot2_need_3:'Ejemplos de preguntas reales de tus clientes',
+        bot2_flow_t:'Flujo típico',
+        bot2_flow_1:'Cliente pregunta por un producto (“¿tenés talle M?”)',
+        bot2_flow_2:'Bot consulta stock y responde disponibilidad + precio',
+        bot2_flow_3:'Si no hay: ofrece alternativas y pregunta preferencia',
+        bot2_flow_4:'Si el caso es especial: deriva a humano con resumen',
+        bot2_cta:'Quiero mi chatbot',
+        bot2_note:'Importante: WhatsApp Business puede requerir proveedor/planes según tu caso. Yo te guío para elegir la opción correcta.',
+
+        plans_title:'Servicios y alcance',
+        plans_sub:'Podés contratar el servicio que necesitás. Si querés, te armo un combo web + chatbot.',
+        plan_web_t:'Diseño Web',
+        plan_web_d:'Landing/sitio listo para captar clientes con CTA claro y SEO base.',
+        plan_web_price:'Desde 40 USD',
+        plan_web_i1:'Responsive + velocidad',
+        plan_web_i2:'WhatsApp flotante + formulario',
+        plan_web_i3:'SEO base + meta tags',
+        plan_web_i4:'Soporte y ajustes acordados',
+        plan_web_cta:'Pedir web',
+        plan_bot_t:'Chatbot WhatsApp (Comercios)',
+        plan_bot_d:'Automatiza consultas y responde según stock. Ideal para ventas y soporte.',
+        plan_bot_price:'A medida',
+        plan_bot_i1:'Respuestas 24/7 + tono de marca',
+        plan_bot_i2:'Consulta stock (Sheet/CSV/DB)',
+        plan_bot_i3:'Sin stock: alternativas + sugerencias',
+        plan_bot_i4:'Derivación a humano + resumen',
+        plan_bot_cta:'Pedir chatbot',
+        plans_hint:'Si ya tenés web, puedo hacer solo el chatbot. Si ya tenés WhatsApp, lo conecto. Si no tenés nada, armamos todo desde cero.',
+
         note_domain:'El dominio no está incluido en el costo final.',
-        ex_title:'Ejemplos', ex_sub:'Subsitios simples que muestran diferentes usos. Cada ejemplo abre en una página dedicada.',
-        ex_1_t:'Sitio de freelancer - CV personal', ex_1_d:'Ideal para mostrar tu trabajo, habilidades y contacto de manera profesional.',
-        ex_2_t:'Negocio o Local', ex_2_d:'Página de aterrizaje optimizada para reservas, menús o información de tu tienda física.',
-        ex_3_t:'Producto Digital', ex_3_d:'Web con llamadas a la acción claras para vender tu software, curso o ebook.',
-        ct_title:'Contacto', ct_sub:'Contame brevemente tu idea y el objetivo de tu página. Te respondo con una propuesta simple y un tiempo estimado de entrega.',
-        ct_name_l:'Nombre', ct_email_l:'Email', ct_phone_l:'Teléfono (Opcional)', ct_msg_l:'Tu idea y objetivos', ct_send:'Enviar Mensaje', ct_alt:'También podés escribirme directo:',
-        faq_title:'Preguntas frecuentes (FAQ)', faq_sub:'Hacé click en una pregunta para ver la respuesta.',
-        faq_1_q:'¿Cuánto me sale un sitio web?', faq_1_a:'El costo final depende de las funcionalidades que necesites (secciones, formularios, integraciones, etc.). Contame tu idea y te paso un presupuesto sin cargo.',
-        faq_2_q:'¿Cuánto demora la creación y lanzamiento de un sitio web?', faq_2_a:'Por lo general entre <strong>2 y 3 días</strong> desde que definimos el contenido y el estilo. Sitios más complejos pueden requerir un poco más.',
-        faq_3_q:'¿Tengo soporte luego de la compra?', faq_3_a:'Sí, <strong>3 meses de soporte gratuito</strong> + <strong>1 cambio</strong> de diseño/contenido dentro de ese período. Pasado ese tiempo, los cambios se cotizan (un cambio menor suele ser &lt;= 40 USD).',
-        faq_4_q:'¿Qué necesito para empezar?', faq_4_a:'Un breve resumen de tu negocio/idea, logotipo (si tenés), paleta de colores deseada y ejemplos de sitios que te gusten. Si no tenés nada de eso, te ayudo a definirlo.',
-        faq_5_q:'¿Incluye dominio y dónde aloja el sitio?', faq_5_a:'El <strong>dominio no está incluido</strong> dentro del presupuesto final. Te asesoro para registrarlo y configurarlo.',
-        faq_6_q:'¿Puedo pagar en cuotas o con diferentes medios de pago?', faq_6_a:'Sí, coordino <strong>múltiples medios de pago</strong> y planes en cuotas según el alcance del proyecto.',
-        faq_7_q:'¿Podés mejorar o migrar mi sitio actual?', faq_7_a:'Claro. Puedo <strong>modernizar diseño</strong>, <strong>optimizar performance/SEO</strong> y migrar tu contenido a una nueva plataforma manteniendo SEO y enlaces.',
-        foot_tagline:'Sitios rápidos, limpios y optimizados.',
+
+        ex_title:'Ejemplos',
+        ex_sub:'Sitios de ejemplo. Si querés, también te muestro demos de chatbot según tu rubro.',
+        ex_btn:'Ver ejemplo',
+        ex_1_t:'Sitio de freelancer - CV personal',
+        ex_1_d:'Ideal para mostrar tu trabajo, habilidades y contacto de manera profesional.',
+        ex_2_t:'Negocio o Local',
+        ex_2_d:'Página de aterrizaje optimizada para reservas, menús o información de tu tienda física.',
+        ex_3_t:'Producto Digital',
+        ex_3_d:'Web con llamadas a la acción claras para vender tu software, curso o ebook.',
+
+        ct_title:'Contacto',
+        ct_sub:'Contame qué necesitás: diseño web, chatbot o ambos. Te respondo con una propuesta simple y pasos claros.',
+        ct_name_l:'Nombre',
+        ct_email_l:'Email',
+        ct_phone_l:'Teléfono (Opcional)',
+        ct_service_l:'¿Qué servicio te interesa?',
+        ct_service_1:'Diseño Web',
+        ct_service_2:'Chatbot WhatsApp',
+        ct_service_3:'Web + Chatbot',
+        ct_msg_l:'Tu idea y objetivos',
+        ct_send:'Enviar Mensaje',
+        ct_alt:'También podés escribirme directo:',
+
+        faq_title:'Preguntas frecuentes (FAQ)',
+        faq_sub:'Hacé click en una pregunta para ver la respuesta.',
+        faq_1_q:'¿Qué servicios ofrecés?',
+        faq_1_a:'Ofrezco dos servicios: diseño web profesional y chatbots por WhatsApp para comercios basados en stock.',
+        faq_2_q:'¿Cuánto demora un sitio web?',
+        faq_2_a:'Por lo general entre <strong>2 y 3 días</strong> desde que definimos contenido y estilo.',
+        faq_3_q:'¿El chatbot responde según mi stock real?',
+        faq_3_a:'Sí. Consulta stock (planilla/CSV/base de datos). Si no hay, responde claro y sugiere alternativas.',
+        faq_4_q:'¿Qué necesitás para armar el chatbot?',
+        faq_4_a:'Stock + reglas del negocio (envíos/pagos/horarios) + preguntas frecuentes reales. Con eso lo pruebo y lo ajusto al tono de tu marca.',
+        faq_5_q:'¿Incluye dominio?',
+        faq_5_a:'El <strong>dominio no está incluido</strong>. Si querés, te asesoro para registrarlo y configurarlo.',
+        faq_6_q:'¿Tengo soporte luego de la entrega?',
+        faq_6_a:'Sí. Incluye soporte y ajustes acordados según el alcance del proyecto.',
+
+        foot_tagline:'Web + WhatsApp para vender más.',
         foot_all:'Todos los derechos reservados.',
         foot_legal_1:'Al usar este sitio aceptás nuestros',
         foot_terms:'Términos y condiciones',
         foot_y:'y',
         foot_priv:'Privacidad'
       },
+
       en:{
-        nav_services:'Services', nav_examples:'Examples', nav_contact:'Contact', toggle_theme:'Theme',
-        hero_title:'Websites that <span class="gradient-text">convert</span>',
-        hero_sub:'Fast, clean and stylish. I design clear landing pages with direct messaging and strong CTAs.',
-        cta_start:'Start Project', cta_examples:'See Examples',
-        svc_title:'Why choose Vision Itaca?',
-        svc_sub:'I focus on simple messages, clean design and direct actions. You tell me the idea, I’ll handle the rest.',
-        svc_1_t:'Fast Delivery', svc_1_d:'Your website ready in record time without sacrificing design quality.',
-        svc_2_t:'Responsive Design', svc_2_d:'Perfect on mobile, tablets and desktop. It looks great everywhere.',
-        svc_3_t:'SEO Optimized',  svc_3_d:'Show up quicker on Google and attract more clients.',
-        price_title:'Get your website', price_from:'From 40 USD!', price_sub:'Everything included at a transparent price',
-        inc_title:'Includes:', inc_1:'Hundreds of styles', inc_2:'Custom site tailored to you', inc_3:'Floating WhatsApp button', inc_4:'Inquiry form', inc_5:'5 email inboxes with your domain',
-        and_title:'Also:', and_1:'Site support', and_2:'Fully responsive design', and_3:'SEO optimized', and_4:'Free SSL certificate', and_5:'Social media integration',
+        nav_services:'Services',
+        nav_chatbots:'Chatbots',
+        nav_plans:'Plans',
+        nav_examples:'Examples',
+        nav_contact:'Contact',
+        toggle_theme:'Theme',
+
+        pill_web:'Web Design',
+        pill_bot:'WhatsApp Bot + Stock',
+
+        hero_title:'Web + WhatsApp that <span class="gradient-text">convert</span>',
+        hero_sub:'Two solutions, one goal: more inquiries and more sales. Clean websites and WhatsApp chatbots that answer questions and check stock.',
+        cta_plans:'View Services',
+        cta_contact:'Chat on WhatsApp',
+
+        svc_title:'Two core services',
+        svc_sub:'Hire one or combine both: website to capture + chatbot to answer and close.',
+        web_title:'Professional Web Design',
+        web_desc:'Fast, clean, SEO-ready landing pages. Clear messaging, strong CTAs and Google-friendly basics.',
+        web_badge:'Great to capture',
+        web_p1:'Fast delivery',
+        web_p2:'Fully responsive',
+        web_p3:'SEO basics ready',
+        web_p4:'SSL + best practices',
+        web_cta:'See web examples',
+
+        bot_title:'WhatsApp chatbot for stores',
+        bot_desc:'Answers 24/7 and replies based on your stock. If out of stock, it suggests alternatives or hands off to a human.',
+        bot_badge:'Great to respond',
+        bot_p1:'24/7 replies',
+        bot_p2:'Stock checks',
+        bot_p3:'Alternatives when out',
+        bot_p4:'Human handoff',
+        bot_cta:'How it works',
+
+        svc_combo:'Recommended combo: <strong>Website to capture</strong> + <strong>Chatbot to respond</strong>. Like a storefront plus a tireless sales rep.',
+
+        bot2_title:'Stock-based chatbots for stores',
+        bot2_sub:'Answers the usual (price, size, availability, hours, shipping) and avoids “I’ll reply tomorrow”.',
+        bot2_c1_t:'FAQ automation',
+        bot2_c1_d:'Handles repetitive questions: prices, hours, location, payment methods, shipping.',
+        bot2_c2_t:'Stock + alternatives',
+        bot2_c2_d:'Queries your inventory. If unavailable, suggests similar options (size/color/model) or another product.',
+        bot2_c3_t:'Human handoff',
+        bot2_c3_d:'When needed, it hands off to a person (sales/support) with the conversation context.',
+        bot2_how_t:'What I need to build it',
+        bot2_need_1:'Products/stock list (Sheet/CSV/DB)',
+        bot2_need_2:'Hours, shipping, payments, policies',
+        bot2_need_3:'Real customer question examples',
+        bot2_flow_t:'Typical flow',
+        bot2_flow_1:'Customer asks about a product (“Do you have size M?”)',
+        bot2_flow_2:'Bot checks stock and replies availability + price',
+        bot2_flow_3:'If out: offers alternatives and asks preference',
+        bot2_flow_4:'If special case: hands off with a summary',
+        bot2_cta:'I want my chatbot',
+        bot2_note:'Important: WhatsApp Business may require a provider/plan depending on your setup. I’ll guide you to the right option.',
+
+        plans_title:'Services and scope',
+        plans_sub:'Hire what you need. If you want, I can bundle web + chatbot.',
+        plan_web_t:'Web Design',
+        plan_web_d:'Landing/site ready to capture leads with strong CTAs and SEO basics.',
+        plan_web_price:'From 40 USD',
+        plan_web_i1:'Responsive + speed',
+        plan_web_i2:'Floating WhatsApp + form',
+        plan_web_i3:'SEO basics + meta tags',
+        plan_web_i4:'Support and agreed tweaks',
+        plan_web_cta:'Get a website',
+        plan_bot_t:'WhatsApp Chatbot (Stores)',
+        plan_bot_d:'Automates inquiries and replies based on stock. Great for sales and support.',
+        plan_bot_price:'Custom',
+        plan_bot_i1:'24/7 replies + brand tone',
+        plan_bot_i2:'Stock from Sheet/CSV/DB',
+        plan_bot_i3:'Out of stock: alternatives',
+        plan_bot_i4:'Human handoff + summary',
+        plan_bot_cta:'Get a chatbot',
+        plans_hint:'If you already have a website, we can build only the chatbot. If you already use WhatsApp, I can connect it. If you have nothing, we build everything.',
+
         note_domain:'Domain is not included in the final cost.',
-        ex_title:'Examples', ex_sub:'Simple sub-sites for different use cases. Each opens on a dedicated page.',
-        ex_1_t:'Freelancer site - Personal CV', ex_1_d:'Ideal for showcasing your work, skills, and contact details professionally.',
-        ex_2_t:'Business or Local Store', ex_2_d:'Optimized landing page for reservations, menus, or information about your physical store.',
-        ex_3_t:'Digital Product', ex_3_d:'Landings with clear calls to action to sell your software, course, or ebook.',
-        ct_title:'Contact', ct_sub:'Briefly tell me your idea and page objective. I’ll reply with a simple proposal and ETA.',
-        ct_name_l:'Name', ct_email_l:'Email', ct_phone_l:'Phone (Optional)', ct_msg_l:'Your idea and goals', ct_send:'Send Message', ct_alt:'You can also write me directly:',
-        faq_title:'Frequently asked questions (FAQ)', faq_sub:'Click a question to see the answer.',
-        faq_1_q:'How much does a website cost?', faq_1_a:'Final cost depends on the features you need (sections, forms, integrations, etc.). Tell me your idea and I’ll send a quote.',
-        faq_2_q:'How long does it take to build and launch?', faq_2_a:'Usually <strong>2–3 days</strong> once we define content and style. More complex sites may take a bit longer.',
-        faq_3_q:'Do I get support after purchase?', faq_3_a:'Yes: <strong>3 months of free support</strong> + <strong>1 change</strong> within that period. After that, changes are quoted (a small change is often &lt;= 40 USD).',
-        faq_4_q:'What do you need to get started?', faq_4_a:'A short description of your business/idea, logo (if you have one), preferred colors, and examples of sites you like. If you have none, I can help define it.',
-        faq_5_q:'Does it include a domain and hosting?', faq_5_a:'The <strong>domain is not included</strong> in the final quote. I can guide you to register and set it up.',
-        faq_6_q:'Can I pay in installments or use different payment methods?', faq_6_a:'Yes, we can coordinate multiple payment methods and installment plans depending on scope.',
-        faq_7_q:'Can you improve or migrate my current site?', faq_7_a:'Sure. I can modernize design, optimize performance/SEO, and migrate content while keeping links and SEO.',
-        foot_tagline:'Fast, clean, optimized websites.',
+
+        ex_title:'Examples',
+        ex_sub:'Website examples. If you want, I can also show chatbot demos for your niche.',
+        ex_btn:'View example',
+        ex_1_t:'Freelancer site - Personal CV',
+        ex_1_d:'Ideal to showcase your work, skills and contact details professionally.',
+        ex_2_t:'Business or Local Store',
+        ex_2_d:'Optimized landing page for reservations, menus or store information.',
+        ex_3_t:'Digital Product',
+        ex_3_d:'Landing with clear CTAs to sell your software, course or ebook.',
+
+        ct_title:'Contact',
+        ct_sub:'Tell me what you need: web design, chatbot or both. I’ll reply with a simple proposal and clear next steps.',
+        ct_name_l:'Name',
+        ct_email_l:'Email',
+        ct_phone_l:'Phone (Optional)',
+        ct_service_l:'Which service are you interested in?',
+        ct_service_1:'Web Design',
+        ct_service_2:'WhatsApp Chatbot',
+        ct_service_3:'Web + Chatbot',
+        ct_msg_l:'Your idea and goals',
+        ct_send:'Send Message',
+        ct_alt:'You can also message me directly:',
+
+        faq_title:'Frequently asked questions (FAQ)',
+        faq_sub:'Click a question to see the answer.',
+        faq_1_q:'What services do you offer?',
+        faq_1_a:'Two services: professional web design and WhatsApp chatbots for stores based on stock.',
+        faq_2_q:'How long does a website take?',
+        faq_2_a:'Usually <strong>2–3 days</strong> once we define content and style.',
+        faq_3_q:'Can the chatbot reply based on real stock?',
+        faq_3_a:'Yes. It checks stock (sheet/CSV/database). If unavailable, it replies clearly and suggests alternatives.',
+        faq_4_q:'What do you need to build the chatbot?',
+        faq_4_a:'Stock + store rules (shipping/payments/hours) + real FAQ examples. Then I test and tune it to your brand tone.',
+        faq_5_q:'Does it include a domain?',
+        faq_5_a:'The <strong>domain is not included</strong>. I can guide you to register and configure it.',
+        faq_6_q:'Do I get support after delivery?',
+        faq_6_a:'Yes. It includes support and agreed tweaks depending on scope.',
+
+        foot_tagline:'Web + WhatsApp to sell more.',
         foot_all:'All rights reserved.',
         foot_legal_1:'By using this site you accept our',
         foot_terms:'Terms & Conditions',
@@ -797,16 +1160,14 @@
     const savedLang = localStorage.getItem('lang');
     applyI18n(savedLang === 'en' ? 'en' : 'es');
 
-    // FAQ
+    // FAQ accordion
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
       const btn = item.querySelector('button');
       const panel = item.querySelector('.faq-panel');
       const icon = item.querySelector('.faq-icon');
-
       btn.addEventListener('click', () => {
         const isOpen = !panel.classList.contains('hidden');
-
         faqItems.forEach(other => {
           if (other !== item) {
             other.querySelector('.faq-panel')?.classList.add('hidden');
@@ -814,7 +1175,6 @@
             other.querySelector('button')?.setAttribute('aria-expanded','false');
           }
         });
-
         panel.classList.toggle('hidden');
         icon?.classList.toggle('rotate-180');
         btn.setAttribute('aria-expanded', String(!isOpen));
@@ -839,7 +1199,7 @@
 
   <noscript>
     <style>html.dark body{color:#e5e7eb}</style>
-    Tu navegador tiene JavaScript deshabilitado. El contenido sigue visible, pero algunos elementos interactivos (iconos, acordeón de FAQ, cambio de idioma/tema) no funcionarán.
+    Tu navegador tiene JavaScript deshabilitado. El contenido sigue visible, pero algunos elementos interactivos (iconos, FAQ, idioma/tema) no funcionarán.
   </noscript>
 </body>
 </html>
